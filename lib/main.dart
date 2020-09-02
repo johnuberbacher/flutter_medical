@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'routes/home.dart';
+import 'routes/profile.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -11,9 +13,6 @@ class GlobalDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      // Add a ListView to the drawer. This ensures the user can scroll
-      // through the options in the drawer if there isn't enough vertical
-      // space to fit everything.
       child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
@@ -27,18 +26,12 @@ class GlobalDrawer extends StatelessWidget {
           ListTile(
             title: Text('Item 1'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: Text('Item 2'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
               Navigator.pop(context);
             },
           ),
@@ -48,7 +41,7 @@ class GlobalDrawer extends StatelessWidget {
   }
 }
 
-/// This Widget is the main application widget.
+/// App Root
 class HomeScreen extends StatelessWidget {
   final appTitle = 'Drawer Demo';
   static const String _title = 'Medical App';
@@ -66,10 +59,7 @@ class HomeScreen extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment(-1.0, 0.0),
                 end: Alignment(1.0, 0.0),
-                colors: [
-                  const Color(0xFF6aa6f8),
-                  const Color(0xFF1a60be)
-                ], // whitish to gray
+                colors: [const Color(0xFF6aa6f8), const Color(0xFF1a60be)],
               ),
             ),
           ),
@@ -97,167 +87,6 @@ class SecondRoute extends StatelessWidget {
             Navigator.pop(context);
           },
           child: Text('Go back!'),
-        ),
-      ),
-    );
-  }
-}
-
-class ProfileRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // centerTitle: true,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(-1.0, 0.0),
-              end: Alignment(1.0, 0.0),
-              colors: [
-                const Color(0xFF6aa6f8),
-                const Color(0xFF1a60be)
-              ], // whitish to gray
-            ),
-          ),
-        ),
-        // title: Text('Title'),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width * 1.0,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(-1.0, 0.0),
-              end: Alignment(1.0, 0.0),
-              colors: [
-                const Color(0xFF6aa6f8),
-                const Color(0xFF1a60be)
-              ], // whitish to gray
-            ),
-          ),
-          alignment: Alignment.center, // where to position the child
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 75.0,
-                ),
-                decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                  ),
-                  color: Color(0xFFFFFFFF),
-                  boxShadow: [
-                    new BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 20.0,
-                      offset: Offset(0, 0),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      transform: Matrix4.translationValues(0.0, -75.0, 0.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              MaterialButton(
-                                splashColor: Colors.white,
-                                onPressed: () {},
-                                color: Color(0xFF4894e9),
-                                textColor: Colors.white,
-                                child: Icon(
-                                  Icons.phone,
-                                  size: 30,
-                                ),
-                                padding: EdgeInsets.all(16),
-                                shape: CircleBorder(),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  top: 10.0,
-                                ),
-                                child: Text(
-                                  'Consultation',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                    color: Color(0xFF6f6f6f),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 70,
-                                backgroundImage:
-                                    AssetImage("assets/doctors/doctor-3.jpg"),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  top: 10.0,
-                                ),
-                                child: Text(
-                                  'Doctor Lookup',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                    color: Color(0xFF6f6f6f),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              MaterialButton(
-                                onPressed: () {},
-                                color: Color(0xFF4894e9),
-                                highlightColor: Color(0xFFFFFFFF),
-                                textColor: Colors.white,
-                                child: Icon(
-                                  Icons.toc,
-                                  size: 30,
-                                ),
-                                padding: EdgeInsets.all(16),
-                                shape: CircleBorder(),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  top: 10.0,
-                                ),
-                                child: Text(
-                                  'Resources',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                    color: Color(0xFF6f6f6f),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
@@ -359,7 +188,7 @@ Material topDoctors(String doctorName, String doctorPractice,
                 ),
               ),
             ),
-          ), // other widget
+          ),
         ),
       ),
     ),
@@ -434,7 +263,7 @@ Material medicalCategories(String categoryName, String categoryDoctorCount,
                 ),
               ],
             ),
-          ), // other widget
+          ),
         ),
       ),
     ),
@@ -460,7 +289,7 @@ class MyStatelessWidget extends StatelessWidget {
             ], // whitish to gray
           ),
         ),
-        alignment: Alignment.center, // where to position the child
+        alignment: Alignment.center,
         child: Column(
           children: [
             Container(
@@ -659,7 +488,7 @@ class MyStatelessWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ), //Categories Title
+                  ),
                   Container(
                     margin: const EdgeInsets.only(
                       left: 20.0,
@@ -675,7 +504,7 @@ class MyStatelessWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ), //Categories Title Desc
+                  ),
                   Container(
                     color: const Color(0xFFFFFFFF),
                     height: 160,
@@ -695,7 +524,7 @@ class MyStatelessWidget extends StatelessWidget {
                             "Other", "50+", "assets/icons/file.png", context),
                       ],
                     ),
-                  ), //Categories Widget
+                  ),
                   Container(
                     margin: const EdgeInsets.only(
                       top: 30.0,
@@ -714,7 +543,7 @@ class MyStatelessWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ), // Top Doctors
+                  ),
                   Container(
                     margin: const EdgeInsets.only(
                       left: 20.0,
@@ -730,7 +559,7 @@ class MyStatelessWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ), // Top Doctors Description
+                  ),
                   Container(
                     color: const Color(0xFFFFFFFF),
                     child: Column(
@@ -763,9 +592,9 @@ class MyStatelessWidget extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                'View All Doctors',
+                                'View More',
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
@@ -773,7 +602,7 @@ class MyStatelessWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ), //Categories Widget
+                  ),
                 ],
               ),
             ),
