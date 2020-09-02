@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'routes/home.dart';
 import 'routes/profile.dart';
+import 'routes/category.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    // systemNavigationBarColor: Colors.white, // navigation bar color
+    statusBarColor: Colors.transparent, // status bar color
+  ));
   runApp(MaterialApp(
     title: 'Navigation Basics',
     home: HomeScreen(),
@@ -109,7 +115,7 @@ Material topDoctors(String doctorName, String doctorPractice,
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProfileRoute()),
+              MaterialPageRoute(builder: (context) => ProfilePage()),
             );
           },
           child: Container(
@@ -208,7 +214,12 @@ Material medicalCategories(String categoryName, String categoryDoctorCount,
       child: Card(
         elevation: 3.0,
         child: new InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CategoryPage()),
+            );
+          },
           child: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -303,7 +314,7 @@ class MyStatelessWidget extends StatelessWidget {
                 children: [
                   new Container(
                     margin: EdgeInsets.only(
-                      right: 40.0,
+                      right: 30.0,
                     ),
                     width: 70.0,
                     height: 70.0,
@@ -326,7 +337,7 @@ class MyStatelessWidget extends StatelessWidget {
                             'Welcome back, John!',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 22.25,
                               color: Color(0xFFFFFFFF),
                             ),
                           ),
@@ -480,7 +491,7 @@ class MyStatelessWidget extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Categories',
+                        'Specialties',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
@@ -535,7 +546,7 @@ class MyStatelessWidget extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Top Doctors',
+                        'Our Top Doctors',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
