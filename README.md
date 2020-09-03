@@ -4,7 +4,7 @@ Medical App designed using Dart with Flutter
 
 ## Screenshot
 
-![Screenshot](https://i.imgur.com/IcYQzIS.jpg)
+![Screenshot](https://i.imgur.com/xgmdyxn.jpg)
 
 ## Meta
 
