@@ -10,7 +10,6 @@ void main() {
     statusBarColor: Colors.transparent, // status bar color
   ));
   runApp(MaterialApp(
-    title: 'Navigation Basics',
     home: HomeScreen(),
   ));
 }
@@ -59,6 +58,12 @@ class HomeScreen extends StatelessWidget {
       theme: ThemeData(),
       home: Scaffold(
         appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {},
+            ),
+          ],
           // centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -75,25 +80,6 @@ class HomeScreen extends StatelessWidget {
         ),
         body: MyStatelessWidget(),
         drawer: GlobalDrawer(),
-      ),
-    );
-  }
-}
-
-class SecondRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile Route"),
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
-        ),
       ),
     );
   }
