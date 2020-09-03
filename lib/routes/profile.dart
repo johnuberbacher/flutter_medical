@@ -248,10 +248,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             Align(
                               alignment: Alignment.center,
-                              child: Text(
-                                'General Surgery',
-                                style: TextStyle(
-                                  color: Color(0xFF6f6f6f),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: 10.0,
+                                ),
+                                child: Text(
+                                  'General Surgery',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Color(0xFF4894e9),
+                                  ),
                                 ),
                               ),
                             ),
@@ -277,7 +284,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'General Surgery',
+                          'Biography',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -369,7 +376,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   Text(
-                                    'Lorem ipsum dolor ',
+                                    'Lorem Ipsum University',
                                     style: TextStyle(
                                       color: Color(0xFF9f9f9f),
                                     ),
@@ -388,7 +395,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   Text(
-                                    'Lorem ipsum dolor ',
+                                    'Lorem Ipsum University',
                                     style: TextStyle(
                                       color: Color(0xFF9f9f9f),
                                     ),
@@ -409,7 +416,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   Text(
-                                    'Lorem ipsum dolor ',
+                                    'Lorem Ipsum University',
                                     style: TextStyle(
                                       color: Color(0xFF9f9f9f),
                                     ),
@@ -428,7 +435,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   Text(
-                                    'Lorem ipsum dolor ',
+                                    'Lorem Ipsum University',
                                     style: TextStyle(
                                       color: Color(0xFF9f9f9f),
                                     ),
