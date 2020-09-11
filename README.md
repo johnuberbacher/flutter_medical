@@ -10,6 +10,16 @@ Medical App designed using Dart with Flutter
 
 John Uberbacher – [johnuberbacher.com](https://johnuberbacher.com)
 
+## Installation
+
+Clone Repo
+
+flutter pub get
+
+flutter clean
+
+flutter run
+
 ## License
 
 Distributed under the The MIT License (MIT)
