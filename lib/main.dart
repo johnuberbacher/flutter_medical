@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'routes/profile.dart';
-import 'routes/category.dart';
-import 'routes/search.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_medical/routes/profile.dart';
+import 'package:flutter_medical/routes/category.dart';
+import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/database.dart';
 
 DocumentSnapshot snapshot;
@@ -269,7 +269,11 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
           elevation: 3.0,
           child: new InkWell(
             onTap: () {
-              viewDoctorProfile(name: name);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfilePage(name),
+                  ));
             },
             child: Container(
               child: Align(
@@ -352,7 +356,7 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
   viewDoctorProfile({String name}) {
     DatabaseMethods().getDoctorProfile(name);
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => ProfilePage()));
+        context, MaterialPageRoute(builder: (context) => ProfilePage(name)));
   }
 
   @override
@@ -642,7 +646,26 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
                     color: const Color(0xFFFFFFFF),
                     child: Column(
                       children: <Widget>[
-                        doctorList(),
+                        doctorSnapshot != null
+                            ? Container(
+                                child: ListView.builder(
+                                    itemCount: doctorSnapshot.docs.length,
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return doctorCard(
+                                        name: doctorSnapshot.docs[index]
+                                            .data()["name"],
+                                        specialty: doctorSnapshot.docs[index]
+                                            .data()["specialty"],
+                                        imagePath: doctorSnapshot.docs[index]
+                                            .data()["imagePath"],
+                                      );
+                                    }),
+                              )
+                            : Container(
+                                child: Text("error"),
+                              ),
                         Container(
                           margin: const EdgeInsets.only(
                             left: 20.0,

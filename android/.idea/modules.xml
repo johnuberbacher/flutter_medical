@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="android/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1463741719/cloud_firestore.iml" filepath="$PROJECT_DIR$/.idea/modules/-1463741719/cloud_firestore.iml" group="android/cloud_firestore" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1514493264/firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/-1514493264/firebase_core.iml" group="android/firebase_core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1463741719/io.flutter.plugins.firebase.cloudfirestore-cloud_firestore.iml" filepath="$PROJECT_DIR$/.idea/modules/-1463741719/io.flutter.plugins.firebase.cloudfirestore-cloud_firestore.iml" group="android/cloud_firestore" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1514493264/io.flutter.plugins.firebase.core-firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/-1514493264/io.flutter.plugins.firebase.core-firebase_core.iml" group="android/firebase_core" />
     </modules>
   </component>
 </project>

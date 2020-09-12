@@ -1,19 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class DatabaseMethods {
   getAllDoctors() async {
     return FirebaseFirestore.instance
         .collection("doctors")
-        .get()
-        .catchError((e) {
-      print(e.toString());
-    });
-  }
-
-  getAllSpecialties() async {
-    return FirebaseFirestore.instance
-        .collection("specialties")
         .get()
         .catchError((e) {
       print(e.toString());
@@ -31,10 +21,23 @@ class DatabaseMethods {
     });
   }
 
+  getAllSpecialties() async {
+    return FirebaseFirestore.instance
+        .collection("specialties")
+        .get()
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
   getDoctorProfile(String name) async {
-    return await FirebaseFirestore.instance
+    print(name);
+    return FirebaseFirestore.instance
         .collection("doctors")
-        .where("users", arrayContains: name)
-        .snapshots();
+        .where("name", isEqualTo: name)
+        .get()
+        .catchError((e) {
+      print(e.toString());
+    });
   }
 }

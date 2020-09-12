@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/profile.dart';
-import 'package:flutter_medical/database.dart';
 
 class SearchPage extends StatefulWidget {
+  SearchPage({Key key}) : super(key: key);
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -42,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
+                MaterialPageRoute(builder: (context) => ProfilePage(name)),
               );
             },
             child: Container(
