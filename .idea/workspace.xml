@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="fdeea7bd-4e60-4b97-87ca-81995acedbf3" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -7,6 +10,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="949AY0LA0K" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -24,6 +28,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -43,26 +48,30 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="251" key="GridCell.Tab.0.bottom" timestamp="1599102632480">
+    <state x="-1230" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599886571308">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="251" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599102632480" />
-    <state width="1810" height="194" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599099942647" />
-    <state width="1877" height="251" key="GridCell.Tab.0.center" timestamp="1599102632480">
-      <screen x="-1920" y="0" width="1920" height="1019" />
+    <state x="-1230" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599886571308" />
+    <state width="1810" height="252" key="GridCell.Tab.0.bottom" timestamp="1599929201623">
+      <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="251" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599102632480" />
-    <state width="1810" height="194" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599099942647" />
-    <state width="1877" height="251" key="GridCell.Tab.0.left" timestamp="1599102632480">
-      <screen x="-1920" y="0" width="1920" height="1019" />
+    <state width="1877" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599928043274" />
+    <state width="1810" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599929201623" />
+    <state width="1810" height="252" key="GridCell.Tab.0.center" timestamp="1599929201623">
+      <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="251" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599102632480" />
-    <state width="1810" height="194" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599099942647" />
-    <state width="1877" height="251" key="GridCell.Tab.0.right" timestamp="1599102632480">
-      <screen x="-1920" y="0" width="1920" height="1019" />
+    <state width="1877" height="252" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599928043273" />
+    <state width="1810" height="252" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599929201623" />
+    <state width="1810" height="252" key="GridCell.Tab.0.left" timestamp="1599929201623">
+      <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="251" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599102632480" />
-    <state width="1810" height="194" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599099942647" />
+    <state width="1877" height="252" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599928043273" />
+    <state width="1810" height="252" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599929201623" />
+    <state width="1810" height="252" key="GridCell.Tab.0.right" timestamp="1599929201623">
+      <screen x="0" y="0" width="1920" height="1019" />
+    </state>
+    <state width="1877" height="252" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599928043274" />
+    <state width="1810" height="252" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599929201623" />
     <state x="92" y="92" width="1736" height="835" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1599100609958">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
@@ -71,5 +80,9 @@
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
     <state x="-831" y="247" key="com.intellij.ide.util.TipDialog/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599011266298" />
+    <state x="673" y="213" width="672" height="678" key="search.everywhere.popup" timestamp="1599893293715">
+      <screen x="0" y="0" width="1920" height="1019" />
+    </state>
+    <state x="673" y="213" width="672" height="678" key="search.everywhere.popup/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599893293715" />
   </component>
 </project>

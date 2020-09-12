@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'routes/home.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'routes/profile.dart';
 import 'routes/category.dart';
+import 'routes/search.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_medical/database.dart';
 
-void main() {
+DocumentSnapshot snapshot;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    // systemNavigationBarColor: Colors.white, // navigation bar color
-    statusBarColor: Colors.transparent, // status bar color
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarDividerColor: null,
+    systemNavigationBarIconBrightness: Brightness.dark,
   ));
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     home: HomeScreen(),
   ));
@@ -30,9 +39,7 @@ class GlobalDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text('Item 1'),
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: () {},
           ),
           ListTile(
             title: Text('Item 2'),
@@ -55,13 +62,17 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      theme: ThemeData(),
       home: Scaffold(
         appBar: AppBar(
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchPage()),
+                );
+              },
             ),
           ],
           // centerTitle: true,
@@ -85,191 +96,264 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-Material topDoctors(String doctorName, String doctorPractice,
-    String doctorReviewScore, String doctorProfileImagePath, context) {
-  return Material(
-    color: const Color(0xFFFFFFFF),
-    child: Container(
-      margin: const EdgeInsets.only(
-        left: 20.0,
-        right: 20.0,
-        bottom: 10.0,
-      ),
-      child: Card(
-        elevation: 3.0,
-        child: new InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProfilePage()),
-            );
-          },
-          child: Container(
-            child: Align(
-              alignment: FractionalOffset.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    new Container(
-                      margin: EdgeInsets.only(
-                        right: 20.0,
-                      ),
-                      width: 70.0,
-                      height: 70.0,
-                      decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new AssetImage(
-                            doctorProfileImagePath,
+class MyStatelessWidget extends StatefulWidget {
+  MyStatelessWidget({Key key}) : super(key: key);
+
+  @override
+  _MyStatelessWidgetState createState() => _MyStatelessWidgetState();
+}
+
+class _MyStatelessWidgetState extends State<MyStatelessWidget> {
+  DatabaseMethods databaseMethods = new DatabaseMethods();
+  QuerySnapshot doctorSnapshot;
+  QuerySnapshot specialtySnapshot;
+
+  getDoctors() async {
+    databaseMethods.getAllDoctors().then((val) {
+      print(val.toString());
+      setState(() {
+        doctorSnapshot = val;
+        print(doctorSnapshot);
+      });
+    });
+  }
+
+  getSpecialties() async {
+    databaseMethods.getAllSpecialties().then((val) {
+      print(val.toString());
+      setState(() {
+        specialtySnapshot = val;
+        print(specialtySnapshot);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    getDoctors();
+    getSpecialties();
+  }
+
+  Widget doctorList() {
+    return doctorSnapshot != null
+        ? Container(
+            child: ListView.builder(
+                itemCount: doctorSnapshot.docs.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return doctorCard(
+                    name: doctorSnapshot.docs[index].data()["name"],
+                    specialty: doctorSnapshot.docs[index].data()["specialty"],
+                    imagePath: doctorSnapshot.docs[index].data()["imagePath"],
+                  );
+                }),
+          )
+        : Container(
+            child: Text("error"),
+          );
+  }
+
+  Widget specialtyList() {
+    return specialtySnapshot != null
+        ? ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: specialtySnapshot.docs.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return specialtyCard(
+                specialtyName:
+                    specialtySnapshot.docs[index].data()["specialtyName"],
+                specialtyDoctorCount: specialtySnapshot.docs[index]
+                    .data()["specialtyDoctorCount"],
+                specialtyImagePath:
+                    specialtySnapshot.docs[index].data()["specialtyImagePath"],
+              );
+            })
+        : Text("error");
+  }
+
+  Material specialtyCard(
+      {String specialtyName,
+      String specialtyDoctorCount,
+      String specialtyImagePath}) {
+    return Material(
+      color: const Color(0xFFFFFFFF),
+      child: Container(
+        margin: const EdgeInsets.only(
+          left: 20.0,
+          right: 0.0,
+        ),
+        width: 130,
+        height: 100,
+        child: Card(
+          elevation: 3.0,
+          child: new InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CategoryPage()),
+              );
+            },
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                            top: 5.0,
+                            bottom: 12.5,
                           ),
+                          child: Image.network(
+                            specialtyImagePath,
+                            height: 60,
+                            width: 60,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      specialtyName,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Color(0xFF6f6f6f),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: 3.0,
+                      ),
+                      child: Text(
+                        specialtyDoctorCount + ' Doctors',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Color(0xFF9f9f9f),
                         ),
                       ),
                     ),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: FractionalOffset.centerLeft,
-                            child: Text(
-                              doctorName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Color(0xFF6f6f6f),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: FractionalOffset.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 5.0,
-                              ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget doctorCard({String name, String specialty, String imagePath}) {
+    return Material(
+      color: const Color(0xFFFFFFFF),
+      child: Container(
+        margin: const EdgeInsets.only(
+          left: 20.0,
+          right: 20.0,
+          bottom: 10.0,
+        ),
+        child: Card(
+          elevation: 3.0,
+          child: new InkWell(
+            onTap: () {
+              viewDoctorProfile(name: name);
+            },
+            child: Container(
+              child: Align(
+                alignment: FractionalOffset.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                          right: 20.0,
+                        ),
+                        width: 70.0,
+                        height: 70.0,
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: NetworkImage(imagePath),
+                        ),
+                      ),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: FractionalOffset.centerLeft,
                               child: Text(
-                                doctorPractice,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF9f9f9f),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: FractionalOffset.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 5.0,
-                              ),
-                              child: Text(
-                                '⭐  ' + doctorReviewScore,
+                                name,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 13,
+                                  fontSize: 16,
                                   color: Color(0xFF6f6f6f),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            Align(
+                              alignment: FractionalOffset.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: 5.0,
+                                ),
+                                child: Text(
+                                  specialty,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Color(0xFF9f9f9f),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: FractionalOffset.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: 5.0,
+                                ),
+                                child: Text(
+                                  '⭐  ' + "placeholder",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                    color: Color(0xFF6f6f6f),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-Material medicalCategories(String categoryName, String categoryDoctorCount,
-    String categoryIconPath, context) {
-  return Material(
-    color: const Color(0xFFFFFFFF),
-    child: Container(
-      margin: const EdgeInsets.only(
-        left: 20.0,
-        right: 0.0,
-      ),
-      width: 130,
-      child: Card(
-        elevation: 3.0,
-        child: new InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CategoryPage()),
-            );
-          },
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                          top: 5.0,
-                          bottom: 12.5,
-                        ),
-                        child: Image.asset(
-                          categoryIconPath,
-                          height: 60,
-                          width: 60,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    categoryName,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF6f6f6f),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 3.0,
-                    ),
-                    child: Text(
-                      categoryDoctorCount + ' Doctors',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Color(0xFF9f9f9f),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-/// This is the stateless widget that the main application instantiates.
-class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
+  viewDoctorProfile({String name}) {
+    DatabaseMethods().getDoctorProfile(name);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => ProfilePage()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -408,7 +492,13 @@ class MyStatelessWidget extends StatelessWidget {
                           Column(
                             children: [
                               MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SearchPage()),
+                                  );
+                                },
                                 color: Color(0xFF4894e9),
                                 highlightColor: Color(0xFFFFFFFF),
                                 textColor: Colors.white,
@@ -509,16 +599,7 @@ class MyStatelessWidget extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                        medicalCategories("Cardiology", "41",
-                            "assets/icons/electrocardiogram.png", context),
-                        medicalCategories("Surgery", "45",
-                            "assets/icons/medical-record.png", context),
-                        medicalCategories("Dental", "29",
-                            "assets/icons/caduceus-symbol.png", context),
-                        medicalCategories(
-                            "Vision", "35", "assets/icons/male.png", context),
-                        medicalCategories(
-                            "Other", "50+", "assets/icons/file.png", context),
+                        specialtyList(),
                       ],
                     ),
                   ),
@@ -561,14 +642,7 @@ class MyStatelessWidget extends StatelessWidget {
                     color: const Color(0xFFFFFFFF),
                     child: Column(
                       children: <Widget>[
-                        topDoctors("Dr. Reed Richards", "Cardiology", "4.8",
-                            "assets/doctors/doctor-1.jpg", context),
-                        topDoctors("Dr. Reed Richards", "Cardiology", "5.0",
-                            "assets/doctors/doctor-2.jpg", context),
-                        topDoctors("Prof. Charles Xavier", "Dental Surgery",
-                            "4.9", "assets/doctors/doctor-3.jpg", context),
-                        topDoctors("Dr. Otto Octavius", "General Surgery",
-                            "4.2", "assets/doctors/doctor-4.jpg", context),
+                        doctorList(),
                         Container(
                           margin: const EdgeInsets.only(
                             left: 20.0,
@@ -580,6 +654,7 @@ class MyStatelessWidget extends StatelessWidget {
                             splashColor: Color(0xFF4894e9),
                             padding: EdgeInsets.all(10),
                             onPressed: () {
+                              getDoctors();
                               print('View All Doctors Clicked');
                             },
                             textColor: Color(0xFF4894e9),

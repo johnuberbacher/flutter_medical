@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+DocumentSnapshot snapshot;
 
 Material appointmentDays(
     String appointmentDay, String appointmentDate, context) {
