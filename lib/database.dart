@@ -4,6 +4,7 @@ class DatabaseMethods {
   getAllDoctors() async {
     return FirebaseFirestore.instance
         .collection("doctors")
+        .orderBy("rank")
         .get()
         .catchError((e) {
       print(e.toString());

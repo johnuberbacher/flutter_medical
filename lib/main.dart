@@ -146,6 +146,7 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
                     name: doctorSnapshot.docs[index].data()["name"],
                     specialty: doctorSnapshot.docs[index].data()["specialty"],
                     imagePath: doctorSnapshot.docs[index].data()["imagePath"],
+                    rank: doctorSnapshot.docs[index].data()["rank"],
                   );
                 }),
           )
@@ -256,7 +257,8 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
     );
   }
 
-  Widget doctorCard({String name, String specialty, String imagePath}) {
+  Widget doctorCard(
+      {String name, String specialty, String imagePath, String rank}) {
     return Material(
       color: const Color(0xFFFFFFFF),
       child: Container(
@@ -330,7 +332,7 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
                                   top: 5.0,
                                 ),
                                 child: Text(
-                                  '⭐  ' + "placeholder",
+                                  rank + "  ⭐ ⭐ ⭐ ⭐ ⭐",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13,
@@ -649,6 +651,7 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
                         doctorSnapshot != null
                             ? Container(
                                 child: ListView.builder(
+                                    reverse: true,
                                     itemCount: doctorSnapshot.docs.length,
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
@@ -660,6 +663,8 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
                                             .data()["specialty"],
                                         imagePath: doctorSnapshot.docs[index]
                                             .data()["imagePath"],
+                                        rank: doctorSnapshot.docs[index]
+                                            .data()["rank"],
                                       );
                                     }),
                               )

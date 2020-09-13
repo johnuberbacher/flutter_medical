@@ -130,8 +130,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         doctorProfileSnapshot.docs[index].data()["specialty"],
                     imagePath:
                         doctorProfileSnapshot.docs[index].data()["imagePath"],
+                    rank: doctorProfileSnapshot.docs[index].data()["rank"],
                     medicalEducation: doctorProfileSnapshot.docs[index]
                         .data()["medicalEducation"],
+                    residency:
+                        doctorProfileSnapshot.docs[index].data()["residency"],
+                    internship:
+                        doctorProfileSnapshot.docs[index].data()["internship"],
+                    fellowship:
+                        doctorProfileSnapshot.docs[index].data()["fellowship"],
                     biography:
                         doctorProfileSnapshot.docs[index].data()["biography"],
                   );
@@ -146,7 +153,11 @@ class _ProfilePageState extends State<ProfilePage> {
     String name,
     String specialty,
     String imagePath,
+    String rank,
     String medicalEducation,
+    String residency,
+    String internship,
+    String fellowship,
     String biography,
   }) {
     return Container(
@@ -275,7 +286,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Align(
                           alignment: Alignment.center,
                           child: Text(
-                            name,
+                            name ?? "name not found",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 24,
@@ -290,7 +301,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               top: 10.0,
                             ),
                             child: Text(
-                              specialty,
+                              specialty ?? "specialty not found",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
@@ -303,7 +314,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     )),
                 Container(
                   child: Text(
-                    '4.8 ⭐ ⭐ ⭐ ⭐ ⭐',
+                    "$rank  ⭐ ⭐ ⭐ ⭐ ⭐" ?? "rank not found",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -432,7 +443,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                'Lorem Ipsum University',
+                                internship ?? "",
                                 style: TextStyle(
                                   color: Color(0xFF9f9f9f),
                                 ),
@@ -453,7 +464,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                'Lorem Ipsum University',
+                                residency ?? "",
                                 style: TextStyle(
                                   color: Color(0xFF9f9f9f),
                                 ),
@@ -472,7 +483,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                'Lorem Ipsum University',
+                                fellowship ?? "",
                                 style: TextStyle(
                                   color: Color(0xFF9f9f9f),
                                 ),

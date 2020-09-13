@@ -197,7 +197,6 @@ class _SearchPageState extends State<SearchPage> {
                           ? "Please enter username"
                           : null;
                     },
-                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(15.0),
                       border: new OutlineInputBorder(
@@ -218,8 +217,8 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       // hintText: hintText,
                       hintStyle: TextStyle(
-                          //   color: Color(0xFFb1b2c4),
-                          ),
+                        color: Color(0xFFb1b2c4),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white38),
                         borderRadius: BorderRadius.circular(60),
