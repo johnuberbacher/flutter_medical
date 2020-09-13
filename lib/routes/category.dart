@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_medical/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+DocumentSnapshot snapshot;
 
 class CategoryPage extends StatefulWidget {
-  CategoryPageState createState() => CategoryPageState();
+  final String specialty;
+  CategoryPage(this.specialty);
+
+  @override
+  CategoryPageState createState() => CategoryPageState(specialty);
 }
 
 class CategoryPageState extends State<CategoryPage> {
+  String specialty;
+  CategoryPageState(this.specialty);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +117,7 @@ class CategoryPageState extends State<CategoryPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Cardiology',
+                              specialty ?? "not found",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24,
@@ -143,16 +153,6 @@ class CategoryPageState extends State<CategoryPage> {
                           style: TextStyle(
                             color: Color(0xFF9f9f9f),
                           ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        '4.8 ⭐ ⭐ ⭐ ⭐ ⭐',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Color(0xFF6f6f6f),
                         ),
                       ),
                     ),

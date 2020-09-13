@@ -27,6 +27,7 @@
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false">
         <compilerSettings />
+        <compilerArguments />
       </configuration>
     </facet>
   </component>

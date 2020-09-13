@@ -9,14 +9,12 @@ import 'package:flutter_medical/database.dart';
 
 DocumentSnapshot snapshot;
 
+/// App Root
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    systemNavigationBarColor: Colors.transparent,
-    systemNavigationBarDividerColor: null,
-    systemNavigationBarIconBrightness: Brightness.dark,
   ));
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
     home: HomeScreen(),
@@ -31,21 +29,75 @@ class GlobalDrawer extends StatelessWidget {
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
-            child: Text('Drawer Header'),
+          Container(
+            height: 170.0,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              gradient: LinearGradient(
+                begin: Alignment(-1.0, 0.0),
+                end: Alignment(1.0, 0.0),
+                colors: [const Color(0xFF6aa6f8), const Color(0xFF1a60be)],
+              ),
+            ),
+            child: DrawerHeader(
+              child: Row(
+                children: [
+                  new Container(
+                    margin: EdgeInsets.only(
+                      right: 15.0,
+                    ),
+                    width: 50.0,
+                    height: 50.0,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image:
+                            new NetworkImage("https://i.imgur.com/iQkzaTO.jpg"),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: FractionalOffset.centerLeft,
+                          child: Text(
+                            'Welcome back, John!',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Color(0xFFFFFFFF),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: FractionalOffset.centerLeft,
+                          child: Text(
+                            'How can we help you today?',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xAAFFFFFFF),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           ListTile(
-            title: Text('Item 1'),
+            leading: Icon(Icons.people),
+            title: Text('Top Doctors'),
             onTap: () {},
           ),
           ListTile(
-            title: Text('Item 2'),
-            onTap: () {
-              Navigator.pop(context);
-            },
+            leading: Icon(Icons.search),
+            title: Text('Top Doctors'),
+            onTap: () {},
           ),
         ],
       ),
@@ -53,7 +105,6 @@ class GlobalDrawer extends StatelessWidget {
   }
 }
 
-/// App Root
 class HomeScreen extends StatelessWidget {
   final appTitle = 'Drawer Demo';
   static const String _title = 'Medical App';
@@ -193,7 +244,8 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CategoryPage()),
+                MaterialPageRoute(
+                    builder: (context) => CategoryPage(specialtyName)),
               );
             },
             child: Container(

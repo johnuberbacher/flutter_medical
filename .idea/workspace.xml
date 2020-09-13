@@ -34,6 +34,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\John\Documents\GitHub\flutter_medical\flutter_medical\lib" />
+    </key>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -52,26 +57,26 @@
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
     <state x="-1230" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599886571308" />
-    <state width="1585" height="252" key="GridCell.Tab.0.bottom" timestamp="1599958093744">
+    <state width="624" height="252" key="GridCell.Tab.0.bottom" timestamp="1599964879647">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state width="1877" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599928043274" />
-    <state width="1585" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599958093744" />
-    <state width="1585" height="252" key="GridCell.Tab.0.center" timestamp="1599958093744">
+    <state width="624" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599964879647" />
+    <state width="624" height="252" key="GridCell.Tab.0.center" timestamp="1599964879647">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state width="1877" height="252" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599928043273" />
-    <state width="1585" height="252" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599958093744" />
-    <state width="1585" height="252" key="GridCell.Tab.0.left" timestamp="1599958093744">
+    <state width="624" height="252" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599964879647" />
+    <state width="624" height="252" key="GridCell.Tab.0.left" timestamp="1599964879647">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state width="1877" height="252" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599928043273" />
-    <state width="1585" height="252" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599958093744" />
-    <state width="1585" height="252" key="GridCell.Tab.0.right" timestamp="1599958093744">
+    <state width="624" height="252" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599964879647" />
+    <state width="624" height="252" key="GridCell.Tab.0.right" timestamp="1599964879647">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state width="1877" height="252" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599928043274" />
-    <state width="1585" height="252" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599958093744" />
+    <state width="624" height="252" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599964879647" />
     <state x="92" y="92" width="1736" height="835" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1599953638291">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
@@ -80,6 +85,10 @@
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
     <state x="-831" y="247" key="com.intellij.ide.util.TipDialog/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1599011266298" />
+    <state x="769" y="426" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599965272689">
+      <screen x="0" y="0" width="1920" height="1019" />
+    </state>
+    <state x="769" y="426" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599965272689" />
     <state x="762" y="264" key="run.anything.popup" timestamp="1599935684221">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
@@ -88,5 +97,16 @@
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state x="673" y="213" width="672" height="678" key="search.everywhere.popup/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599934493762" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/main.dart</url>
+          <line>107</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,90 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medical/database.dart';
+import 'package:flutter_medical/routes/category.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 DocumentSnapshot snapshot;
-
-Material appointmentDays(
-    String appointmentDay, String appointmentDate, context) {
-  return Material(
-    color: Colors.white,
-    child: Container(
-      margin: const EdgeInsets.only(
-        right: 1.0,
-        left: 20.0,
-        top: 5.0,
-        bottom: 5.0,
-      ),
-      child: OutlineButton(
-        color: Colors.transparent,
-        splashColor: Color(0xFF4894e9),
-        padding: EdgeInsets.only(
-          left: 30,
-          right: 30,
-          top: 6,
-        ),
-        onPressed: () {
-          print('View All Doctors Clicked');
-        },
-        textColor: Color(0xFF4894e9),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(7.5),
-        ),
-        child: Align(
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Text(
-                appointmentDay,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                appointmentDate,
-                style: TextStyle(fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-Material appointmentTimes(String appointmentDay, context) {
-  return Material(
-    color: Colors.white,
-    child: Container(
-      margin: const EdgeInsets.only(
-        right: 1.0,
-        left: 20.0,
-        top: 5.0,
-        bottom: 5.0,
-      ),
-      child: OutlineButton(
-        color: Colors.transparent,
-        splashColor: Color(0xFF4894e9),
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-        ),
-        onPressed: () {
-          print('View All Doctors Clicked');
-        },
-        textColor: Color(0xFF4894e9),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(7.5),
-        ),
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(
-            appointmentDay,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
-    ),
-  );
-}
 
 class ProfilePage extends StatefulWidget {
   final String name;
@@ -277,41 +196,48 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 Container(
-                    margin: const EdgeInsets.only(
-                      bottom: 15.0,
-                      top: 15.0,
-                    ),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
+                  margin: const EdgeInsets.only(
+                    top: 15.0,
+                    bottom: 5.0,
+                  ),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          name ?? "name not found",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Color(0xFF6f6f6f),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: FlatButton(
+                          color: Colors.transparent,
+                          splashColor: Colors.black26,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CategoryPage(specialty),
+                                ));
+                          },
                           child: Text(
-                            name ?? "name not found",
+                            specialty ?? "specialty not found",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                              color: Color(0xFF6f6f6f),
+                              fontSize: 18,
+                              color: Color(0xFF4894e9),
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: 10.0,
-                            ),
-                            child: Text(
-                              specialty ?? "specialty not found",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: Color(0xFF4894e9),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
+                      ),
+                    ],
+                  ),
+                ),
                 Container(
                   child: Text(
                     "$rank  ⭐ ⭐ ⭐ ⭐ ⭐" ?? "rank not found",
@@ -614,4 +540,86 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+}
+
+Material appointmentDays(
+    String appointmentDay, String appointmentDate, context) {
+  return Material(
+    color: Colors.white,
+    child: Container(
+      margin: const EdgeInsets.only(
+        right: 1.0,
+        left: 20.0,
+        top: 5.0,
+        bottom: 5.0,
+      ),
+      child: OutlineButton(
+        color: Colors.transparent,
+        splashColor: Color(0xFF4894e9),
+        padding: EdgeInsets.only(
+          left: 30,
+          right: 30,
+          top: 6,
+        ),
+        onPressed: () {
+          print('View All Doctors Clicked');
+        },
+        textColor: Color(0xFF4894e9),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7.5),
+        ),
+        child: Align(
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              Text(
+                appointmentDay,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                appointmentDate,
+                style: TextStyle(fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Material appointmentTimes(String appointmentDay, context) {
+  return Material(
+    color: Colors.white,
+    child: Container(
+      margin: const EdgeInsets.only(
+        right: 1.0,
+        left: 20.0,
+        top: 5.0,
+        bottom: 5.0,
+      ),
+      child: OutlineButton(
+        color: Colors.transparent,
+        splashColor: Color(0xFF4894e9),
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20,
+        ),
+        onPressed: () {
+          print('View All Doctors Clicked');
+        },
+        textColor: Color(0xFF4894e9),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7.5),
+        ),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            appointmentDay,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    ),
+  );
 }
