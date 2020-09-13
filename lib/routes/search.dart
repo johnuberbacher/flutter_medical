@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/profile.dart';
 
+DocumentSnapshot snapshot;
+
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
   @override
@@ -125,20 +127,17 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget searchList() {
     return searchSnapshot != null
-        ? SingleChildScrollView(
-            child: Container(
-              child: ListView.builder(
-                  itemCount: searchSnapshot.docs.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return doctorCard(
-                      name: searchSnapshot.docs[index].data()["name"],
-                      specialty: searchSnapshot.docs[index].data()["specialty"],
-                      imagePath: searchSnapshot.docs[index].data()["imagePath"],
-                    );
-                  }),
-            ),
-          )
+        ? ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: searchSnapshot.docs.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return doctorCard(
+                name: searchSnapshot.docs[index].data()["name"],
+                specialty: searchSnapshot.docs[index].data()["specialty"],
+                imagePath: searchSnapshot.docs[index].data()["imagePath"],
+              );
+            })
         : Container();
   }
 
@@ -164,8 +163,7 @@ class _SearchPageState extends State<SearchPage> {
           elevation: 0.0,
         ),
         body: SingleChildScrollView(
-            child: Column(children: [
-          Container(
+          child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -233,6 +231,6 @@ class _SearchPageState extends State<SearchPage> {
               ],
             ),
           ),
-        ])));
+        ));
   }
 }

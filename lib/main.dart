@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_medical/routes/home.dart';
+import 'package:flutter_medical/routes/search.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_medical/widgets.dart';
@@ -29,30 +30,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Flutter Medical",
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
-          ],
-          // centerTitle: true,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(-1.0, 0.0),
-                end: Alignment(1.0, 0.0),
-                colors: [const Color(0xFF6aa6f8), const Color(0xFF1a60be)],
-              ),
-            ),
-          ),
-          // title: Text('Title'),
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-        ),
-        body: HomeScreen(),
+        appBar: GlobalAppBar(),
         drawer: GlobalDrawer(),
+        body: HomeScreen(),
       ),
     );
   }

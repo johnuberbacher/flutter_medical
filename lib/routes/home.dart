@@ -41,12 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  @override
-  void initState() {
-    getDoctors();
-    getSpecialties();
-  }
-
   Widget doctorList() {
     return doctorSnapshot != null
         ? Container(
@@ -87,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
         : Text("error");
   }
 
-  Material specialtyCard(
+  Widget specialtyCard(
       {String specialtyName,
       String specialtyDoctorCount,
       String specialtyImagePath}) {
@@ -276,6 +270,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void initState() {
+    getDoctors();
+    getSpecialties();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
@@ -453,7 +453,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               highlightColor: Color(0xFFFFFFFF),
                               textColor: Colors.white,
                               child: Icon(
-                                Icons.toc,
+                                Icons.library_books,
                                 size: 30,
                               ),
                               padding: EdgeInsets.all(16),
