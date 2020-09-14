@@ -17,6 +17,8 @@ class _SearchPageState extends State<SearchPage> {
       new TextEditingController();
   QuerySnapshot searchSnapshot;
 
+  List<bool> isSelected = [false, false, false];
+
   getSearch() async {
     databaseMethods
         .getDoctorBySearch(searchTextEditingController.text)
@@ -128,7 +130,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget searchList() {
     return searchSnapshot != null
         ? ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: searchSnapshot.docs.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
@@ -141,10 +143,10 @@ class _SearchPageState extends State<SearchPage> {
         : Container();
   }
 
-  List<bool> _selections = List.generate(3, (_) => false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
           title: Text("Doctor Lookup"),
@@ -163,74 +165,173 @@ class _SearchPageState extends State<SearchPage> {
           elevation: 0.0,
         ),
         body: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(-1.0, 0.0),
-                end: Alignment(1.0, 0.0),
-                colors: [
-                  const Color(0xFF6aa6f8),
-                  const Color(0xFF1a60be)
-                ], // whitish to gray
+            child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment(-1.0, 0.0),
+                  end: Alignment(1.0, 0.0),
+                  colors: [
+                    const Color(0xFF6aa6f8),
+                    const Color(0xFF1a60be)
+                  ], // whitish to gray
+                ),
+              ),
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                      top: 15.0,
+                      left: 20.0,
+                      right: 20.0,
+                      bottom: 20.0,
+                    ),
+                    child: TextFormField(
+                      textCapitalization: TextCapitalization.none,
+                      controller: searchTextEditingController,
+                      autofocus: true,
+                      keyboardType: TextInputType.text,
+                      validator: (val) {
+                        return val.isEmpty || val.length < 4
+                            ? "Please enter username"
+                            : null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(15.0),
+                        border: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        filled: true,
+                        fillColor: Color(0xFFFFFFFF),
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.only(
+                            right: 20.0,
+                            left: 20.0,
+                            bottom: 1.0,
+                          ),
+                          child: Icon(
+                            Icons.person,
+                            color: Color(0xFF6aa6f8),
+                          ),
+                        ),
+                        // hintText: hintText,
+                        hintStyle: TextStyle(
+                          color: Color(0xFFb1b2c4),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white38),
+                          borderRadius: BorderRadius.circular(60),
+                        ),
+                      ),
+                      onChanged: (text) {
+                        getSearch();
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 15.0,
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 20.0,
-                  ),
-                  child: TextFormField(
-                    textCapitalization: TextCapitalization.none,
-                    controller: searchTextEditingController,
-                    autofocus: true,
-                    keyboardType: TextInputType.text,
-                    validator: (val) {
-                      return val.isEmpty || val.length < 4
-                          ? "Please enter username"
-                          : null;
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(15.0),
-                      border: new OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+            Container(
+              width: MediaQuery.of(context).size.width * 1.0,
+              margin: const EdgeInsets.only(
+                left: 20.0,
+                right: 20.0,
+                top: 20.0,
+                bottom: 10.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        right: 7.5,
                       ),
-                      filled: true,
-                      fillColor: Color(0xFFFFFFFF),
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.only(
-                          right: 20.0,
-                          left: 20.0,
-                          bottom: 1.0,
+                      child: OutlineButton(
+                        color: Colors.transparent,
+                        splashColor: Color(0xFF4894e9),
+                        padding: EdgeInsets.all(10),
+                        onPressed: () {
+                          print('Sort by Name Clicked');
+                        },
+                        textColor: Color(0xFF4894e9),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
-                        child: Icon(
-                          Icons.person,
-                          color: Color(0xFF6aa6f8),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Name',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.normal),
+                          ),
                         ),
-                      ),
-                      // hintText: hintText,
-                      hintStyle: TextStyle(
-                        color: Color(0xFFb1b2c4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white38),
-                        borderRadius: BorderRadius.circular(60),
                       ),
                     ),
-                    onChanged: (text) {
-                      getSearch();
-                    },
                   ),
-                ),
-                searchList(),
-              ],
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        right: 3.75,
+                        left: 3.75,
+                      ),
+                      child: OutlineButton(
+                        color: Colors.transparent,
+                        splashColor: Color(0xFF4894e9),
+                        padding: EdgeInsets.all(10),
+                        onPressed: () {
+                          print('Sort by Specialty Clicked');
+                        },
+                        textColor: Color(0xFF4894e9),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Specialty',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.normal),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        left: 7.5,
+                      ),
+                      child: OutlineButton(
+                        color: Colors.transparent,
+                        splashColor: Color(0xFF4894e9),
+                        padding: EdgeInsets.all(10),
+                        onPressed: () {
+                          print('Sort by Rank Clicked');
+                        },
+                        textColor: Color(0xFF4894e9),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Rank',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.normal),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ));
+            searchList(),
+          ],
+        )));
   }
 }

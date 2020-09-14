@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medical/main.dart';
-import 'package:flutter_medical/routes/home.dart';
-import 'package:flutter_medical/routes/profile.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/routes/category.dart';
@@ -202,7 +200,12 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
           ListTile(
             leading: Icon(Icons.people),
             title: Text('All Doctors'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchPage()),
+              );
+            },
           ),
           ExpansionTile(
             leading: Icon(Icons.mood),
