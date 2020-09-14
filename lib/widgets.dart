@@ -73,7 +73,7 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             context: context,
             removeTop: true,
             child: Padding(
-              padding: EdgeInsets.only(left: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 15.0),
               child: ListView.builder(
                 itemCount: specialtySnapshot.docs.length,
                 shrinkWrap: true,
@@ -103,7 +103,22 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
         height: 25,
         width: 25,
       ),
-      title: Text(specialtyName ?? "error"),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(specialtyName ?? "not_found"),
+          Container(
+            width: 35,
+            height: 35,
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: Color(0x156aa6f8)),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(specialtyDoctorCount ?? "0"),
+            ),
+          ),
+        ],
+      ),
       onTap: () {
         Navigator.push(
             context,

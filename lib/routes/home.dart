@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   QuerySnapshot doctorSnapshot;
   QuerySnapshot specialtySnapshot;
+  QuerySnapshot doctorSpecialtyCount;
 
   getDoctors() async {
     databaseMethods.getAllDoctors().then((val) {
@@ -375,6 +376,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 15.0,
+                    ),
                     transform: Matrix4.translationValues(0.0, -30.0, 0.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
