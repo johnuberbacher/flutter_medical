@@ -1,6 +1,6 @@
 # flutter_medical
 
-Functioning Doctor/Healthcare Catalog App created using Dart with Flutter. 
+Functioning Doctor/Healthcare Catalog & Scheduling App created using Dart with Flutter. 
 Stores and loads data from Firebase Firestore DB. 
 
 ## Screenshot
