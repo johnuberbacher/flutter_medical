@@ -1,5 +1,10 @@
 # This is a generated file; do not edit or check into version control.
-cloud_firestore=C:\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-0.14.0+2\\
-cloud_firestore_web=C:\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore_web-0.2.0+1\\
-firebase_core=C:\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-0.5.0\\
-firebase_core_web=C:\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-0.2.0\\
+cloud_firestore=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-0.14.0+2\\
+cloud_firestore_web=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore_web-0.2.0+1\\
+firebase_core=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-0.5.0\\
+firebase_core_web=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-0.2.0\\
+url_launcher=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher-5.7.2\\
+url_launcher_linux=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_linux-0.0.1+1\\
+url_launcher_macos=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_macos-0.0.1+8\\
+url_launcher_web=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_web-0.1.4+1\\
+url_launcher_windows=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_windows-0.0.1+1\\

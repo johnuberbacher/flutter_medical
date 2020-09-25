@@ -561,9 +561,7 @@ Material appointmentDays(
           right: 30,
           top: 6,
         ),
-        onPressed: () {
-          print('View All Doctors Clicked');
-        },
+        onPressed: () {},
         textColor: Color(0xFF4894e9),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(7.5),

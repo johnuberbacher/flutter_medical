@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_medical/routes/functions.dart';
 import 'package:flutter_medical/widgets.dart';
 import 'package:flutter_medical/main.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/profile.dart';
 import 'package:flutter_medical/routes/category.dart';
 import 'package:flutter_medical/routes/search.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 DocumentSnapshot snapshot;
 
@@ -17,6 +19,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future<void> _launched;
+  String _phone = '123-456-7890';
   DatabaseMethods databaseMethods = new DatabaseMethods();
   QuerySnapshot doctorSnapshot;
   QuerySnapshot specialtySnapshot;
@@ -387,7 +391,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             MaterialButton(
                               splashColor: Colors.white,
-                              onPressed: () {},
+                              onPressed: () => setState(() {
+                                initiatePhoneCall('tel:$_phone');
+                              }),
                               color: Color(0xFF4894e9),
                               textColor: Colors.white,
                               child: Icon(
