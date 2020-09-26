@@ -3,12 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_medical/routes/functions.dart';
+import 'package:flutter_medical/services/shared_preferences.dart';
 import 'package:flutter_medical/widgets.dart';
 import 'package:flutter_medical/main.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/profile.dart';
 import 'package:flutter_medical/routes/category.dart';
 import 'package:flutter_medical/routes/search.dart';
+import 'package:flutter_medical/models/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 DocumentSnapshot snapshot;
@@ -276,8 +278,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    getUserInfo();
     getDoctors();
     getSpecialties();
+    super.initState();
+  }
+
+  getUserInfo() async {
+    Constants.myName = await CheckSharedPreferences.getNameSharedPreference();
+    setState(() {
+      print("we got the data: the name is  ${Constants.myName}");
+    });
   }
 
   @override
@@ -332,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Align(
                             alignment: FractionalOffset.centerLeft,
                             child: Text(
-                              'Welcome back, John!',
+                              'Welcome back, ' + titleCase(Constants.myName),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22.25,

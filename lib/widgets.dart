@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_medical/main.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/home.dart';
 import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/routes/category.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_medical/services/authenticate.dart';
+import 'package:flutter_medical/services/authentication.dart';
 
 DocumentSnapshot snapshot;
 
@@ -49,6 +51,7 @@ class GlobalDrawer extends StatefulWidget {
 }
 
 class _GlobalDrawerState extends State<GlobalDrawer> {
+  AuthMethods authMethods = new AuthMethods();
   DatabaseMethods databaseMethods = new DatabaseMethods();
   QuerySnapshot doctorSnapshot;
   QuerySnapshot specialtySnapshot;
@@ -255,6 +258,15 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             title: Text('Resources'),
             onTap: () {},
           ),
+          ListTile(
+            leading: Icon(Icons.library_books),
+            title: Text('Logout'),
+            onTap: () {
+              authMethods.signOut();
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => Authenticate()));
+            },
+          ),
         ],
       ),
     );
@@ -332,4 +344,15 @@ class BottomWaveClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+String titleCase(String text) {
+  if (text.length <= 1) return text.toUpperCase();
+  var words = text.split(' ');
+  var capitalized = words.map((word) {
+    var first = word.substring(0, 1).toUpperCase();
+    var rest = word.substring(1);
+    return '$first$rest';
+  });
+  return capitalized.join(' ');
 }

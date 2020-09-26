@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Firebase" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdeea7bd-4e60-4b97-87ca-81995acedbf3" name="Default Changelist" comment="" />
@@ -82,28 +82,28 @@
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
     <state x="-1180" y="316" key="FileChooserDialogImpl/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1600999703149" />
-    <state width="1877" height="228" key="GridCell.Tab.0.bottom" timestamp="1601095640732">
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1601143757004">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="228" key="GridCell.Tab.0.bottom/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601095640732" />
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601143757004" />
     <state width="936" height="227" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1600037842454" />
     <state width="936" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1600020530530" />
-    <state width="1877" height="228" key="GridCell.Tab.0.center" timestamp="1601095640731">
+    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1601143757004">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="228" key="GridCell.Tab.0.center/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601095640731" />
+    <state width="1877" height="277" key="GridCell.Tab.0.center/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601143757004" />
     <state width="936" height="227" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1600037842453" />
     <state width="936" height="348" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1600020530530" />
-    <state width="1877" height="228" key="GridCell.Tab.0.left" timestamp="1601095640731">
+    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1601143757004">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="228" key="GridCell.Tab.0.left/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601095640731" />
+    <state width="1877" height="277" key="GridCell.Tab.0.left/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601143757004" />
     <state width="936" height="227" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1600037842453" />
     <state width="936" height="348" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1600020530530" />
-    <state width="1877" height="228" key="GridCell.Tab.0.right" timestamp="1601095640732">
+    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1601143757004">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="228" key="GridCell.Tab.0.right/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601095640732" />
+    <state width="1877" height="277" key="GridCell.Tab.0.right/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601143757004" />
     <state width="936" height="227" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1600037842453" />
     <state width="936" height="348" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1600020530530" />
     <state width="938" height="228" key="GridCell.Tab.1.bottom" timestamp="1600141824112">
@@ -157,7 +157,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/routes/signUp.dart</url>
-          <line>265</line>
+          <line>345</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">

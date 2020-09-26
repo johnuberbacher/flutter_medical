@@ -1,30 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_medical/routes/home.dart';
 import 'package:flutter_medical/routes/signIn.dart';
+import 'package:flutter_medical/services/authenticate.dart';
+import 'package:flutter_medical/services/authentication.dart';
+import 'package:flutter_medical/services/database.dart';
 
 class SignUpPage extends StatefulWidget {
+  final Function toggleView;
+  SignUpPage(this.toggleView);
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  void signUp() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      try {
-        await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: _email, password: _password);
+  bool isLoading = false;
+
+  AuthMethods authMethods = new AuthMethods();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
+
+  final formKey = GlobalKey<FormState>();
+  TextEditingController userNameTextEditingController =
+      new TextEditingController();
+  TextEditingController userNameLowercaseTextEditingController =
+      new TextEditingController();
+  TextEditingController emailTextEditingController =
+      new TextEditingController();
+  TextEditingController passwordTextEditingController =
+      new TextEditingController();
+
+  signUpAccount() {
+    if (formKey.currentState.validate()) {
+      Map<String, String> userInfoMap = {
+        "name": userNameTextEditingController.text,
+        "email": emailTextEditingController.text
+      };
+
+      HelperFunctions.saveUserNamePreference(
+          userNameTextEditingController.text);
+      HelperFunctions.saveUserEmailPreference(emailTextEditingController.text);
+
+      setState(() {
+        isLoading = true;
+      });
+      authMethods
+          .signUpWithEmailAndPassword(emailTextEditingController.text,
+              passwordTextEditingController.text)
+          .then((val) {
+        // print("${val.uid}");
+
+        databaseMethods.setUserInfo(userInfoMap);
+        HelperFunctions.saveUserLoggedInPreference(true);
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignUpPage()));
-      } catch (e) {
-        print(e.message);
-      }
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      });
     }
   }
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _email, _password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +69,8 @@ class _SignUpPageState extends State<SignUpPage> {
           child: SingleChildScrollView(
             child: Container(
               child: Form(
-                key: _formKey,
-                child: Column(
+                key: formKey,
+                child: Stack(
                   children: [
                     Container(
                       height: MediaQuery.of(context).size.height / 1.75,
@@ -51,11 +84,16 @@ class _SignUpPageState extends State<SignUpPage> {
                           ],
                         ),
                       ),
+                    ),
+                    Positioned(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
+                            margin: const EdgeInsets.only(
+                              top: 100.0,
+                            ),
                             child: Text(
                               'Sign Up',
                               style: TextStyle(
@@ -66,25 +104,24 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                           Container(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                top: 20.0,
-                                left: 40.0,
-                                right: 40.0,
-                              ),
-                              child: Text(
-                                'Lorem ipsum dolor sit amet, aliqua consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. ',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFFFFFFFF),
-                                ),
+                            margin: const EdgeInsets.only(
+                              top: 30.0,
+                              right: 40.0,
+                              left: 40.0,
+                              bottom: 30.0,
+                            ),
+                            child: Text(
+                              'Lorem ipsum dolor sit amet, aliqua consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. ',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Color(0xFFFFFFFF),
                               ),
                             ),
                           ),
                           Container(
-                            transform:
-                                Matrix4.translationValues(0.0, 60.0, 0.0),
+                            //  transform:
+                            //     Matrix4.translationValues(0.0, 60.0, 0.0),
                             margin: const EdgeInsets.only(
                               left: 20.0,
                               right: 20.0,
@@ -116,15 +153,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                     bottom: 20.0,
                                   ),
                                   child: TextFormField(
-                                    validator: (input) {
-                                      if (input.isEmpty) {
-                                        return 'Provide an email';
-                                      }
+                                    validator: (val) {
+                                      return val.isEmpty || val.length < 4
+                                          ? "Please enter a name"
+                                          : null;
                                     },
-                                    onSaved: (input) => _email = input,
+                                    controller: userNameTextEditingController,
                                     textCapitalization: TextCapitalization.none,
                                     decoration: InputDecoration(
-                                      hintText: 'email@emailaddress.com',
+                                      hintText: 'John Smith',
                                       hintStyle: TextStyle(
                                         color: Color(0xFFb1b2c4),
                                       ),
@@ -160,14 +197,60 @@ class _SignUpPageState extends State<SignUpPage> {
                                     bottom: 20.0,
                                   ),
                                   child: TextFormField(
-                                    validator: (input) {
-                                      if (input.length < 6) {
-                                        return 'Longer password please';
-                                      }
+                                    validator: (val) {
+                                      return RegExp(
+                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+|.[a-zA-Z]+")
+                                              .hasMatch(val)
+                                          ? null
+                                          : "Please enter a valid email address";
                                     },
-                                    onSaved: (input) => _password = input,
-                                    obscureText: true,
+                                    controller: emailTextEditingController,
                                     textCapitalization: TextCapitalization.none,
+                                    decoration: InputDecoration(
+                                      hintText: 'email@address.com',
+                                      hintStyle: TextStyle(
+                                        color: Color(0xFFb1b2c4),
+                                      ),
+                                      enabledBorder: const OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Colors.transparent,
+                                            width: 0.0),
+                                      ),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xFF6aa6f8),
+                                            width: 0.0),
+                                      ),
+                                      prefixIcon: Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 20.0,
+                                          left: 10.0,
+                                          bottom: 1.0,
+                                        ),
+                                        child: Icon(
+                                          Icons.alternate_email,
+                                          color: Color(0xFF6aa6f8),
+                                        ),
+                                      ),
+                                      //
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 20.0,
+                                    right: 20.0,
+                                    bottom: 20.0,
+                                  ),
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.visiblePassword,
+                                    validator: (val) {
+                                      return val.length > 6
+                                          ? null
+                                          : "Password must be greater than 6 characters";
+                                    },
+                                    controller: passwordTextEditingController,
+                                    obscureText: true,
                                     decoration: InputDecoration(
                                       hintText: 'password',
                                       hintStyle: TextStyle(
@@ -201,59 +284,56 @@ class _SignUpPageState extends State<SignUpPage> {
                               ],
                             ),
                           ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                              top: 30.0,
+                              left: 20.0,
+                              right: 20.0,
+                            ),
+                            child: RaisedButton(
+                              color: Color(0xFF4894e9),
+                              padding: EdgeInsets.all(15),
+                              onPressed: () {
+                                signUpAccount();
+                              },
+                              textColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Create Account',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                              top: 20.0,
+                              left: 20.0,
+                              right: 20.0,
+                            ),
+                            child: InkWell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Text(
+                                  'Already have an account? Sign In instead.',
+                                  style: TextStyle(
+                                      color: Color(0xFF4894e9),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              onTap: () {
+                                widget.toggleView();
+                              },
+                            ),
+                          ),
                         ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 90.0,
-                        left: 20.0,
-                        right: 20.0,
-                      ),
-                      child: RaisedButton(
-                        color: Color(0xFF4894e9),
-                        padding: EdgeInsets.all(15),
-                        onPressed: () {
-                          signUp();
-                        },
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Create Account',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 20.0,
-                        left: 20.0,
-                        right: 20.0,
-                      ),
-                      child: InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Text(
-                            'Already have an account? Sign In instead.',
-                            style: TextStyle(
-                                color: Color(0xFF4894e9),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignInPage()),
-                          );
-                        },
                       ),
                     ),
                   ],

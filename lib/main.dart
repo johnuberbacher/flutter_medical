@@ -4,6 +4,9 @@ import 'package:flutter_medical/routes/home.dart';
 import 'package:flutter_medical/routes/signIn.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_medical/widgets.dart';
+import 'package:flutter_medical/services/authenticate.dart';
+import 'package:flutter_medical/services/authentication.dart';
+import 'package:flutter_medical/services/database.dart';
 
 /// App Root
 void main() async {
@@ -14,20 +17,38 @@ void main() async {
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
   await Firebase.initializeApp();
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({Key key}) : super(key: key);
-
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  bool userIsLoggedIn;
+  @override
+  void initState() {
+    getLoggedInState();
+    super.initState();
+    WidgetsBinding.instance.renderView.automaticSystemUiAdjustment =
+        false; //<--
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Color(0xFF1f1e30),
+        systemNavigationBarColor: Color(0xFF1f1e30),
+      ),
+    );
+  }
+
+  getLoggedInState() async {
+    await HelperFunctions.getUserLoggedInPreference().then((value) {
+      setState(() {
+        userIsLoggedIn = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -42,12 +63,13 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: "Flutter Medical",
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        // TODO delete these when done with sign in and sign up
-        //  appBar: GlobalAppBar(),
-        //   drawer: GlobalDrawer(),
-        body: SignInPage(),
-      ),
+      home: userIsLoggedIn != null
+          ? userIsLoggedIn ? HomeScreen() : Authenticate()
+          : Container(
+              child: Center(
+                child: Authenticate(),
+              ),
+            ),
     );
   }
 }
