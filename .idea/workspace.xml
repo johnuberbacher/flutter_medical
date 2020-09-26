@@ -37,9 +37,9 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../flutter SDK/flutter/bin/cache/dart-sdk" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -62,6 +62,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="-1443" y="241" key="#PSD" timestamp="1601094939336">
+      <screen x="-1920" y="0" width="1920" height="1019" />
+    </state>
+    <state x="-1443" y="241" key="#PSD/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601094939336" />
     <state x="-1410" y="170" key="#Plugins" timestamp="1600056738800">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
@@ -78,28 +82,28 @@
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
     <state x="-1180" y="316" key="FileChooserDialogImpl/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1600999703149" />
-    <state width="1083" height="167" key="GridCell.Tab.0.bottom" timestamp="1601088813153">
+    <state width="1877" height="228" key="GridCell.Tab.0.bottom" timestamp="1601095640732">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1083" height="167" key="GridCell.Tab.0.bottom/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601088813153" />
+    <state width="1877" height="228" key="GridCell.Tab.0.bottom/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601095640732" />
     <state width="936" height="227" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1600037842454" />
     <state width="936" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1600020530530" />
-    <state width="1083" height="167" key="GridCell.Tab.0.center" timestamp="1601088813153">
+    <state width="1877" height="228" key="GridCell.Tab.0.center" timestamp="1601095640731">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1083" height="167" key="GridCell.Tab.0.center/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601088813153" />
+    <state width="1877" height="228" key="GridCell.Tab.0.center/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601095640731" />
     <state width="936" height="227" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1600037842453" />
     <state width="936" height="348" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1600020530530" />
-    <state width="1083" height="167" key="GridCell.Tab.0.left" timestamp="1601088813152">
+    <state width="1877" height="228" key="GridCell.Tab.0.left" timestamp="1601095640731">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1083" height="167" key="GridCell.Tab.0.left/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601088813152" />
+    <state width="1877" height="228" key="GridCell.Tab.0.left/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601095640731" />
     <state width="936" height="227" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1600037842453" />
     <state width="936" height="348" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1600020530530" />
-    <state width="1083" height="167" key="GridCell.Tab.0.right" timestamp="1601088813153">
+    <state width="1877" height="228" key="GridCell.Tab.0.right" timestamp="1601095640732">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1083" height="167" key="GridCell.Tab.0.right/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601088813153" />
+    <state width="1877" height="228" key="GridCell.Tab.0.right/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601095640732" />
     <state width="936" height="227" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1600037842453" />
     <state width="936" height="348" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1600020530530" />
     <state width="938" height="228" key="GridCell.Tab.1.bottom" timestamp="1600141824112">
@@ -136,9 +140,10 @@
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state x="769" y="426" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599965272689" />
-    <state x="-1158" y="264" key="run.anything.popup" timestamp="1600035224526">
+    <state x="-1158" y="264" key="run.anything.popup" timestamp="1601094942723">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
+    <state x="-1158" y="264" key="run.anything.popup/-1920.0.1920.1019/0.0.1920.1019@-1920.0.1920.1019" timestamp="1601094942723" />
     <state x="-1158" y="264" key="run.anything.popup/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1600035224526" />
     <state x="762" y="264" key="run.anything.popup/0.0.1920.1019/-1920.0.1920.1019@0.0.1920.1019" timestamp="1599935684221" />
     <state x="-1247" y="213" width="672" height="678" key="search.everywhere.popup" timestamp="1600056714389">
@@ -152,7 +157,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/routes/signUp.dart</url>
-          <line>223</line>
+          <line>265</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">

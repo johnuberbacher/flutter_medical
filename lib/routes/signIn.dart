@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_medical/routes/signUp.dart';
+import 'package:flutter_medical/widgets.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -10,6 +12,8 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
+        appBar: GlobalAppBar(),
+        drawer: GlobalDrawer(),
         body: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (overscroll) {
             overscroll.disallowGlow();
@@ -211,7 +215,10 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                       onTap: () {
-                        print("go to sign in");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUpPage()),
+                        );
                       },
                     ),
                   ),
