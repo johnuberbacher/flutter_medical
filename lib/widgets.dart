@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medical/main.dart';
 import 'package:flutter_medical/database.dart';
+import 'package:flutter_medical/routes/home.dart';
 import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/routes/category.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -208,6 +209,16 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+              );
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.star),
             title: Text('Top Doctors'),
             onTap: () {},
@@ -248,4 +259,77 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
       ),
     );
   }
+}
+
+class CustomTextField extends StatelessWidget {
+  CustomTextField(
+      {this.icon,
+      this.hint,
+      this.obsecure = false,
+      this.validator,
+      this.onSaved});
+  final FormFieldSetter<String> onSaved;
+  final Icon icon;
+  final String hint;
+  final bool obsecure;
+  final FormFieldValidator<String> validator;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20),
+      child: TextFormField(
+        onSaved: onSaved,
+        validator: validator,
+        autofocus: true,
+        obscureText: obsecure,
+        style: TextStyle(
+          fontSize: 20,
+        ),
+        decoration: InputDecoration(
+            hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            hintText: hint,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: BorderSide(
+                color: Theme.of(context).primaryColor,
+                width: 2,
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: BorderSide(
+                color: Theme.of(context).primaryColor,
+                width: 3,
+              ),
+            ),
+            prefixIcon: Padding(
+              child: IconTheme(
+                data: IconThemeData(color: Theme.of(context).primaryColor),
+                child: icon,
+              ),
+              padding: EdgeInsets.only(left: 30, right: 10),
+            )),
+      ),
+    );
+  }
+}
+
+class BottomWaveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.moveTo(size.width, 0.0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0.0, size.height);
+    path.lineTo(0.0, size.height + 5);
+    var secondControlPoint = Offset(size.width - (size.width / 6), size.height);
+    var secondEndPoint = Offset(size.width, 0.0);
+    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
+        secondEndPoint.dx, secondEndPoint.dy);
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

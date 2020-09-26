@@ -1,6 +1,8 @@
 # This is a generated file; do not edit or check into version control.
 cloud_firestore=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-0.14.0+2\\
 cloud_firestore_web=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore_web-0.2.0+1\\
+firebase_auth=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-0.18.0+1\\
+firebase_auth_web=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth_web-0.3.0+1\\
 firebase_core=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-0.5.0\\
 firebase_core_web=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-0.2.0\\
 url_launcher=C:\\Users\\johnu\\Documents\\flutter SDK\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher-5.7.2\\

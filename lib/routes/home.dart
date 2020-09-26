@@ -282,356 +282,360 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment(-1.0, 0.0),
-            end: Alignment(1.0, 0.0),
-            colors: [
-              const Color(0xFF6aa6f8),
-              const Color(0xFF1a60be)
-            ], // whitish to gray
+    return Scaffold(
+      appBar: GlobalAppBar(),
+      drawer: GlobalDrawer(),
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 1.0,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment(-1.0, 0.0),
+              end: Alignment(1.0, 0.0),
+              colors: [
+                const Color(0xFF6aa6f8),
+                const Color(0xFF1a60be)
+              ], // whitish to gray
+            ),
           ),
-        ),
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(
-                top: 15.0,
-                left: 20.0,
-                right: 20.0,
-                bottom: 20.0,
-              ),
-              child: Row(
-                children: [
-                  new Container(
-                    margin: EdgeInsets.only(
-                      right: 30.0,
-                    ),
-                    width: 70.0,
-                    height: 70.0,
-                    decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image:
-                            new NetworkImage("https://i.imgur.com/iQkzaTO.jpg"),
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 15.0,
+                  left: 20.0,
+                  right: 20.0,
+                  bottom: 20.0,
+                ),
+                child: Row(
+                  children: [
+                    new Container(
+                      margin: EdgeInsets.only(
+                        right: 30.0,
+                      ),
+                      width: 70.0,
+                      height: 70.0,
+                      decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: new DecorationImage(
+                          fit: BoxFit.fill,
+                          image: new NetworkImage(
+                              "https://i.imgur.com/iQkzaTO.jpg"),
+                        ),
                       ),
                     ),
-                  ),
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Align(
-                          alignment: FractionalOffset.centerLeft,
-                          child: Text(
-                            'Welcome back, John!',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22.25,
-                              color: Color(0xFFFFFFFF),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: FractionalOffset.centerLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: 5.0,
-                            ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: FractionalOffset.centerLeft,
                             child: Text(
-                              'How can we help you today?',
+                              'Welcome back, John!',
                               style: TextStyle(
-                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22.25,
                                 color: Color(0xFFFFFFFF),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          Align(
+                            alignment: FractionalOffset.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: 5.0,
+                              ),
+                              child: Text(
+                                'How can we help you today?',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                top: 40.0,
-              ),
-              decoration: new BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
+                  ],
                 ),
-                color: Color(0xFFFFFFFF),
-                boxShadow: [
-                  new BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 20.0,
-                    offset: Offset(0, 0),
-                  ),
-                ],
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 15.0,
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 40.0,
+                ),
+                decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
+                  ),
+                  color: Color(0xFFFFFFFF),
+                  boxShadow: [
+                    new BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 20.0,
+                      offset: Offset(0, 0),
                     ),
-                    transform: Matrix4.translationValues(0.0, -30.0, 0.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            MaterialButton(
-                              splashColor: Colors.white,
-                              onPressed: () => setState(() {
-                                initiatePhoneCall('tel:$_phone');
-                              }),
-                              color: Color(0xFF4894e9),
-                              textColor: Colors.white,
-                              child: Icon(
-                                Icons.phone,
-                                size: 30,
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 15.0,
+                      ),
+                      transform: Matrix4.translationValues(0.0, -30.0, 0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              MaterialButton(
+                                splashColor: Colors.white,
+                                onPressed: () => setState(() {
+                                  initiatePhoneCall('tel:$_phone');
+                                }),
+                                color: Color(0xFF4894e9),
+                                textColor: Colors.white,
+                                child: Icon(
+                                  Icons.phone,
+                                  size: 30,
+                                ),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
                               ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(
-                                top: 10.0,
-                              ),
-                              child: Text(
-                                'Consultation',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: Color(0xFF6f6f6f),
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  top: 10.0,
+                                ),
+                                child: Text(
+                                  'Consultation',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Color(0xFF6f6f6f),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              MaterialButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SearchPage()),
+                                  );
+                                },
+                                color: Color(0xFF4894e9),
+                                highlightColor: Color(0xFFFFFFFF),
+                                textColor: Colors.white,
+                                child: Icon(
+                                  Icons.people,
+                                  size: 30,
+                                ),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  top: 10.0,
+                                ),
+                                child: Text(
+                                  'Doctor Lookup',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Color(0xFF6f6f6f),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              MaterialButton(
+                                onPressed: () {},
+                                color: Color(0xFF4894e9),
+                                highlightColor: Color(0xFFFFFFFF),
+                                textColor: Colors.white,
+                                child: Icon(
+                                  Icons.library_books,
+                                  size: 30,
+                                ),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  top: 10.0,
+                                ),
+                                child: Text(
+                                  'Resources',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Color(0xFF6f6f6f),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 10.0,
+                        left: 20.0,
+                        right: 15.0,
+                        bottom: 15.0,
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Specialties',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                            color: Color(0xFF6f6f6f),
+                          ),
                         ),
-                        Column(
-                          children: [
-                            MaterialButton(
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 20.0,
+                        right: 15.0,
+                        bottom: 15.0,
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+                          style: TextStyle(
+                            color: Color(0xFF9f9f9f),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      color: const Color(0xFFFFFFFF),
+                      height: 160,
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          specialtyList(),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 30.0,
+                        left: 20.0,
+                        right: 15.0,
+                        bottom: 15.0,
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Our Top Doctors',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                            color: Color(0xFF6f6f6f),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 20.0,
+                        right: 15.0,
+                        bottom: 15.0,
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+                          style: TextStyle(
+                            color: Color(0xFF9f9f9f),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      color: const Color(0xFFFFFFFF),
+                      child: Column(
+                        children: <Widget>[
+                          doctorSnapshot != null
+                              ? Container(
+                                  child: ListView.builder(
+                                      reverse: true,
+                                      itemCount: doctorSnapshot.docs.length,
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return doctorCard(
+                                          name: doctorSnapshot.docs[index]
+                                              .data()["name"],
+                                          specialty: doctorSnapshot.docs[index]
+                                              .data()["specialty"],
+                                          imagePath: doctorSnapshot.docs[index]
+                                              .data()["imagePath"],
+                                          rank: doctorSnapshot.docs[index]
+                                              .data()["rank"],
+                                        );
+                                      }),
+                                )
+                              : Container(
+                                  child: Text("error"),
+                                ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                              left: 20.0,
+                              right: 20.0,
+                              bottom: 20.0,
+                            ),
+                            child: new OutlineButton(
+                              color: Colors.transparent,
+                              splashColor: Color(0xFF4894e9),
+                              padding: EdgeInsets.all(10),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SearchPage()),
-                                );
+                                getDoctors();
+                                print('View All Doctors Clicked');
                               },
-                              color: Color(0xFF4894e9),
-                              highlightColor: Color(0xFFFFFFFF),
-                              textColor: Colors.white,
-                              child: Icon(
-                                Icons.people,
-                                size: 30,
+                              textColor: Color(0xFF4894e9),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
                               ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(
-                                top: 10.0,
-                              ),
-                              child: Text(
-                                'Doctor Lookup',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: Color(0xFF6f6f6f),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'View More',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            MaterialButton(
-                              onPressed: () {},
-                              color: Color(0xFF4894e9),
-                              highlightColor: Color(0xFFFFFFFF),
-                              textColor: Colors.white,
-                              child: Icon(
-                                Icons.library_books,
-                                size: 30,
-                              ),
-                              padding: EdgeInsets.all(16),
-                              shape: CircleBorder(),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(
-                                top: 10.0,
-                              ),
-                              child: Text(
-                                'Resources',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(
-                      top: 10.0,
-                      left: 20.0,
-                      right: 15.0,
-                      bottom: 15.0,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Specialties',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: Color(0xFF6f6f6f),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 15.0,
-                      bottom: 15.0,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-                        style: TextStyle(
-                          color: Color(0xFF9f9f9f),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    color: const Color(0xFFFFFFFF),
-                    height: 160,
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.horizontal,
-                      children: <Widget>[
-                        specialtyList(),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(
-                      top: 30.0,
-                      left: 20.0,
-                      right: 15.0,
-                      bottom: 15.0,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Our Top Doctors',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: Color(0xFF6f6f6f),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(
-                      left: 20.0,
-                      right: 15.0,
-                      bottom: 15.0,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-                        style: TextStyle(
-                          color: Color(0xFF9f9f9f),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    color: const Color(0xFFFFFFFF),
-                    child: Column(
-                      children: <Widget>[
-                        doctorSnapshot != null
-                            ? Container(
-                                child: ListView.builder(
-                                    reverse: true,
-                                    itemCount: doctorSnapshot.docs.length,
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return doctorCard(
-                                        name: doctorSnapshot.docs[index]
-                                            .data()["name"],
-                                        specialty: doctorSnapshot.docs[index]
-                                            .data()["specialty"],
-                                        imagePath: doctorSnapshot.docs[index]
-                                            .data()["imagePath"],
-                                        rank: doctorSnapshot.docs[index]
-                                            .data()["rank"],
-                                      );
-                                    }),
-                              )
-                            : Container(
-                                child: Text("error"),
-                              ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                            left: 20.0,
-                            right: 20.0,
-                            bottom: 20.0,
                           ),
-                          child: new OutlineButton(
-                            color: Colors.transparent,
-                            splashColor: Color(0xFF4894e9),
-                            padding: EdgeInsets.all(10),
-                            onPressed: () {
-                              getDoctors();
-                              print('View All Doctors Clicked');
-                            },
-                            textColor: Color(0xFF4894e9),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'View More',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_medical/routes/home.dart';
+import 'package:flutter_medical/routes/signUp.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_medical/widgets.dart';
 
@@ -38,9 +39,10 @@ class _MyAppState extends State<MyApp> {
       title: "Flutter Medical",
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        // TODO delete these when done with sign in and sign up
         appBar: GlobalAppBar(),
         drawer: GlobalDrawer(),
-        body: HomeScreen(),
+        body: SignUpPage(),
       ),
     );
   }
