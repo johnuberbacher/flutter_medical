@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SignUpPage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       children: [
                         Container(
                           child: Text(
-                            'Sign Up',
+                            'Sign In',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 40,
@@ -177,7 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: Color(0xFF4894e9),
                       padding: EdgeInsets.all(15),
                       onPressed: () {
-                        print('View All Doctors Clicked');
+                        print('Sign In Clicked');
                       },
                       textColor: Colors.white,
                       shape: RoundedRectangleBorder(
@@ -186,7 +186,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          'Create Account',
+                          'Sign In',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -203,7 +203,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(20),
                         child: Text(
-                          'Already have an account? Sign In instead.',
+                          'Need an account? Create one instead.',
                           style: TextStyle(
                               color: Color(0xFF4894e9),
                               fontSize: 16,
