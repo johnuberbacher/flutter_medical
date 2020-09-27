@@ -65,7 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
           )
         : Container(
-            child: Text("error"),
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
   }
 
@@ -85,7 +87,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     specialtySnapshot.docs[index].data()["specialtyImagePath"],
               );
             })
-        : Text("error");
+        : Container(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
   }
 
   Widget specialtyCard(
@@ -608,7 +614,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       }),
                                 )
                               : Container(
-                                  child: Text("error"),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 ),
                           Container(
                             margin: const EdgeInsets.only(

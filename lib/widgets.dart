@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_medical/main.dart';
 import 'package:flutter_medical/database.dart';
-import 'package:flutter_medical/routes/home.dart';
 import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/routes/category.dart';
+import 'package:flutter_medical/models/constant.dart';
 import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
 
@@ -176,7 +176,7 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
                         Align(
                           alignment: FractionalOffset.centerLeft,
                           child: Text(
-                            'Welcome back, John!',
+                            'Welcome back, ' + titleCase(Constants.myName),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -208,16 +208,6 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => MyApp()),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
             },
           ),
