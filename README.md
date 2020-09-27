@@ -17,8 +17,6 @@ Clone Repo
 
 flutter pub get
 
-flutter clean
-
 flutter run
 
 ## License
