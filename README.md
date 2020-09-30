@@ -13,7 +13,7 @@ John Uberbacher – [johnuberbacher.com](https://johnuberbacher.com)
 
 ## Installation
 
-Clone Repo
+clone repo
 
 flutter pub get
 
