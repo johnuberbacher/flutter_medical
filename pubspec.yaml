@@ -37,7 +37,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^0.1.9
 
+flutter_native_splash:
+  image: assets/logo/logo.png
+  color: "0061c2"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
