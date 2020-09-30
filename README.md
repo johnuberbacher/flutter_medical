@@ -5,7 +5,7 @@ Stores and loads data from Firebase Firestore DB.
 
 ## Screenshot
 
-![Screenshot](https://i.imgur.com/xgmdyxn.jpg)
+![Screenshot](https://i.imgur.com/ebfJCdt.jpg)
 
 ## Meta
 
@@ -13,11 +13,9 @@ John Uberbacher – [johnuberbacher.com](https://johnuberbacher.com)
 
 ## Installation
 
-Clone Repo
+clone repo
 
 flutter pub get
-
-flutter clean
 
 flutter run
 
