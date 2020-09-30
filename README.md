@@ -5,7 +5,7 @@ Stores and loads data from Firebase Firestore DB.
 
 ## Screenshot
 
-![Screenshot](https://i.imgur.com/xgmdyxn.jpg)
+![Screenshot](https://imgur.com/a/Pwly5Ta)
 
 ## Meta
 
