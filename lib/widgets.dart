@@ -249,7 +249,7 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.library_books),
+            leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap: () {
               authMethods.signOut();
