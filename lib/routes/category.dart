@@ -20,13 +20,22 @@ class CategoryPageState extends State<CategoryPage> {
   QuerySnapshot specialtySnapshot;
   String specialty;
   CategoryPageState(this.specialty);
+  bool descTextShowFlag = false;
 
   getDoctors() async {
     databaseMethods.getDoctorBySpecialty(specialty).then((val) {
-      print(val.toString());
       setState(() {
         doctorSnapshot = val;
         print(doctorSnapshot);
+      });
+    });
+  }
+
+  getSpecialtyInfo() async {
+    databaseMethods.getSpecialty(specialty).then((val) {
+      setState(() {
+        specialtySnapshot = val;
+        print(specialtySnapshot);
       });
     });
   }
@@ -148,6 +157,29 @@ class CategoryPageState extends State<CategoryPage> {
         ),
       ),
     );
+  }
+
+  Widget specialtyInfo() {
+    return specialtySnapshot != null
+        ? Container(
+            child: ListView.builder(
+                itemCount: specialtySnapshot.docs.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return doctorCard(
+                    specialtyDoctorCount: specialtySnapshot.docs[index]
+                        .data()["specialtyDoctorCount"],
+                    specialtyImagePath: specialtySnapshot.docs[index]
+                        .data()["specialtyImagePath"],
+                    specialtyName:
+                        specialtySnapshot.docs[index].data()["specialtyName"],
+                  );
+                }),
+          )
+        : Container(
+            child: Text("error"),
+          );
   }
 
   @override

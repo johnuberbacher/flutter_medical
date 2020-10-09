@@ -41,6 +41,16 @@ class DatabaseMethods {
     });
   }
 
+  getSpecialty(String specialty) async {
+    return FirebaseFirestore.instance
+        .collection("specialties")
+        .where("specialty", isEqualTo: specialty)
+        .get()
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
   getDoctorProfile(String name) async {
     print(name);
     return FirebaseFirestore.instance
