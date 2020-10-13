@@ -220,10 +220,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           splashColor: Colors.black26,
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CategoryPage(specialty),
-                                ));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CategoryPage(specialty)),
+                            );
                           },
                           child: Text(
                             specialty ?? "specialty not found",
