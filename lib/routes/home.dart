@@ -483,7 +483,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 highlightColor: Color(0xFFFFFFFF),
                                 textColor: Colors.white,
                                 child: Icon(
-                                  Icons.library_books,
+                                  Icons.favorite_border,
                                   size: 30,
                                 ),
                                 padding: EdgeInsets.all(16),
@@ -494,7 +494,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   top: 10.0,
                                 ),
                                 child: Text(
-                                  'Resources',
+                                  'My Health',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
