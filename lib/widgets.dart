@@ -212,6 +212,16 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.library_books),
+            title: Text('My Health'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp()),
+              );
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.star),
             title: Text('Top Doctors'),
             onTap: () {},
@@ -242,11 +252,6 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
                 MaterialPageRoute(builder: (context) => SearchPage()),
               );
             },
-          ),
-          ListTile(
-            leading: Icon(Icons.library_books),
-            title: Text('Resources'),
-            onTap: () {},
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
