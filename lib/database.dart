@@ -11,6 +11,29 @@ class DatabaseMethods {
     });
   }
 
+  getAllDoctorsPagination(documentLimit) async {
+    return await FirebaseFirestore.instance
+        .collection("doctors")
+        .orderBy("rank")
+        .limit(documentLimit)
+        .get()
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  getAllDoctorsPaginationStartAfter(documentLimit, lastDocument) async {
+    return await FirebaseFirestore.instance
+        .collection("doctors")
+        .orderBy("rank")
+        .startAfterDocument(lastDocument)
+        .limit(documentLimit)
+        .get()
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
   getDoctorBySearch(String searchString) async {
     return await FirebaseFirestore.instance
         .collection("doctors")

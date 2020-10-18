@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_medical/main.dart';
 import 'package:flutter_medical/database.dart';
+import 'package:flutter_medical/routes/myHealth.dart';
 import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/routes/category.dart';
 import 'package:flutter_medical/models/constant.dart';
@@ -217,7 +218,8 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => MyApp()),
+                MaterialPageRoute(
+                    builder: (context) => MyHealthPage("Dr. Bruce Banner")),
               );
             },
           ),

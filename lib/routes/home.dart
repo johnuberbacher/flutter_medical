@@ -9,6 +9,7 @@ import 'package:flutter_medical/main.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/profile.dart';
 import 'package:flutter_medical/routes/category.dart';
+import 'package:flutter_medical/routes/myHealth.dart';
 import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/models/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -25,6 +26,16 @@ class _HomeScreenState extends State<HomeScreen> {
   String _phone = '123-456-7890';
   DatabaseMethods databaseMethods = new DatabaseMethods();
   QuerySnapshot doctorSnapshot;
+
+  List<DocumentSnapshot> loadedDoctors = []; // stores fetched doctors
+  bool isLoadingDoctors = false; // track if doctors fetching
+  bool hasMoreDoctors = true; // flag for more doctors available or not
+  int documentLimit = 2; // documents to be fetched per request
+  ScrollController _scrollController =
+      ScrollController(); // listener for listview scrolling
+  DocumentSnapshot
+      lastDocument; // flag for last document from where next 10 records to be fetched
+
   QuerySnapshot specialtySnapshot;
   QuerySnapshot doctorSpecialtyCount;
 
@@ -35,6 +46,50 @@ class _HomeScreenState extends State<HomeScreen> {
         doctorSnapshot = val;
         print(doctorSnapshot);
       });
+    });
+  }
+
+  paginateDoctors() async {
+    if (!hasMoreDoctors) {
+      print('No more doctors');
+      // return;
+    }
+    if (isLoadingDoctors) {
+      print('return isLoadingDoctors');
+      //  return;
+    }
+    setState(() {
+      isLoadingDoctors = true;
+    });
+    QuerySnapshot paginateDoctorSnapshot;
+    if (lastDocument == null) {
+      databaseMethods.getAllDoctorsPagination(documentLimit).then((val) {
+        print(val.toString());
+        setState(() {
+          doctorSnapshot = val;
+          print("worked");
+        });
+      });
+    } else {
+      databaseMethods
+          .getAllDoctorsPaginationStartAfter(documentLimit, lastDocument)
+          .then((val) {
+        print(val.toString());
+        setState(() {
+          doctorSnapshot = val;
+          print("error");
+        });
+      });
+    }
+    if (doctorSnapshot.docs.length < documentLimit) {
+      print(doctorSnapshot.docs.length);
+      hasMoreDoctors = false;
+    }
+
+    lastDocument = doctorSnapshot.docs[doctorSnapshot.docs.length - 3];
+    loadedDoctors.addAll(doctorSnapshot.docs);
+    setState(() {
+      isLoadingDoctors = false;
     });
   }
 
@@ -65,6 +120,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
           )
         : Container(
+            margin: const EdgeInsets.only(
+              top: 10.0,
+              bottom: 20.0,
+            ),
             child: Center(
               child: CircularProgressIndicator(),
             ),
@@ -285,8 +344,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     getUserInfo();
-    getDoctors();
     getSpecialties();
+    paginateDoctors();
+    // getDoctors();
     super.initState();
   }
 
@@ -410,11 +470,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           Column(
                             children: [
                               MaterialButton(
-                                splashColor: Colors.white,
                                 onPressed: () => setState(() {
                                   initiatePhoneCall('tel:$_phone');
                                 }),
                                 color: Color(0xFF4894e9),
+                                highlightColor: Color(0xFF89b9f0),
                                 textColor: Colors.white,
                                 child: Icon(
                                   Icons.phone,
@@ -450,7 +510,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                                 color: Color(0xFF4894e9),
-                                highlightColor: Color(0xFFFFFFFF),
+                                highlightColor: Color(0xFF89b9f0),
                                 textColor: Colors.white,
                                 child: Icon(
                                   Icons.people,
@@ -478,9 +538,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           Column(
                             children: [
                               MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            MyHealthPage("Dr. Bruce Banner")),
+                                  );
+                                },
                                 color: Color(0xFF4894e9),
-                                highlightColor: Color(0xFFFFFFFF),
+                                highlightColor: Color(0xFF89b9f0),
                                 textColor: Colors.white,
                                 child: Icon(
                                   Icons.favorite_border,
@@ -590,64 +657,70 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Container(
-                      color: const Color(0xFFFFFFFF),
+                      margin: const EdgeInsets.only(
+                        bottom: 20.0,
+                      ),
                       child: Column(
                         children: <Widget>[
-                          doctorSnapshot != null
-                              ? Container(
-                                  child: ListView.builder(
-                                      reverse: true,
-                                      itemCount: doctorSnapshot.docs.length,
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return doctorCard(
-                                          name: doctorSnapshot.docs[index]
-                                              .data()["name"],
-                                          specialty: doctorSnapshot.docs[index]
-                                              .data()["specialty"],
-                                          imagePath: doctorSnapshot.docs[index]
-                                              .data()["imagePath"],
-                                          rank: doctorSnapshot.docs[index]
-                                              .data()["rank"],
-                                        );
-                                      }),
+                          loadedDoctors.length == 0
+                              ? Center(
+                                  child: Text('No More Data to load...'),
                                 )
-                              : Container(
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
+                              : ListView.builder(
+                                  reverse: true,
+                                  shrinkWrap: true,
+                                  itemCount: loadedDoctors.length,
+                                  itemBuilder: (context, index) {
+                                    return doctorCard(
+                                      name: doctorSnapshot.docs[index]
+                                          .data()["name"],
+                                      specialty: doctorSnapshot.docs[index]
+                                          .data()["specialty"],
+                                      imagePath: doctorSnapshot.docs[index]
+                                          .data()["imagePath"],
+                                      rank: doctorSnapshot.docs[index]
+                                          .data()["rank"],
+                                    );
+                                  },
                                 ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                              left: 20.0,
-                              right: 20.0,
-                              bottom: 20.0,
-                            ),
-                            child: new OutlineButton(
-                              color: Colors.transparent,
-                              splashColor: Color(0xFF4894e9),
-                              padding: EdgeInsets.all(10),
-                              onPressed: () {
-                                getDoctors();
-                                print('View All Doctors Clicked');
-                              },
-                              textColor: Color(0xFF4894e9),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'View More',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                              ),
-                            ),
-                          ),
+                          isLoadingDoctors
+                              ? Center(
+                                  // Trying to load
+                                  child: CircularProgressIndicator(),
+                                )
+                              : Center(
+                                  // Not loaded or maybe error
+                                  child: CircularProgressIndicator(),
+                                )
                         ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 20.0,
+                        right: 20.0,
+                        bottom: 20.0,
+                      ),
+                      child: new OutlineButton(
+                        color: Colors.transparent,
+                        splashColor: Color(0xFF4894e9),
+                        padding: EdgeInsets.all(10),
+                        onPressed: () {
+                          paginateDoctors();
+                          print('Loading More Doctors');
+                        },
+                        textColor: Color(0xFF4894e9),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'View More',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.normal),
+                          ),
+                        ),
                       ),
                     ),
                   ],
