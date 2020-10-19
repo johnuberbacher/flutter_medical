@@ -171,20 +171,21 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     top: 15.0,
                     left: 20.0,
                     right: 20.0,
-                    bottom: 20.0,
+                    bottom: 30.0,
                   ),
                   child: Column(
                     children: [
                       Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.center,
                         child: Text(
-                          "Hello " +
+                          "Hey " +
                                   titleCase(name) +
                                   ", you're looking healthy today" ??
                               "name not found",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 22,
                             color: Color(0xFF6f6f6f),
                           ),
                         ),
@@ -198,257 +199,248 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     right: 20.0,
                     bottom: 20.0,
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 20,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                'First Name',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: 7.5,
                               ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                titleCase(firstName) ?? "",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 20,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                'Last Name',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                titleCase(lastName) ?? "empty",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 20,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                'Gender',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                titleCase(gender) ?? "",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 20,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                'Age',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                            Expanded(
                               child: Text(
                                 age ?? "",
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
                                   color: Color(0xFF6f6f6f),
                                 ),
+                              ),
+                            ),
+                            Text(
+                              "Age",
+                              style: TextStyle(
+                                fontSize: 12,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 20,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                'Language',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: 7.5,
                               ),
-                            ),
-                            Expanded(
                               child: Text(
                                 age ?? "",
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
                                   color: Color(0xFF6f6f6f),
                                 ),
+                              ),
+                            ),
+                            Text(
+                              "BMI",
+                              style: TextStyle(
+                                fontSize: 12,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 20,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                'Height',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: 7.5,
                               ),
-                            ),
-                            Expanded(
                               child: Text(
                                 "$heightFeet' $heightInch\"" ?? "",
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
                                   color: Color(0xFF6f6f6f),
                                 ),
+                              ),
+                            ),
+                            Text(
+                              "Height",
+                              style: TextStyle(
+                                fontSize: 12,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 20,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                'Weight',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: 7.5,
+                              ),
+                              child: RichText(
+                                text: TextSpan(
+                                  text: weight ?? "",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF6f6f6f),
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: ' lbs',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                            Expanded(
-                              child: Text(
-                                "$weight lbs" ?? "",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 20,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                'Email',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                email ?? "",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
+                            Text(
+                              "Weight",
+                              style: TextStyle(
+                                fontSize: 12,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                  padding: EdgeInsets.only(
-                    top: 20,
-                    left: 30,
-                    right: 30,
-                  ),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: new BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                    color: Color(0xFFFFFFFF),
-                    boxShadow: [
-                      new BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 30.0,
-                        offset: Offset(0, 0),
                       ),
                     ],
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(
-                    top: 20.0,
+                    left: 20.0,
+                    right: 20.0,
+                  ),
+                  child: TextFormField(
+                    initialValue: age,
+                    decoration: InputDecoration(
+                        hintText: 'Age',
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
+                        labelText: 'Age'),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                  ),
+                  child: TextFormField(
+                    initialValue: age ?? "",
+                    decoration: InputDecoration(
+                        hintText: 'Age',
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
+                        labelText: 'Age'),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                  ),
+                  child: TextFormField(
+                    initialValue: language ?? "",
+                    decoration: InputDecoration(
+                        hintText: 'Language',
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
+                        labelText: 'Language'),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                  ),
+                  child: TextFormField(
+                    initialValue: weight,
+                    decoration: InputDecoration(
+                      hintText: 'Weight',
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                      ),
+                      labelText: 'Weight',
+                      suffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: Text("lbs"),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                  ),
+                  child: TextFormField(
+                    initialValue: titleCase(gender) ?? "",
+                    decoration: InputDecoration(
+                      hintText: 'Gender',
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                      ),
+                      labelText: 'Gender',
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 60.0,
                     left: 20.0,
                     right: 20.0,
                     bottom: 15.0,
@@ -567,7 +559,6 @@ class _MyHealthPageState extends State<MyHealthPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: UserProfileAppBar(),
-      drawer: GlobalDrawer(),
       body: SingleChildScrollView(
         child: loadUserProfile(),
       ),

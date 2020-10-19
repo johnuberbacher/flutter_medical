@@ -50,6 +50,7 @@ class UserProfileAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: true,
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.edit),
@@ -246,10 +247,9 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             leading: Icon(Icons.library_books),
             title: Text('My Health'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => MyHealthPage(Constants.myName)),
+                SlideRightRoute(page: MyHealthPage(Constants.myName)),
               );
             },
           ),
@@ -382,4 +382,30 @@ String titleCase(String text) {
     return '$first$rest';
   });
   return capitalized.join(' ');
+}
+
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+  SlideRightRoute({this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(-1, 0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
+        );
 }
