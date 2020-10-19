@@ -153,6 +153,18 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(100),
+                              ),
+                              boxShadow: [
+                                new BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 15.0,
+                                  offset: Offset(0, 0),
+                                ),
+                              ],
+                            ),
                             transform:
                                 Matrix4.translationValues(0.0, -15.0, 0.0),
                             child: CircleAvatar(

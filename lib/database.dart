@@ -75,9 +75,18 @@ class DatabaseMethods {
   }
 
   getDoctorProfile(String name) async {
-    print(name);
     return FirebaseFirestore.instance
         .collection("doctors")
+        .where("name", isEqualTo: name)
+        .get()
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  getUserProfile(String name) async {
+    return FirebaseFirestore.instance
+        .collection("users")
         .where("name", isEqualTo: name)
         .get()
         .catchError((e) {

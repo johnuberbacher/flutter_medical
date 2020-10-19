@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/widgets.dart';
-import 'package:flutter_medical/routes/category.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 DocumentSnapshot snapshot;
@@ -18,15 +17,14 @@ class _MyHealthPageState extends State<MyHealthPage> {
   String name;
   _MyHealthPageState(this.name);
   DatabaseMethods databaseMethods = new DatabaseMethods();
-  QuerySnapshot doctorProfileSnapshot;
+  QuerySnapshot userProfileSnapshot;
 
   getProfile(name) async {
     print(name);
-    databaseMethods.getDoctorProfile(name).then((val) {
+    databaseMethods.getUserProfile(name).then((val) {
       print(val.toString());
       setState(() {
-        doctorProfileSnapshot = val;
-        print(doctorProfileSnapshot);
+        userProfileSnapshot = val;
       });
     });
   }
@@ -36,49 +34,67 @@ class _MyHealthPageState extends State<MyHealthPage> {
     getProfile(name);
   }
 
-  Widget doctorProfile() {
-    return doctorProfileSnapshot != null
+  Widget loadUserProfile() {
+    return userProfileSnapshot != null
         ? Container(
             child: ListView.builder(
-                itemCount: doctorProfileSnapshot.docs.length,
+                itemCount: userProfileSnapshot.docs.length,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return doctorCard(
-                    name: doctorProfileSnapshot.docs[index].data()["name"],
-                    specialty:
-                        doctorProfileSnapshot.docs[index].data()["specialty"],
+                  print(name);
+                  return userProfileCard(
+                    name: userProfileSnapshot.docs[index].data()["name"],
                     imagePath:
-                        doctorProfileSnapshot.docs[index].data()["imagePath"],
-                    rank: doctorProfileSnapshot.docs[index].data()["rank"],
-                    medicalEducation: doctorProfileSnapshot.docs[index]
-                        .data()["medicalEducation"],
-                    residency:
-                        doctorProfileSnapshot.docs[index].data()["residency"],
-                    internship:
-                        doctorProfileSnapshot.docs[index].data()["internship"],
-                    fellowship:
-                        doctorProfileSnapshot.docs[index].data()["fellowship"],
-                    biography:
-                        doctorProfileSnapshot.docs[index].data()["biography"],
+                        userProfileSnapshot.docs[index].data()["imagePath"],
+                    age: userProfileSnapshot.docs[index].data()["age"],
+                    firstName:
+                        userProfileSnapshot.docs[index].data()["firstName"],
+                    lastName:
+                        userProfileSnapshot.docs[index].data()["lastName"],
+                    gender: userProfileSnapshot.docs[index].data()["gender"],
+                    language:
+                        userProfileSnapshot.docs[index].data()["language"],
+                    heightFeet:
+                        userProfileSnapshot.docs[index].data()["heightFeet"],
+                    heightInch:
+                        userProfileSnapshot.docs[index].data()["heightInch"],
+                    weight: userProfileSnapshot.docs[index].data()["weight"],
+                    email: userProfileSnapshot.docs[index].data()["email"],
                   );
                 }),
           )
         : Container(
-            child: Text("error"),
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(-1.0, 0.0),
+                end: Alignment(1.0, 0.0),
+                colors: [
+                  const Color(0xFF6aa6f8),
+                  const Color(0xFF1a60be),
+                ], // whitish to gray
+              ),
+            ),
+            alignment: Alignment.center,
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
           );
   }
 
-  Widget doctorCard({
+  Widget userProfileCard({
     String name,
-    String specialty,
     String imagePath,
-    String rank,
-    String medicalEducation,
-    String residency,
-    String internship,
-    String fellowship,
-    String biography,
+    String age,
+    String gender,
+    String firstName,
+    String lastName,
+    String language,
+    String heightFeet,
+    String heightInch,
+    String weight,
+    String email,
   }) {
     return Container(
       width: MediaQuery.of(context).size.width * 1.0,
@@ -123,72 +139,26 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     children: [
                       Column(
                         children: [
-                          MaterialButton(
-                            splashColor: Colors.white,
-                            onPressed: () {},
-                            color: Color(0xFF4894e9),
-                            textColor: Colors.white,
-                            child: Icon(
-                              Icons.phone,
-                              size: 30,
-                            ),
-                            padding: EdgeInsets.all(16),
-                            shape: CircleBorder(),
-                          ),
                           Container(
-                            margin: const EdgeInsets.only(
-                              top: 10.0,
-                            ),
-                            child: Text(
-                              'Office',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: Color(0xFF6f6f6f),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(100),
                               ),
+                              boxShadow: [
+                                new BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 15.0,
+                                  offset: Offset(0, 0),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Container(
                             transform:
                                 Matrix4.translationValues(0.0, -15.0, 0.0),
                             child: CircleAvatar(
                               radius: 70,
-                              backgroundImage: NetworkImage(imagePath),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          MaterialButton(
-                            onPressed: () {},
-                            color: Color(0xFF4894e9),
-                            highlightColor: Color(0xFFFFFFFF),
-                            textColor: Colors.white,
-                            child: Icon(
-                              Icons.mail_outline,
-                              size: 30,
-                            ),
-                            padding: EdgeInsets.all(16),
-                            shape: CircleBorder(),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                              top: 10.0,
-                            ),
-                            child: Text(
-                              'Message',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: Color(0xFF6f6f6f),
-                              ),
+                              backgroundImage: (imagePath == null)
+                                  ? AssetImage('assets/images/user.jpg')
+                                  : NetworkImage(imagePath),
                             ),
                           ),
                         ],
@@ -199,14 +169,19 @@ class _MyHealthPageState extends State<MyHealthPage> {
                 Container(
                   margin: const EdgeInsets.only(
                     top: 15.0,
-                    bottom: 5.0,
+                    left: 20.0,
+                    right: 20.0,
+                    bottom: 20.0,
                   ),
                   child: Column(
                     children: [
                       Align(
-                        alignment: Alignment.center,
+                        alignment: Alignment.centerLeft,
                         child: Text(
-                          name ?? "name not found",
+                          "Hello " +
+                                  titleCase(name) +
+                                  ", you're looking healthy today" ??
+                              "name not found",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
@@ -214,40 +189,261 @@ class _MyHealthPageState extends State<MyHealthPage> {
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: FlatButton(
-                          color: Colors.transparent,
-                          splashColor: Colors.black26,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      CategoryPage(specialty)),
-                            );
-                          },
-                          child: Text(
-                            specialty ?? "specialty not found",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Color(0xFF4894e9),
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
                 Container(
-                  child: Text(
-                    "$rank  ⭐ ⭐ ⭐ ⭐ ⭐" ?? "rank not found",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF6f6f6f),
+                  margin: const EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                    bottom: 20.0,
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                'First Name',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                titleCase(firstName) ?? "",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                'Last Name',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                titleCase(lastName) ?? "empty",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                'Gender',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                titleCase(gender) ?? "",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                'Age',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                age ?? "",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                'Language',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                age ?? "",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                'Height',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "$heightFeet' $heightInch\"" ?? "",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                'Weight',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "$weight lbs" ?? "",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                'Email',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                email ?? "",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.only(
+                    top: 20,
+                    left: 30,
+                    right: 30,
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
                     ),
+                    color: Color(0xFFFFFFFF),
+                    boxShadow: [
+                      new BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 30.0,
+                        offset: Offset(0, 0),
+                      ),
+                    ],
                   ),
                 ),
                 Container(
@@ -260,7 +456,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Physician History',
+                      'Coverages',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -284,27 +480,79 @@ class _MyHealthPageState extends State<MyHealthPage> {
                 Container(
                   margin: const EdgeInsets.only(
                     left: 20.0,
-                    right: 20.0,
+                    right: 5.0,
                     bottom: 20.0,
                   ),
-                  child: new OutlineButton(
-                    color: Colors.transparent,
-                    splashColor: Color(0xFF4894e9),
-                    padding: EdgeInsets.all(10),
-                    onPressed: () {},
-                    textColor: Color(0xFF4894e9),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'EDIT PROFILE',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                right: 15.0,
+                                bottom: 15.0,
+                              ),
+                              decoration: new BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                                color: Color(0xFFe9f0f3),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.phone,
+                                  size: 35,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                right: 15.0,
+                                bottom: 15.0,
+                              ),
+                              decoration: new BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                                color: Color(0xFFe9f0f3),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.hearing,
+                                  size: 35,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                right: 15.0,
+                                bottom: 15.0,
+                              ),
+                              decoration: new BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                                color: Color(0xFFe9f0f3),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.phone,
+                                  size: 35,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ]),
                 ),
               ],
             ),
@@ -317,109 +565,20 @@ class _MyHealthPageState extends State<MyHealthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(),
+      extendBodyBehindAppBar: true,
+      appBar: UserProfileAppBar(),
       drawer: GlobalDrawer(),
       body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width * 1.0,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(-1.0, 0.0),
-              end: Alignment(1.0, 0.0),
-              colors: [
-                const Color(0xFF6aa6f8),
-                const Color(0xFF1a60be),
-              ], // whitish to gray
-            ),
-          ),
-          alignment: Alignment.center, // where to position the child
-          child: Column(
-            children: [
-              doctorProfile(),
-            ],
-          ),
-        ),
+        child: loadUserProfile(),
       ),
     );
   }
 }
 
-Material appointmentDays(
-    String appointmentDay, String appointmentDate, context) {
-  return Material(
-    color: Colors.white,
-    child: Container(
-      margin: const EdgeInsets.only(
-        right: 1.0,
-        left: 20.0,
-        top: 5.0,
-        bottom: 5.0,
-      ),
-      child: OutlineButton(
-        color: Colors.transparent,
-        splashColor: Color(0xFF4894e9),
-        padding: EdgeInsets.only(
-          left: 30,
-          right: 30,
-          top: 6,
-        ),
-        onPressed: () {},
-        textColor: Color(0xFF4894e9),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(7.5),
-        ),
-        child: Align(
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Text(
-                appointmentDay,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                appointmentDate,
-                style: TextStyle(fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-Material appointmentTimes(String appointmentDay, context) {
-  return Material(
-    color: Colors.white,
-    child: Container(
-      margin: const EdgeInsets.only(
-        right: 1.0,
-        left: 20.0,
-        top: 5.0,
-        bottom: 5.0,
-      ),
-      child: OutlineButton(
-        color: Colors.transparent,
-        splashColor: Color(0xFF4894e9),
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-        ),
-        onPressed: () {
-          print('View All Doctors Clicked');
-        },
-        textColor: Color(0xFF4894e9),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(7.5),
-        ),
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(
-            appointmentDay,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
-    ),
-  );
+class UserProfileDetailItem extends StatelessWidget {
+  String name;
+  @override
+  Widget build(BuildContext context) {
+    return Text("testing! $name");
+  }
 }

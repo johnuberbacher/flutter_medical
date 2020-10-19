@@ -46,6 +46,36 @@ class GlobalAppBar extends StatelessWidget with PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
 
+class UserProfileAppBar extends StatelessWidget with PreferredSizeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.edit),
+          onPressed: () {},
+        ),
+      ],
+      // centerTitle: true,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment(-1.0, 0.0),
+            end: Alignment(1.0, 0.0),
+            colors: [const Color(0xFF6aa6f8), const Color(0xFF1a60be)],
+          ),
+        ),
+      ),
+      // title: Text('Title'),
+      backgroundColor: Colors.transparent,
+      elevation: 0.0,
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+}
+
 class GlobalDrawer extends StatefulWidget {
   @override
   _GlobalDrawerState createState() => _GlobalDrawerState();
@@ -219,7 +249,7 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MyHealthPage("Dr. Bruce Banner")),
+                    builder: (context) => MyHealthPage(Constants.myName)),
               );
             },
           ),
