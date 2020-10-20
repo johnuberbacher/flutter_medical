@@ -51,12 +51,6 @@ class UserProfileAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: true,
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.edit),
-          onPressed: () {},
-        ),
-      ],
       // centerTitle: true,
       flexibleSpace: Container(
         decoration: BoxDecoration(
@@ -95,10 +89,8 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
 
   getSpecialties() async {
     databaseMethods.getAllSpecialties().then((val) {
-      print(val.toString());
       setState(() {
         specialtySnapshot = val;
-        print(specialtySnapshot);
       });
     });
   }
@@ -244,7 +236,7 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.library_books),
+            leading: Icon(Icons.favorite_border),
             title: Text('My Health'),
             onTap: () {
               Navigator.push(
