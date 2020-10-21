@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/category.dart';
@@ -274,22 +275,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       'Biography',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 18,
                         color: Color(0xFF6f6f6f),
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 15.0,
-                  ),
-                  child: Divider(
-                    color: Colors.black12,
-                    height: 1,
-                    thickness: 1,
                   ),
                 ),
                 Container(
@@ -321,22 +310,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       'Physician History',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 18,
                         color: Color(0xFF6f6f6f),
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 15.0,
-                  ),
-                  child: Divider(
-                    color: Colors.black12,
-                    height: 1,
-                    thickness: 1,
                   ),
                 ),
                 Container(
@@ -444,10 +421,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Appointments',
+                      'Office Photos',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 18,
                         color: Color(0xFF6f6f6f),
                       ),
                     ),
@@ -455,14 +432,38 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(
+                    bottom: 15.0,
+                  ),
+                  height: 150,
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
+                      officePhotos(context, "https://i.imgur.com/gKdDh8p.jpg"),
+                      officePhotos(context, "https://i.imgur.com/bJ6gU02.jpg"),
+                      officePhotos(context, "https://i.imgur.com/ZJZIrIB.jpg"),
+                      officePhotos(context, "https://i.imgur.com/pTAuS44.jpg"),
+                      officePhotos(context, "https://i.imgur.com/eY1lW0A.jpg"),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 20.0,
                     left: 20.0,
                     right: 20.0,
                     bottom: 15.0,
                   ),
-                  child: Divider(
-                    color: Colors.black12,
-                    height: 1,
-                    thickness: 1,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Appointments',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Color(0xFF6f6f6f),
+                      ),
+                    ),
                   ),
                 ),
                 Container(
@@ -630,6 +631,26 @@ Material appointmentTimes(String appointmentDay, context) {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
+      ),
+    ),
+  );
+}
+
+Material officePhotos(context, String officePhotoUrl) {
+  return Material(
+    color: Colors.white,
+    child: Container(
+      width: 150.0,
+      margin: const EdgeInsets.only(
+        left: 20.0,
+      ),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: CachedNetworkImageProvider(officePhotoUrl),
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        color: Colors.redAccent,
       ),
     ),
   );

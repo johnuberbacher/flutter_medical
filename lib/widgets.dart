@@ -345,6 +345,46 @@ class CustomTextField extends StatelessWidget {
   }
 }
 
+String titleCase(String text) {
+  if (text.length <= 1) return text.toUpperCase();
+  var words = text.split(' ');
+  var capitalized = words.map((word) {
+    var first = word.substring(0, 1).toUpperCase();
+    var rest = word.substring(1);
+    return '$first$rest';
+  });
+  return capitalized.join(' ');
+}
+
+Widget MyHealthTextField({String hintText, String initialValue}) {
+  // new
+  return Container(
+    margin: const EdgeInsets.only(
+      left: 20.0,
+      right: 20.0,
+    ),
+    child: TextFormField(
+      textAlign: TextAlign.end,
+      initialValue: initialValue,
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefix: Padding(
+          padding: EdgeInsets.only(
+            right: 15,
+          ),
+          child: Text(hintText),
+        ),
+      ),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
+    ),
+  );
+}
+
 class BottomWaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -363,17 +403,6 @@ class BottomWaveClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-String titleCase(String text) {
-  if (text.length <= 1) return text.toUpperCase();
-  var words = text.split(' ');
-  var capitalized = words.map((word) {
-    var first = word.substring(0, 1).toUpperCase();
-    var rest = word.substring(1);
-    return '$first$rest';
-  });
-  return capitalized.join(' ');
 }
 
 class SlideRightRoute extends PageRouteBuilder {
@@ -400,4 +429,44 @@ class SlideRightRoute extends PageRouteBuilder {
             child: child,
           ),
         );
+}
+
+class SectionHeader extends StatelessWidget {
+  SectionHeader({this.title});
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 20.0,
+        left: 20.0,
+        right: 20.0,
+        bottom: 15.0,
+      ),
+      child: Align(
+          alignment: Alignment.centerLeft,
+          child: Column(
+            children: [
+              Text(
+                'My Profile',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Color(0xFF6f6f6f),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 30.0,
+                ),
+                child: Divider(
+                  color: Colors.black12,
+                  height: 1,
+                  thickness: 1,
+                ),
+              ),
+            ],
+          )),
+    );
+  }
 }

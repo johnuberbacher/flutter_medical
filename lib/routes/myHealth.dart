@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 DocumentSnapshot snapshot;
 
@@ -59,12 +60,12 @@ class _MyHealthPageState extends State<MyHealthPage> {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  print(name);
                   return userProfileCard(
                     name: userProfileSnapshot.docs[index].data()["name"],
                     imagePath:
                         userProfileSnapshot.docs[index].data()["imagePath"],
                     age: userProfileSnapshot.docs[index].data()["age"],
+                    dob: userProfileSnapshot.docs[index].data()["dob"],
                     firstName:
                         userProfileSnapshot.docs[index].data()["firstName"],
                     lastName:
@@ -72,6 +73,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     gender: userProfileSnapshot.docs[index].data()["gender"],
                     language:
                         userProfileSnapshot.docs[index].data()["language"],
+                    bmi: userProfileSnapshot.docs[index].data()["bmi"],
                     heightFeet:
                         userProfileSnapshot.docs[index].data()["heightFeet"],
                     heightInch:
@@ -104,10 +106,12 @@ class _MyHealthPageState extends State<MyHealthPage> {
     String name,
     String imagePath,
     String age,
+    String dob,
     String gender,
     String firstName,
     String lastName,
     String language,
+    String bmi,
     String heightFeet,
     String heightInch,
     String weight,
@@ -174,8 +178,10 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             child: CircleAvatar(
                               radius: 70,
                               backgroundImage: (imagePath == null)
-                                  ? AssetImage('assets/images/user.jpg')
-                                  : NetworkImage(imagePath),
+                                  ? CachedNetworkImageProvider(
+                                      'assets/images/user.jpg',
+                                    )
+                                  : CachedNetworkImageProvider(imagePath),
                             ),
                           ),
                         ],
@@ -186,8 +192,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
                 Container(
                   margin: const EdgeInsets.only(
                     top: 15.0,
-                    left: 20.0,
-                    right: 20.0,
+                    left: 40.0,
+                    right: 40.0,
                     bottom: 30.0,
                   ),
                   child: Column(
@@ -228,8 +234,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             ),
                             decoration: new BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
-                              color: Color(0xFFe9f0f3),
+                                  BorderRadius.all(Radius.circular(20)),
+                              color: Color(0xFF4894e9),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -244,7 +250,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xFF6f6f6f),
+                                      color: Color(0xFFFFFFFF),
                                     ),
                                   ),
                                 ),
@@ -252,6 +258,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                   "Age",
                                   style: TextStyle(
                                     fontSize: 13,
+                                    color: Color(0xFFFFFFFF),
                                   ),
                                 ),
                               ],
@@ -269,8 +276,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             ),
                             decoration: new BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
-                              color: Color(0xFFe9f0f3),
+                                  BorderRadius.all(Radius.circular(20)),
+                              color: Color(0xFF4894e9),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -281,18 +288,19 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                     bottom: 5,
                                   ),
                                   child: Text(
-                                    age ?? "",
+                                    bmi ?? "",
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xFF6f6f6f),
+                                      color: Color(0xFFFFFFFF),
                                     ),
                                   ),
                                 ),
                                 Text(
-                                  "Age",
+                                  "BMI",
                                   style: TextStyle(
                                     fontSize: 13,
+                                    color: Color(0xFFFFFFFF),
                                   ),
                                 ),
                               ],
@@ -310,8 +318,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             ),
                             decoration: new BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
-                              color: Color(0xFFe9f0f3),
+                                  BorderRadius.all(Radius.circular(20)),
+                              color: Color(0xFF4894e9),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -326,7 +334,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xFF6f6f6f),
+                                      color: Color(0xFFFFFFFF),
                                     ),
                                   ),
                                 ),
@@ -334,6 +342,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                   "Height",
                                   style: TextStyle(
                                     fontSize: 13,
+                                    color: Color(0xFFFFFFFF),
                                   ),
                                 ),
                               ],
@@ -351,8 +360,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             ),
                             decoration: new BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
-                              color: Color(0xFFe9f0f3),
+                                  BorderRadius.all(Radius.circular(20)),
+                              color: Color(0xFF4894e9),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -368,13 +377,14 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500,
-                                        color: Color(0xFF6f6f6f),
+                                        color: Color(0xFFFFFFFF),
                                       ),
                                       children: <TextSpan>[
                                         TextSpan(
                                           text: 'lbs',
                                           style: TextStyle(
                                             fontSize: 13,
+                                            color: Color(0xFFFFFFFF),
                                           ),
                                         ),
                                       ],
@@ -385,6 +395,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                   "Weight",
                                   style: TextStyle(
                                     fontSize: 13,
+                                    color: Color(0xFFFFFFFF),
                                   ),
                                 ),
                               ],
@@ -393,6 +404,25 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 20.0,
+                    left: 20.0,
+                    right: 20.0,
+                    bottom: 15.0,
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'My Profile',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Color(0xFF6f6f6f),
+                      ),
+                    ),
                   ),
                 ),
                 Container(
@@ -420,56 +450,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                  ),
-                  child: TextFormField(
-                    textAlign: TextAlign.end,
-                    initialValue: language,
-                    decoration: InputDecoration(
-                      hintText: 'Language',
-                      prefix: Padding(
-                        padding: EdgeInsets.only(
-                          right: 15,
-                        ),
-                        child: Text('Language'),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                  ),
-                  child: TextFormField(
-                    textAlign: TextAlign.end,
-                    initialValue: email,
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      prefix: Padding(
-                        padding: EdgeInsets.only(
-                          right: 15,
-                        ),
-                        child: Text('Email'),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
+                MyHealthTextField(hintText: 'Language', initialValue: language),
+                MyHealthTextField(hintText: 'Email', initialValue: email),
                 Container(
                   margin: const EdgeInsets.only(
                     top: 60.0,
@@ -480,7 +462,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Coverages',
+                      'My Coverage',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
