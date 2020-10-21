@@ -4,8 +4,8 @@ import 'package:flutter_medical/models/user.dart';
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  currentUser _userFromFirebaseUser(User user) {
-    return user != null ? currentUser(userId: user.uid) : null;
+  CurrentUser _userFromFirebaseUser(User user) {
+    return user != null ? CurrentUser(userId: user.uid) : null;
   }
 
   Future signInWithEmailAndPassword(String email, String password) async {

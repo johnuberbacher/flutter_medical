@@ -207,7 +207,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                               "name not found",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                             fontSize: 22,
                             color: Color(0xFF6f6f6f),
                           ),
@@ -220,7 +220,6 @@ class _MyHealthPageState extends State<MyHealthPage> {
                   margin: const EdgeInsets.only(
                     left: 20.0,
                     right: 5.0,
-                    bottom: 20.0,
                   ),
                   child: Row(
                     children: [
@@ -406,25 +405,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 20.0,
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 15.0,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'My Profile',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Color(0xFF6f6f6f),
-                      ),
-                    ),
-                  ),
-                ),
+                sectionTitle("My Profile"),
                 Container(
                   margin: const EdgeInsets.only(
                     left: 20.0,
@@ -452,113 +433,19 @@ class _MyHealthPageState extends State<MyHealthPage> {
                 ),
                 MyHealthTextField(hintText: 'Language', initialValue: language),
                 MyHealthTextField(hintText: 'Email', initialValue: email),
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 60.0,
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 15.0,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'My Coverage',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Color(0xFF6f6f6f),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 15.0,
-                  ),
-                  child: Divider(
-                    color: Colors.black12,
-                    height: 1,
-                    thickness: 1,
-                  ),
-                ),
+                sectionTitle("My Coverages"),
                 Container(
                   margin: const EdgeInsets.only(
                     left: 20.0,
                     right: 5.0,
                     bottom: 20.0,
                   ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                right: 15.0,
-                                bottom: 15.0,
-                              ),
-                              decoration: new BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
-                                color: Color(0xFFe9f0f3),
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.favorite_border,
-                                  size: 35,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                right: 15.0,
-                                bottom: 15.0,
-                              ),
-                              decoration: new BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
-                                color: Color(0xFFe9f0f3),
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.hearing,
-                                  size: 35,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                right: 15.0,
-                                bottom: 15.0,
-                              ),
-                              decoration: new BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
-                                color: Color(0xFFe9f0f3),
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.phone,
-                                  size: 35,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ]),
+                  child: Wrap(children: <Widget>[
+                    myHealthCoverages("Medical"),
+                    myHealthCoverages("Dental"),
+                    myHealthCoverages("Vision"),
+                    myHealthCoverages("Life"),
+                  ]),
                 ),
               ],
             ),

@@ -345,46 +345,6 @@ class CustomTextField extends StatelessWidget {
   }
 }
 
-String titleCase(String text) {
-  if (text.length <= 1) return text.toUpperCase();
-  var words = text.split(' ');
-  var capitalized = words.map((word) {
-    var first = word.substring(0, 1).toUpperCase();
-    var rest = word.substring(1);
-    return '$first$rest';
-  });
-  return capitalized.join(' ');
-}
-
-Widget MyHealthTextField({String hintText, String initialValue}) {
-  // new
-  return Container(
-    margin: const EdgeInsets.only(
-      left: 20.0,
-      right: 20.0,
-    ),
-    child: TextFormField(
-      textAlign: TextAlign.end,
-      initialValue: initialValue,
-      decoration: InputDecoration(
-        hintText: hintText,
-        prefix: Padding(
-          padding: EdgeInsets.only(
-            right: 15,
-          ),
-          child: Text(hintText),
-        ),
-      ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Please enter some text';
-        }
-        return null;
-      },
-    ),
-  );
-}
-
 class BottomWaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -431,42 +391,119 @@ class SlideRightRoute extends PageRouteBuilder {
         );
 }
 
-class SectionHeader extends StatelessWidget {
-  SectionHeader({this.title});
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-        top: 20.0,
-        left: 20.0,
-        right: 20.0,
-        bottom: 15.0,
+String titleCase(String text) {
+  if (text.length <= 1) return text.toUpperCase();
+  var words = text.split(' ');
+  var capitalized = words.map((word) {
+    var first = word.substring(0, 1).toUpperCase();
+    var rest = word.substring(1);
+    return '$first$rest';
+  });
+  return capitalized.join(' ');
+}
+
+Widget MyHealthTextField({String hintText, String initialValue}) {
+  // new
+  return Container(
+    margin: const EdgeInsets.only(
+      left: 20.0,
+      right: 20.0,
+    ),
+    child: TextFormField(
+      textAlign: TextAlign.end,
+      initialValue: initialValue,
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefix: Padding(
+          padding: EdgeInsets.only(
+            right: 15,
+          ),
+          child: Text(hintText),
+        ),
       ),
-      child: Align(
-          alignment: Alignment.centerLeft,
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
+    ),
+  );
+}
+
+Widget myHealthCoverages(String coverageName) {
+  return FractionallySizedBox(
+    widthFactor: 0.33,
+    child: AspectRatio(
+      aspectRatio: 1,
+      child: Container(
+        margin: const EdgeInsets.only(
+          right: 15.0,
+          bottom: 15.0,
+        ),
+        decoration: new BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+          color: Color(0xFFe9f0f3),
+        ),
+        child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'My Profile',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Color(0xFF6f6f6f),
-                ),
+              Icon(
+                Icons.favorite_border,
+                size: 35,
               ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 30.0,
-                ),
-                child: Divider(
-                  color: Colors.black12,
-                  height: 1,
-                  thickness: 1,
+              Text(
+                coverageName,
+                style: TextStyle(
+                  fontSize: 13,
                 ),
               ),
             ],
-          )),
-    );
-  }
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget sectionTitle(String title) {
+  return Container(
+    margin: const EdgeInsets.only(
+      top: 20.0,
+      left: 20.0,
+      right: 20.0,
+      bottom: 20.0,
+    ),
+    child: Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: 10,
+            ),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Color(0xFF4894e9),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+          ),
+          child: Divider(
+            color: Colors.black12,
+            height: 1,
+            thickness: 1,
+          ),
+        ),
+      ],
+    ),
+  );
 }

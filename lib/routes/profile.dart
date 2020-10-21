@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/category.dart';
+import 'package:flutter_medical/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 DocumentSnapshot snapshot;
@@ -262,30 +263,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
+                sectionTitle("Biography"),
                 Container(
                   margin: const EdgeInsets.only(
-                    top: 25.0,
                     left: 20.0,
                     right: 20.0,
-                    bottom: 15.0,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Biography',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Color(0xFF6f6f6f),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 15.0,
-                    bottom: 15.0,
                   ),
                   child: Align(
                     alignment: Alignment.centerLeft,
@@ -297,31 +279,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
+                sectionTitle("Physician History"),
                 Container(
                   margin: const EdgeInsets.only(
-                    top: 20.0,
                     left: 20.0,
                     right: 20.0,
-                    bottom: 15.0,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Physician History',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Color(0xFF6f6f6f),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 5.0,
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 15.0,
                   ),
                   child: Align(
                     alignment: Alignment.centerLeft,
@@ -411,29 +373,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
+                sectionTitle("Office Gallery"),
                 Container(
-                  margin: const EdgeInsets.only(
-                    top: 20.0,
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 15.0,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Office Photos',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Color(0xFF6f6f6f),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 15.0,
-                  ),
                   height: 150,
                   child: ListView(
                     padding: EdgeInsets.zero,
@@ -447,25 +388,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 20.0,
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 15.0,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Appointments',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Color(0xFF6f6f6f),
-                      ),
-                    ),
-                  ),
-                ),
+                sectionTitle("Appointments"),
                 Container(
                   margin: const EdgeInsets.only(
                     bottom: 15.0,
