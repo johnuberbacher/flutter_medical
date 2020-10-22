@@ -8,6 +8,7 @@ import 'package:flutter_medical/routes/category.dart';
 import 'package:flutter_medical/models/constant.dart';
 import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 DocumentSnapshot snapshot;
 
@@ -187,8 +188,8 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
                       shape: BoxShape.circle,
                       image: new DecorationImage(
                         fit: BoxFit.fill,
-                        image:
-                            new NetworkImage("https://i.imgur.com/iQkzaTO.jpg"),
+                        image: new CachedNetworkImageProvider(
+                            "https://i.imgur.com/iQkzaTO.jpg"),
                       ),
                     ),
                   ),

@@ -70,6 +70,11 @@ class _MyAppState extends State<MyApp> {
                 child: Authenticate(),
               ),
             ),
+      theme: ThemeData.light().copyWith(
+        inputDecorationTheme: InputDecorationTheme(
+            // border: OutlineInputBorder(),
+            ),
+      ),
     );
   }
 }

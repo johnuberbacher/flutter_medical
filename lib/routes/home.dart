@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_medical/routes/functions.dart';
 import 'package:flutter_medical/services/shared_preferences.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_medical/routes/myHealth.dart';
 import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/models/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 DocumentSnapshot snapshot;
 
@@ -26,18 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
   String _phone = '123-456-7890';
   DatabaseMethods databaseMethods = new DatabaseMethods();
   QuerySnapshot doctorSnapshot;
-
-  List<DocumentSnapshot> loadedDoctors = []; // stores fetched doctors
-  bool isLoadingDoctors = false; // track if doctors fetching
-  bool hasMoreDoctors = true; // flag for more doctors available or not
-  int documentLimit = 2; // documents to be fetched per request
-  ScrollController _scrollController =
-      ScrollController(); // listener for listview scrolling
-  DocumentSnapshot
-      lastDocument; // flag for last document from where next 10 records to be fetched
-
   QuerySnapshot specialtySnapshot;
   QuerySnapshot doctorSpecialtyCount;
+  QuerySnapshot userProfileSnapshot;
+  List<DocumentSnapshot> loadedDoctors = [];
+  bool isLoading = false;
+  bool hasMore = true;
+  int documentLimit = 3;
+  DocumentSnapshot lastDocument;
 
   getDoctors() async {
     databaseMethods.getAllDoctors().then((val) {
@@ -50,48 +48,52 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   paginateDoctors() async {
-    if (!hasMoreDoctors) {
-      print('No more doctors');
-      // return;
+    if (!hasMore) {
+      print('No More Products');
+      return;
     }
-    if (isLoadingDoctors) {
-      print('return isLoadingDoctors');
-      //  return;
+    if (isLoading) {
+      return;
     }
-    setState(() {
-      isLoadingDoctors = true;
-    });
-    QuerySnapshot paginateDoctorSnapshot;
     if (lastDocument == null) {
       databaseMethods.getAllDoctorsPagination(documentLimit).then((val) {
-        print(val.toString());
         setState(() {
           doctorSnapshot = val;
-          print("worked");
+          print(
+              "pulling doctors without having loaded any more, Document Limit is:");
+          print(documentLimit);
+          setState(() {
+            isLoading = false;
+          });
         });
       });
     } else {
       databaseMethods
           .getAllDoctorsPaginationStartAfter(documentLimit, lastDocument)
           .then((val) {
-        print(val.toString());
         setState(() {
           doctorSnapshot = val;
-          print("error");
+          print("pulling NEW doctors, lastDocuments is:");
+          print(lastDocument);
+          setState(() {
+            isLoading = false;
+          });
         });
       });
     }
     if (doctorSnapshot.docs.length < documentLimit) {
-      print(doctorSnapshot.docs.length);
-      hasMoreDoctors = false;
+      hasMore = false;
     }
-
-    lastDocument = doctorSnapshot.docs[doctorSnapshot.docs.length - 3];
+    lastDocument = doctorSnapshot.docs[doctorSnapshot.docs.length - 1];
     loadedDoctors.addAll(doctorSnapshot.docs);
     setState(() {
-      isLoadingDoctors = false;
+      isLoading = false;
     });
   }
+
+  void setLoading([bool value = false]) => setState(() {
+        isLoading = value;
+      });
 
   getSpecialties() async {
     databaseMethods.getAllSpecialties().then((val) {
@@ -101,6 +103,104 @@ class _HomeScreenState extends State<HomeScreen> {
         print(specialtySnapshot);
       });
     });
+  }
+
+  Widget loadUserInfo() {
+    return userProfileSnapshot != null
+        ? Container(
+            child: ListView.builder(
+                itemCount: userProfileSnapshot.docs.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return userHeader(
+                    imagePath:
+                        userProfileSnapshot.docs[index].data()["imagePath"],
+                  );
+                }),
+          )
+        : Container(
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(-1.0, 0.0),
+                end: Alignment(1.0, 0.0),
+                colors: [
+                  const Color(0xFF6aa6f8),
+                  const Color(0xFF1a60be),
+                ], // whitish to gray
+              ),
+            ),
+            alignment: Alignment.center,
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          );
+  }
+
+  Widget userHeader({
+    String imagePath,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 15.0,
+        left: 20.0,
+        right: 20.0,
+        bottom: 20.0,
+      ),
+      child: Row(
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              right: 25.0,
+            ),
+            width: 70.0,
+            height: 70.0,
+            decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              image: new DecorationImage(
+                fit: BoxFit.fill,
+                image: new CachedNetworkImageProvider(
+                    imagePath ?? "https://i.imgur.com/iQkzaTO.jpg"),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: FractionalOffset.centerLeft,
+                  child: Text(
+                    'Welcome back, ' + titleCase(Constants.myName),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22.25,
+                      color: Color(0xFFFFFFFF),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: FractionalOffset.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 5.0,
+                    ),
+                    child: Text(
+                      'How can we help you today?',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget doctorList() {
@@ -272,7 +372,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 70.0,
                         child: CircleAvatar(
                           radius: 20,
-                          backgroundImage: NetworkImage(imagePath),
+                          backgroundImage:
+                              CachedNetworkImageProvider(imagePath),
                         ),
                       ),
                       Flexible(
@@ -346,14 +447,19 @@ class _HomeScreenState extends State<HomeScreen> {
     getUserInfo();
     getSpecialties();
     paginateDoctors();
-    // getDoctors();
     super.initState();
   }
 
   getUserInfo() async {
     Constants.myName = await CheckSharedPreferences.getNameSharedPreference();
     setState(() {
-      print("we got the data: the name is  ${Constants.myName}");
+      print("Shared Preferences: users name: ${Constants.myName}");
+    });
+    databaseMethods.getUserProfile(Constants.myName).then((val) {
+      print(val.toString());
+      setState(() {
+        userProfileSnapshot = val;
+      });
     });
   }
 
@@ -378,66 +484,7 @@ class _HomeScreenState extends State<HomeScreen> {
           alignment: Alignment.center,
           child: Column(
             children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 15.0,
-                  left: 20.0,
-                  right: 20.0,
-                  bottom: 20.0,
-                ),
-                child: Row(
-                  children: [
-                    new Container(
-                      margin: EdgeInsets.only(
-                        right: 30.0,
-                      ),
-                      width: 70.0,
-                      height: 70.0,
-                      decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new NetworkImage(
-                              "https://i.imgur.com/iQkzaTO.jpg"),
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: FractionalOffset.centerLeft,
-                            child: Text(
-                              'Welcome back, ' + titleCase(Constants.myName),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22.25,
-                                color: Color(0xFFFFFFFF),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: FractionalOffset.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 5.0,
-                              ),
-                              child: Text(
-                                'How can we help you today?',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Color(0xFFFFFFFF),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              loadUserInfo(),
               Container(
                 margin: const EdgeInsets.only(
                   top: 40.0,
@@ -539,11 +586,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               MaterialButton(
                                 onPressed: () {
-                                  Navigator.pushReplacement(
+                                  Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            MyHealthPage("Dr. Bruce Banner")),
+                                    SlideRightRoute(
+                                        page: MyHealthPage(Constants.myName)),
                                   );
                                 },
                                 color: Color(0xFF4894e9),
@@ -575,25 +621,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 10.0,
-                        left: 20.0,
-                        right: 15.0,
-                        bottom: 15.0,
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Specialties',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
-                            color: Color(0xFF6f6f6f),
-                          ),
-                        ),
-                      ),
-                    ),
+                    sectionTitle("Specialties"),
                     Container(
                       margin: const EdgeInsets.only(
                         left: 20.0,
@@ -621,25 +649,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 30.0,
-                        left: 20.0,
-                        right: 15.0,
-                        bottom: 15.0,
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Our Top Doctors',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
-                            color: Color(0xFF6f6f6f),
-                          ),
-                        ),
-                      ),
-                    ),
+                    sectionTitle("Our Top Doctors"),
                     Container(
                       margin: const EdgeInsets.only(
                         left: 20.0,
@@ -662,13 +672,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: Column(
                         children: <Widget>[
-                          loadedDoctors.length == 0
+                          loadedDoctors.length == null
                               ? Center(
                                   child: Text('No More Data to load...'),
                                 )
                               : ListView.builder(
                                   reverse: true,
                                   shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
                                   itemCount: loadedDoctors.length,
                                   itemBuilder: (context, index) {
                                     return doctorCard(
@@ -683,15 +694,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                     );
                                   },
                                 ),
-                          isLoadingDoctors
-                              ? Center(
-                                  // Trying to load
-                                  child: CircularProgressIndicator(),
+                          isLoading
+                              ? Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  padding: EdgeInsets.all(5),
+                                  color: Colors.yellowAccent,
+                                  child: Text(
+                                    'Loading',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 )
-                              : Center(
-                                  // Not loaded or maybe error
-                                  child: CircularProgressIndicator(),
-                                )
+                              : Container()
                         ],
                       ),
                     ),
@@ -707,7 +723,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.all(10),
                         onPressed: () {
                           paginateDoctors();
-                          print('Loading More Doctors');
                         },
                         textColor: Color(0xFF4894e9),
                         shape: RoundedRectangleBorder(

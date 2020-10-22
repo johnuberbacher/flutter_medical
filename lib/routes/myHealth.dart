@@ -31,22 +31,6 @@ class _MyHealthPageState extends State<MyHealthPage> {
     });
   }
 
-  TextEditingController _date = new TextEditingController();
-
-  Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(1901, 1),
-        lastDate: DateTime(2100));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-        _date.value = TextEditingValue(
-            text: picked.toIso8601String().split('T').first.toString());
-      });
-  }
-
   @override
   void initState() {
     getProfile(name);
@@ -406,31 +390,6 @@ class _MyHealthPageState extends State<MyHealthPage> {
                   ),
                 ),
                 sectionTitle("My Profile"),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                  ),
-                  child: GestureDetector(
-                    onTap: () => _selectDate(context),
-                    child: AbsorbPointer(
-                      child: TextFormField(
-                        textAlign: TextAlign.end,
-                        controller: _date,
-                        keyboardType: TextInputType.datetime,
-                        decoration: InputDecoration(
-                          hintText: 'Date of Birth',
-                          prefix: Padding(
-                            padding: EdgeInsets.only(
-                              right: 15,
-                            ),
-                            child: Text('Date of Birth'),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
                 MyHealthTextField(hintText: 'Language', initialValue: language),
                 MyHealthTextField(hintText: 'Email', initialValue: email),
                 sectionTitle("My Coverages"),
