@@ -64,6 +64,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         userProfileSnapshot.docs[index].data()["heightInch"],
                     weight: userProfileSnapshot.docs[index].data()["weight"],
                     email: userProfileSnapshot.docs[index].data()["email"],
+                    address: userProfileSnapshot.docs[index].data()["address"],
+                    phone: userProfileSnapshot.docs[index].data()["phone"],
                   );
                 }),
           )
@@ -100,6 +102,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
     String heightInch,
     String weight,
     String email,
+    String address,
+    String phone,
   }) {
     return Container(
       width: MediaQuery.of(context).size.width * 1.0,
@@ -389,23 +393,23 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     ],
                   ),
                 ),
-                sectionTitle("My Profile"),
-                MyHealthTextField(hintText: 'Language', initialValue: language),
-                MyHealthTextField(hintText: 'Email', initialValue: email),
                 sectionTitle("My Coverages"),
                 Container(
                   margin: const EdgeInsets.only(
                     left: 20.0,
                     right: 5.0,
-                    bottom: 20.0,
                   ),
                   child: Wrap(children: <Widget>[
-                    myHealthCoverages("Medical"),
-                    myHealthCoverages("Dental"),
-                    myHealthCoverages("Vision"),
-                    myHealthCoverages("Life"),
+                    myHealthCoverages("Medical", Icons.favorite_border),
+                    myHealthCoverages("Dental", Icons.tag_faces_rounded),
+                    myHealthCoverages("Vision", Icons.remove_red_eye),
                   ]),
                 ),
+                sectionTitle("Preferences"),
+                MyHealthTextField(hintText: 'Language', initialValue: language ?? " "),
+                MyHealthTextField(hintText: 'Email', initialValue: email ?? " "),
+                MyHealthTextField(hintText: 'Phone', initialValue: phone ?? " "),
+                MyHealthTextField(hintText: 'Address', initialValue: address ?? " "),
               ],
             ),
           ),

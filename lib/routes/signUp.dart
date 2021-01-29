@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_medical/routes/signIn.dart';
 import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
 import 'package:flutter_medical/services/database.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SignUpPage extends StatefulWidget {
   final Function toggleView;
@@ -16,7 +18,6 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   bool isLoading = false;
-
   AuthMethods authMethods = new AuthMethods();
   DatabaseMethods databaseMethods = new DatabaseMethods();
 
@@ -60,6 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: NotificationListener<OverscrollIndicatorNotification>(
@@ -92,7 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(
-                              top: 100.0,
+                              top: 90.0,
                             ),
                             child: Text(
                               'Sign Up',
@@ -147,6 +149,29 @@ class _SignUpPageState extends State<SignUpPage> {
                               children: [
                                 Container(
                                   margin: const EdgeInsets.only(
+                                    top: 30.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(100),
+                                    ),
+                                    boxShadow: [
+                                      new BoxShadow(
+                                        color: Colors.black12,
+                                        blurRadius: 15.0,
+                                        offset: Offset(0, 0),
+                                      ),
+                                    ],
+                                  ),
+                                  child: CircleAvatar(
+                                    radius: 50,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                      'https://i.imgur.com/4EZqyvF.jpg',
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(
                                     top: 20.0,
                                     left: 20.0,
                                     right: 20.0,
@@ -190,6 +215,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                   ),
                                 ),
+                                // Email
                                 Container(
                                   margin: const EdgeInsets.only(
                                     left: 20.0,
@@ -236,6 +262,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                   ),
                                 ),
+                                // Password
                                 Container(
                                   margin: const EdgeInsets.only(
                                     left: 20.0,
@@ -305,7 +332,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 child: Text(
                                   'Create Account',
                                   style: TextStyle(
-                                      fontSize: 16,
+                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),

@@ -67,6 +67,9 @@ class _CategoryPageState extends State<CategoryPage> {
     String specialtyDoctorCount,
   }) {
     return Container(
+        margin: const EdgeInsets.only(
+          top: 65.0,
+        ),
         width: MediaQuery.of(context).size.width * 1.0,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -95,9 +98,11 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  MaterialApp(
+        home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
       appBar: AppBar(
-        // centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -113,28 +118,26 @@ class _CategoryPageState extends State<CategoryPage> {
         // title: Text('Title'),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width * 1.0,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(-1.0, 0.0),
-              end: Alignment(1.0, 0.0),
-              colors: [
-                const Color(0xFF6aa6f8),
-                const Color(0xFF1a60be),
-              ], // whitish to gray
-            ),
-          ),
-          alignment: Alignment.center, // where to position the child
-          child: Column(
-            children: [
-              specialtyProfile(),
-            ],
-          ),
+        bottom: TabBar(
+          isScrollable: true,
+          unselectedLabelColor: Colors.white.withOpacity(0.3),
+          indicatorColor: Colors.white,
+          tabs: [
+            Tab(icon: Icon(Icons.directions_car)),
+            Tab(icon: Icon(Icons.directions_transit)),
+            Tab(icon: Icon(Icons.directions_bike)),
+          ],
         ),
       ),
+      body: TabBarView(
+        children: [
+          Icon(Icons.directions_car),
+          Icon(Icons.directions_transit),
+          Icon(Icons.directions_bike),
+        ],
+      ),
+    ),
+        ),
     );
   }
 }

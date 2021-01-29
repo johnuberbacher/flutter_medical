@@ -81,6 +81,65 @@ class _ProfilePageState extends State<ProfilePage> {
     String fellowship,
     String biography,
   }) {
+
+    final SimpleDialog officePhoneDialog = SimpleDialog(
+      title: Text('Office Locations'),
+      children: [
+        SimpleDialogItem(
+          icon: Icons.account_circle,
+          color: Colors.orange,
+          text: 'denverlocation@yourwebsite.com',
+          onPressed: () {
+            Navigator.pop(context, 'denverlocation@yourwebsite.com');
+          },
+        ),
+        SimpleDialogItem(
+          icon: Icons.account_circle,
+          color: Colors.green,
+          text: 'newyork@yourwebsite.com',
+          onPressed: () {
+            Navigator.pop(context, 'newyork@yourwebsite.com');
+          },
+        ),
+        SimpleDialogItem(
+          icon: Icons.account_circle,
+          color: Colors.blue,
+          text: 'houston@yourwebsite.com',
+          onPressed: () {
+            Navigator.pop(context, 'houston@yourwebsite.com');
+          },
+        ),
+      ],
+    );
+    final SimpleDialog dialog = SimpleDialog(
+      title: Text('Office Location'),
+      children: [
+        SimpleDialogItem(
+          icon: Icons.account_circle,
+          color: Colors.orange,
+          text: 'denverlocation@yourwebsite.com',
+          onPressed: () {
+            Navigator.pop(context, 'denverlocation@yourwebsite.com');
+          },
+        ),
+        SimpleDialogItem(
+          icon: Icons.account_circle,
+          color: Colors.green,
+          text: 'newyork@yourwebsite.com',
+          onPressed: () {
+            Navigator.pop(context, 'newyork@yourwebsite.com');
+          },
+        ),
+        SimpleDialogItem(
+          icon: Icons.account_circle,
+          color: Colors.blue,
+          text: 'houston@yourwebsite.com',
+          onPressed: () {
+            Navigator.pop(context, 'houston@yourwebsite.com');
+          },
+        ),
+      ],
+    );
     return Container(
       width: MediaQuery.of(context).size.width * 1.0,
       decoration: BoxDecoration(
@@ -179,7 +238,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog<void>(context: context, builder: (context) => dialog);
+                            },
                             color: Color(0xFF4894e9),
                             highlightColor: Color(0xFFFFFFFF),
                             textColor: Colors.white,
@@ -573,7 +634,7 @@ Material officePhotos(context, String officePhotoUrl) {
           image: CachedNetworkImageProvider(officePhotoUrl),
         ),
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        color: Colors.redAccent,
+        color: Color(0xFFb1b2c4),
       ),
     ),
   );

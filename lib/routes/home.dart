@@ -157,11 +157,18 @@ class _HomeScreenState extends State<HomeScreen> {
             width: 70.0,
             height: 70.0,
             decoration: new BoxDecoration(
+              boxShadow: [
+                new BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10.0,
+                  offset: Offset(0, 0),
+                ),
+              ],
               shape: BoxShape.circle,
               image: new DecorationImage(
                 fit: BoxFit.fill,
                 image: new CachedNetworkImageProvider(
-                    imagePath ?? "https://i.imgur.com/iQkzaTO.jpg"),
+                    imagePath),
               ),
             ),
           ),
@@ -257,83 +264,89 @@ class _HomeScreenState extends State<HomeScreen> {
       {String specialtyName,
       String specialtyDoctorCount,
       String specialtyImagePath}) {
-    return Material(
-      color: const Color(0xFFFFFFFF),
-      child: Container(
-        margin: const EdgeInsets.only(
-          left: 20.0,
-          right: 0.0,
-        ),
+    return Container(
+        margin: const EdgeInsets.only(left: 20.0, right: 0, top: 7.0, bottom: 14,),
         width: 130,
-        height: 100,
-        child: Card(
-          elevation: 3.0,
-          child: new InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CategoryPage(specialtyName)),
-              );
-            },
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(
-                            top: 5.0,
-                            bottom: 12.5,
-                          ),
-                          child: Image.network(
-                            specialtyImagePath,
-                            height: 60,
-                            width: 60,
-                          ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+              bottomLeft: Radius.circular(15),
+              bottomRight: Radius.circular(15)
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 3.0,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: new InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              SlideRightRoute(
+                  page: CategoryPage(specialtyName)),
+            );
+          },
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 5.0,
+                          bottom: 12.5,
                         ),
-                      ],
+                        child: Image.network(
+                          specialtyImagePath,
+                          height: 60,
+                          width: 60,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    specialtyName,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0xFF6f6f6f),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.center,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 3.0,
+                    ),
                     child: Text(
-                      specialtyName,
+                      specialtyDoctorCount + ' Doctors',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Color(0xFF6f6f6f),
+                        fontSize: 14,
+                        color: Color(0xFF9f9f9f),
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 3.0,
-                      ),
-                      child: Text(
-                        specialtyDoctorCount + ' Doctors',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: Color(0xFF9f9f9f),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-      ),
     );
   }
 
@@ -640,7 +653,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       color: const Color(0xFFFFFFFF),
-                      height: 160,
+                      height: 190,
                       child: ListView(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
