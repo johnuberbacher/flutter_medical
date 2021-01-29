@@ -409,22 +409,34 @@ Widget MyHealthTextField({String hintText, String initialValue}) {
     margin: const EdgeInsets.only(
       left: 20.0,
       right: 20.0,
+      bottom: 20.0,
     ),
     child: TextFormField(
       textAlign: TextAlign.end,
       initialValue: initialValue,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20,),
+        enabledBorder:  OutlineInputBorder(
+          // width: 0.0 produces a thin "hairline" border
+          borderRadius:BorderRadius.circular(30.0),
+          borderSide: const BorderSide(color: Colors.grey, width: 0.0),
+        ),
+        border: OutlineInputBorder(
+            borderRadius:BorderRadius.circular(30.0)),
         hintText: hintText,
         prefix: Padding(
           padding: EdgeInsets.only(
             right: 15,
           ),
-          child: Text(hintText),
+          child: Text(
+              hintText,
+              style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       validator: (value) {
         if (value.isEmpty) {
-          return 'Please enter some text';
+          return '';
         }
         return null;
       },
@@ -432,7 +444,7 @@ Widget MyHealthTextField({String hintText, String initialValue}) {
   );
 }
 
-Widget myHealthCoverages(String coverageName) {
+Widget myHealthCoverages(String coverageName, IconData coverageIcon) {
   return FractionallySizedBox(
     widthFactor: 0.33,
     child: AspectRatio(
@@ -451,13 +463,19 @@ Widget myHealthCoverages(String coverageName) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.favorite_border,
+                coverageIcon,
                 size: 35,
               ),
-              Text(
-                coverageName,
-                style: TextStyle(
-                  fontSize: 13,
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 7.5,
+                ),
+                child:
+                Text(
+                  coverageName,
+                  style: TextStyle(
+                    fontSize: 13,
+                  ),
                 ),
               ),
             ],
@@ -488,7 +506,7 @@ Widget sectionTitle(String title) {
               title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 20,
                 color: Color(0xFF4894e9),
               ),
             ),
@@ -507,4 +525,33 @@ Widget sectionTitle(String title) {
       ],
     ),
   );
+}
+
+class SimpleDialogItem extends StatelessWidget {
+  const SimpleDialogItem(
+      {Key key, this.icon, this.color, this.text, this.onPressed})
+      : super(key: key);
+
+  final IconData icon;
+  final Color color;
+  final String text;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialogOption(
+      onPressed: onPressed,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(icon, size: 36.0, color: color),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 16.0),
+            child: Text(text),
+          ),
+        ],
+      ),
+    );
+  }
 }
