@@ -102,7 +102,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                           Container(
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                top: 20.0,
+                                top: 15.0,
                                 left: 40.0,
                                 right: 40.0,
                               ),
@@ -110,7 +110,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                 'Lorem ipsum dolor sit amet, aliqua consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. ',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   color: Color(0xFFFFFFFF),
                                 ),
                               ),
