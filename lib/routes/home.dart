@@ -167,8 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
               shape: BoxShape.circle,
               image: new DecorationImage(
                 fit: BoxFit.fill,
-                image: new CachedNetworkImageProvider(
-                    imagePath),
+                image: new CachedNetworkImageProvider(imagePath),
               ),
             ),
           ),
@@ -239,20 +238,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget specialtyList() {
     return specialtySnapshot != null
-        ? ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: specialtySnapshot.docs.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return specialtyCard(
-                specialtyName:
-                    specialtySnapshot.docs[index].data()["specialtyName"],
-                specialtyDoctorCount: specialtySnapshot.docs[index]
-                    .data()["specialtyDoctorCount"],
-                specialtyImagePath:
-                    specialtySnapshot.docs[index].data()["specialtyImagePath"],
-              );
-            })
+        ? Padding(
+            padding: const EdgeInsets.only(
+              right: 15.0,
+            ),
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: specialtySnapshot.docs.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return specialtyCard(
+                    specialtyName:
+                        specialtySnapshot.docs[index].data()["specialtyName"],
+                    specialtyDoctorCount: specialtySnapshot.docs[index]
+                        .data()["specialtyDoctorCount"],
+                    specialtyImagePath: specialtySnapshot.docs[index]
+                        .data()["specialtyImagePath"],
+                  );
+                }),
+          )
         : Container(
             child: Center(
               child: CircularProgressIndicator(),
@@ -265,88 +269,91 @@ class _HomeScreenState extends State<HomeScreen> {
       String specialtyDoctorCount,
       String specialtyImagePath}) {
     return Container(
-        margin: const EdgeInsets.only(left: 20.0, right: 0, top: 7.0, bottom: 14,),
-        width: 130,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15)
+      margin: const EdgeInsets.only(
+        left: 20.0,
+        right: 0,
+        top: 7.0,
+        bottom: 14,
+      ),
+      width: 130,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 3.0,
+            offset: Offset(0, 2),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 3.0,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: new InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              SlideRightRoute(
-                  page: CategoryPage(specialtyName)),
-            );
-          },
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                          top: 5.0,
-                          bottom: 12.5,
-                        ),
-                        child: Image.network(
-                          specialtyImagePath,
-                          height: 60,
-                          width: 60,
-                        ),
+        ],
+      ),
+      child: new InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            SlideRightRoute(page: CategoryPage(specialtyName)),
+          );
+        },
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 5.0,
+                        bottom: 12.5,
                       ),
-                    ],
+                      child: Image.network(
+                        specialtyImagePath,
+                        height: 60,
+                        width: 60,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  specialtyName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0xFF6f6f6f),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.center,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: 3.0,
+                  ),
                   child: Text(
-                    specialtyName,
+                    specialtyDoctorCount + ' Doctors',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF6f6f6f),
+                      fontSize: 14,
+                      color: Color(0xFF9f9f9f),
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 3.0,
-                    ),
-                    child: Text(
-                      specialtyDoctorCount + ' Doctors',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Color(0xFF9f9f9f),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 

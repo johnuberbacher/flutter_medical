@@ -61,7 +61,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: Colors.white,
         body: NotificationListener<OverscrollIndicatorNotification>(
@@ -94,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(
-                              top: 90.0,
+                              top: 40.0,
                             ),
                             child: Text(
                               'Sign Up',
@@ -332,7 +331,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 child: Text(
                                   'Create Account',
                                   style: TextStyle(
-                                       fontSize: 16,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),

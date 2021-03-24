@@ -406,10 +406,12 @@ class _MyHealthPageState extends State<MyHealthPage> {
                   ]),
                 ),
                 sectionTitle("Preferences"),
-                MyHealthTextField(hintText: 'Language', initialValue: language ?? " "),
-                MyHealthTextField(hintText: 'Email', initialValue: email ?? " "),
-                MyHealthTextField(hintText: 'Phone', initialValue: phone ?? " "),
-                MyHealthTextField(hintText: 'Address', initialValue: address ?? " "),
+                MyHealthTextField(
+                    hintText: 'Language', initialValue: language ?? ""),
+                MyHealthTextField(hintText: 'Email', initialValue: email ?? ""),
+                MyHealthTextField(hintText: 'Phone', initialValue: phone ?? ""),
+                MyHealthTextField(
+                    hintText: 'Address', initialValue: address ?? ""),
               ],
             ),
           ),
