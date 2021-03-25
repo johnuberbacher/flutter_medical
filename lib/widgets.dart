@@ -5,6 +5,7 @@ import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/myHealth.dart';
 import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/routes/category.dart';
+import 'package:flutter_medical/routes/createProfile.dart';
 import 'package:flutter_medical/models/constant.dart';
 import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
@@ -249,7 +250,12 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
           ListTile(
             leading: Icon(Icons.star),
             title: Text('Top Doctors'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CreateProfilePage()),
+              );
+            },
           ),
           ListTile(
             leading: Icon(Icons.people),
@@ -293,57 +299,30 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
   }
 }
 
-class CustomTextField extends StatelessWidget {
-  CustomTextField(
-      {this.icon,
-      this.hint,
-      this.obsecure = false,
-      this.validator,
-      this.onSaved});
-  final FormFieldSetter<String> onSaved;
-  final Icon icon;
-  final String hint;
-  final bool obsecure;
-  final FormFieldValidator<String> validator;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
-      child: TextFormField(
-        onSaved: onSaved,
-        validator: validator,
-        autofocus: true,
-        obscureText: obsecure,
-        style: TextStyle(
-          fontSize: 20,
+Widget CustomTextField(context, String hintText) {
+  return Container(
+    color: Colors.white,
+    child: TextField(
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(10.0),
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: Color(0xFFb1b2c4),
         ),
-        decoration: InputDecoration(
-            hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            hintText: hint,
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
-                width: 2,
-              ),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
-                width: 3,
-              ),
-            ),
-            prefixIcon: Padding(
-              child: IconTheme(
-                data: IconThemeData(color: Theme.of(context).primaryColor),
-                child: icon,
-              ),
-              padding: EdgeInsets.only(left: 30, right: 10),
-            )),
+        filled: true,
+        fillColor: Colors.black.withOpacity(0.05),
+        border: new OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(60),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderRadius: BorderRadius.circular(60),
+        ),
       ),
-    );
-  }
+      style: TextStyle(color: Colors.white),
+    ),
+  );
 }
 
 class BottomWaveClipper extends CustomClipper<Path> {
@@ -415,22 +394,24 @@ Widget MyHealthTextField({String hintText, String initialValue}) {
       textAlign: TextAlign.end,
       initialValue: initialValue,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20,),
-        enabledBorder:  OutlineInputBorder(
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 25,
+          vertical: 20,
+        ),
+        enabledBorder: OutlineInputBorder(
           // width: 0.0 produces a thin "hairline" border
-          borderRadius:BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(30.0),
           borderSide: const BorderSide(color: Colors.grey, width: 0.0),
         ),
-        border: OutlineInputBorder(
-            borderRadius:BorderRadius.circular(30.0)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
         hintText: hintText,
         prefix: Padding(
           padding: EdgeInsets.only(
             right: 15,
           ),
           child: Text(
-              hintText,
-              style: TextStyle(fontWeight: FontWeight.bold),
+            hintText,
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -470,8 +451,7 @@ Widget myHealthCoverages(String coverageName, IconData coverageIcon) {
                 margin: const EdgeInsets.only(
                   top: 7.5,
                 ),
-                child:
-                Text(
+                child: Text(
                   coverageName,
                   style: TextStyle(
                     fontSize: 13,

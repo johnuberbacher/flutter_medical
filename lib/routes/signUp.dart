@@ -8,6 +8,7 @@ import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
 import 'package:flutter_medical/services/database.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_medical/widgets.dart';
 
 class SignUpPage extends StatefulWidget {
   final Function toggleView;
@@ -71,7 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Container(
               child: Form(
                 key: formKey,
-                child: Stack(
+                child: Column(
                   children: [
                     Container(
                       height: MediaQuery.of(context).size.height / 1.75,
@@ -85,16 +86,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           ],
                         ),
                       ),
-                    ),
-                    Positioned(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            margin: const EdgeInsets.only(
-                              top: 40.0,
-                            ),
                             child: Text(
                               'Sign Up',
                               style: TextStyle(
@@ -106,23 +102,22 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(
-                              top: 30.0,
+                              top: 15.0,
                               right: 40.0,
                               left: 40.0,
-                              bottom: 30.0,
                             ),
                             child: Text(
                               'Lorem ipsum dolor sit amet, aliqua consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. ',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: Color(0xFFFFFFFF),
                               ),
                             ),
                           ),
                           Container(
-                            //  transform:
-                            //     Matrix4.translationValues(0.0, 60.0, 0.0),
+                            transform:
+                                Matrix4.translationValues(0.0, 60.0, 0.0),
                             margin: const EdgeInsets.only(
                               left: 20.0,
                               right: 20.0,
@@ -148,75 +143,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               children: [
                                 Container(
                                   margin: const EdgeInsets.only(
-                                    top: 30.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(100),
-                                    ),
-                                    boxShadow: [
-                                      new BoxShadow(
-                                        color: Colors.black12,
-                                        blurRadius: 15.0,
-                                        offset: Offset(0, 0),
-                                      ),
-                                    ],
-                                  ),
-                                  child: CircleAvatar(
-                                    radius: 50,
-                                    backgroundImage: CachedNetworkImageProvider(
-                                      'https://i.imgur.com/4EZqyvF.jpg',
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(
                                     top: 20.0,
-                                    left: 20.0,
-                                    right: 20.0,
-                                    bottom: 20.0,
-                                  ),
-                                  child: TextFormField(
-                                    validator: (val) {
-                                      return val.isEmpty || val.length < 4
-                                          ? "Please enter a name"
-                                          : null;
-                                    },
-                                    controller: userNameTextEditingController,
-                                    textCapitalization: TextCapitalization.none,
-                                    decoration: InputDecoration(
-                                      hintText: 'John Smith',
-                                      hintStyle: TextStyle(
-                                        color: Color(0xFFb1b2c4),
-                                      ),
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 0.0),
-                                      ),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFF6aa6f8),
-                                            width: 0.0),
-                                      ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 20.0,
-                                          left: 10.0,
-                                          bottom: 1.0,
-                                        ),
-                                        child: Icon(
-                                          Icons.person,
-                                          color: Color(0xFF6aa6f8),
-                                        ),
-                                      ),
-                                      //
-                                    ),
-                                  ),
-                                ),
-                                // Email
-                                Container(
-                                  margin: const EdgeInsets.only(
                                     left: 20.0,
                                     right: 20.0,
                                     bottom: 20.0,
@@ -261,7 +188,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                   ),
                                 ),
-                                // Password
                                 Container(
                                   margin: const EdgeInsets.only(
                                     left: 20.0,
@@ -282,26 +208,21 @@ class _SignUpPageState extends State<SignUpPage> {
                                       hintStyle: TextStyle(
                                         color: Color(0xFFb1b2c4),
                                       ),
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 0.0),
+                                      border: new OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius: BorderRadius.circular(60),
                                       ),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFF6aa6f8),
-                                            width: 0.0),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        borderRadius: BorderRadius.circular(60),
                                       ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 20.0,
-                                          left: 10.0,
-                                          bottom: 1.0,
-                                        ),
-                                        child: Icon(
-                                          Icons.lock_outline,
-                                          color: Color(0xFF6aa6f8),
-                                        ),
+                                      filled: true,
+                                      fillColor: Colors.black.withOpacity(0.05),
+                                      prefixIcon: Icon(
+                                        Icons.lock_outline,
+                                        color: Color(0xFF6aa6f8),
                                       ),
                                       //
                                     ),
@@ -310,56 +231,55 @@ class _SignUpPageState extends State<SignUpPage> {
                               ],
                             ),
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                              top: 30.0,
-                              left: 20.0,
-                              right: 20.0,
-                            ),
-                            child: RaisedButton(
-                              color: Color(0xFF4894e9),
-                              padding: EdgeInsets.all(15),
-                              onPressed: () {
-                                signUpAccount();
-                              },
-                              textColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Create Account',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                              top: 20.0,
-                              left: 20.0,
-                              right: 20.0,
-                            ),
-                            child: InkWell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Text(
-                                  'Already have an account? Sign In instead.',
-                                  style: TextStyle(
-                                      color: Color(0xFF4894e9),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              onTap: () {
-                                widget.toggleView();
-                              },
-                            ),
-                          ),
                         ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 90.0,
+                        left: 20.0,
+                        right: 20.0,
+                      ),
+                      child: RaisedButton(
+                        color: Color(0xFF4894e9),
+                        padding: EdgeInsets.all(15),
+                        onPressed: () {
+                          signUpAccount();
+                        },
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Create Account',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 20.0,
+                        left: 20.0,
+                        right: 20.0,
+                      ),
+                      child: InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            'Already have an account? Sign In instead.',
+                            style: TextStyle(
+                                color: Color(0xFF4894e9),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        onTap: () {
+                          widget.toggleView();
+                        },
                       ),
                     ),
                   ],
