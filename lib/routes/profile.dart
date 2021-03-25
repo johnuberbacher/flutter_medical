@@ -330,7 +330,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-                sectionTitle("Biography"),
+                sectionTitle(context, "Biography"),
                 Container(
                   margin: const EdgeInsets.only(
                     left: 20.0,
@@ -346,7 +346,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-                sectionTitle("Physician History"),
+                sectionTitle(context, "Physician History"),
                 Container(
                   margin: const EdgeInsets.only(
                     left: 20.0,
@@ -440,7 +440,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-                sectionTitle("Office Gallery"),
+                sectionTitle(context, "Office Gallery"),
                 Container(
                   height: 150,
                   child: ListView(
@@ -455,7 +455,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-                sectionTitle("Appointments"),
+                sectionTitle(context, "Appointments"),
                 Container(
                   margin: const EdgeInsets.only(
                     bottom: 15.0,

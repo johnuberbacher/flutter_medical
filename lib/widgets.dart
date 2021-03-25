@@ -34,7 +34,10 @@ class GlobalAppBar extends StatelessWidget with PreferredSizeWidget {
           gradient: LinearGradient(
             begin: Alignment(-1.0, 0.0),
             end: Alignment(1.0, 0.0),
-            colors: [const Color(0xFF6aa6f8), const Color(0xFF1a60be)],
+            colors: [
+              Theme.of(context).primaryColorLight,
+              Theme.of(context).primaryColorDark,
+            ],
           ),
         ),
       ),
@@ -59,7 +62,10 @@ class UserProfileAppBar extends StatelessWidget with PreferredSizeWidget {
           gradient: LinearGradient(
             begin: Alignment(-1.0, 0.0),
             end: Alignment(1.0, 0.0),
-            colors: [const Color(0xFF6aa6f8), const Color(0xFF1a60be)],
+            colors: [
+              Theme.of(context).primaryColorLight,
+              Theme.of(context).primaryColorDark,
+            ],
           ),
         ),
       ),
@@ -173,7 +179,10 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
               gradient: LinearGradient(
                 begin: Alignment(-1.0, 0.0),
                 end: Alignment(1.0, 0.0),
-                colors: [const Color(0xFF6aa6f8), const Color(0xFF1a60be)],
+                colors: [
+                  Theme.of(context).primaryColorLight,
+                  Theme.of(context).primaryColorDark,
+                ],
               ),
             ),
             child: DrawerHeader(
@@ -511,7 +520,7 @@ Widget myHealthCoverages(String coverageName, IconData coverageIcon) {
   );
 }
 
-Widget sectionTitle(String title) {
+Widget sectionTitle(context, String title) {
   return Container(
     margin: const EdgeInsets.only(
       top: 20.0,
@@ -523,23 +532,18 @@ Widget sectionTitle(String title) {
       children: [
         Align(
           alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: 10,
-            ),
-            child: Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Color(0xFF4894e9),
-              ),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(
-            top: 10,
+            top: 20,
           ),
           child: Divider(
             color: Colors.black12,

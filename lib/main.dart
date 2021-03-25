@@ -7,6 +7,7 @@ import 'package:flutter_medical/widgets.dart';
 import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
 import 'package:flutter_medical/services/database.dart';
+import 'package:flutter_medical/theme.dart';
 
 /// App Root
 void main() async {
@@ -27,6 +28,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool userIsLoggedIn;
+
   @override
   void initState() {
     getLoggedInState();
@@ -64,16 +66,19 @@ class _MyAppState extends State<MyApp> {
       title: "Flutter Medical",
       debugShowCheckedModeBanner: false,
       home: userIsLoggedIn != null
-          ? userIsLoggedIn ? HomeScreen() : Authenticate()
+          ? userIsLoggedIn
+              ? HomeScreen()
+              : Authenticate()
           : Container(
               child: Center(
                 child: Authenticate(),
               ),
             ),
-      theme: ThemeData.light().copyWith(
-        inputDecorationTheme: InputDecorationTheme(
-            // border: OutlineInputBorder(),
-            ),
+      theme: ThemeData(
+        primarySwatch: customPrimary,
+        primaryColorLight: customPrimary[300],
+        primaryColor: customPrimary[500],
+        primaryColorDark: customPrimary[900],
       ),
     );
   }

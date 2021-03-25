@@ -126,8 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 begin: Alignment(-1.0, 0.0),
                 end: Alignment(1.0, 0.0),
                 colors: [
-                  const Color(0xFF6aa6f8),
-                  const Color(0xFF1a60be),
+                  Theme.of(context).primaryColorLight,
+                  Theme.of(context).primaryColorDark,
                 ], // whitish to gray
               ),
             ),
@@ -143,10 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     return Container(
       margin: const EdgeInsets.only(
-        top: 15.0,
+        top: 30.0,
         left: 20.0,
         right: 20.0,
-        bottom: 20.0,
+        bottom: 25.0,
       ),
       child: Row(
         children: [
@@ -501,8 +501,10 @@ class _HomeScreenState extends State<HomeScreen> {
               begin: Alignment(-1.0, 0.0),
               end: Alignment(1.0, 0.0),
               colors: [
-                const Color(0xFF6aa6f8),
-                const Color(0xFF1a60be)
+                Theme.of(context).primaryColorLight,
+                Theme.of(context).primaryColorDark,
+                // const Color(0xFF6aa6f8),
+                // const Color(0xFF1a60be)
               ], // whitish to gray
             ),
           ),
@@ -545,7 +547,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onPressed: () => setState(() {
                                   initiatePhoneCall('tel:$_phone');
                                 }),
-                                color: Color(0xFF4894e9),
+                                color: Theme.of(context).primaryColor,
                                 highlightColor: Color(0xFF89b9f0),
                                 textColor: Colors.white,
                                 child: Icon(
@@ -581,7 +583,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         builder: (context) => SearchPage()),
                                   );
                                 },
-                                color: Color(0xFF4894e9),
+                                color: Theme.of(context).primaryColor,
                                 highlightColor: Color(0xFF89b9f0),
                                 textColor: Colors.white,
                                 child: Icon(
@@ -617,7 +619,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         page: MyHealthPage(Constants.myName)),
                                   );
                                 },
-                                color: Color(0xFF4894e9),
+                                color: Theme.of(context).primaryColor,
                                 highlightColor: Color(0xFF89b9f0),
                                 textColor: Colors.white,
                                 child: Icon(
@@ -646,7 +648,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    sectionTitle("Specialties"),
+                    sectionTitle(context, "Specialties"),
                     Container(
                       margin: const EdgeInsets.only(
                         left: 20.0,
@@ -674,7 +676,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    sectionTitle("Our Top Doctors"),
+                    sectionTitle(context, "Our Top Doctors"),
                     Container(
                       margin: const EdgeInsets.only(
                         left: 20.0,

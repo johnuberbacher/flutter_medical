@@ -166,7 +166,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             child: CircleAvatar(
                               radius: 70,
                               backgroundImage: (imagePath == null)
-                                  ? CachedNetworkImageProvider(
+                                  ? AssetImage(
                                       'assets/images/user.jpg',
                                     )
                                   : CachedNetworkImageProvider(imagePath),
@@ -393,7 +393,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     ],
                   ),
                 ),
-                sectionTitle("My Coverages"),
+                sectionTitle(context, "My Coverages"),
                 Container(
                   margin: const EdgeInsets.only(
                     left: 20.0,
@@ -405,7 +405,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     myHealthCoverages("Vision", Icons.remove_red_eye),
                   ]),
                 ),
-                sectionTitle("Preferences"),
+                sectionTitle(context, "Preferences"),
                 MyHealthTextField(
                     hintText: 'Language', initialValue: language ?? ""),
                 MyHealthTextField(hintText: 'Email', initialValue: email ?? ""),

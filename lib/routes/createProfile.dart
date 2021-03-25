@@ -220,16 +220,10 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                       left: 20.0,
                       right: 20.0,
                     ),
-                    child: RaisedButton(
-                      color: Color(0xFF4894e9),
-                      padding: EdgeInsets.all(15),
+                    child: ElevatedButton(
                       onPressed: () {
                         signUpAccount();
                       },
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
