@@ -218,7 +218,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return doctorCard(
-                    name: doctorSnapshot.docs[index].data()["name"],
+                    firstName: doctorSnapshot.docs[index].data()["firstName"],
+                    lastName: doctorSnapshot.docs[index].data()["lastName"],
                     specialty: doctorSnapshot.docs[index].data()["specialty"],
                     imagePath: doctorSnapshot.docs[index].data()["imagePath"],
                     rank: doctorSnapshot.docs[index].data()["rank"],
@@ -358,7 +359,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget doctorCard(
-      {String name, String specialty, String imagePath, String rank}) {
+      {String firstName,
+      String lastName,
+      String specialty,
+      String imagePath,
+      String rank}) {
     return Material(
       color: const Color(0xFFFFFFFF),
       child: Container(
@@ -374,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProfilePage(name),
+                    builder: (context) => ProfilePage(lastName),
                   ));
             },
             child: Container(
@@ -403,7 +408,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Align(
                               alignment: FractionalOffset.centerLeft,
                               child: Text(
-                                name,
+                                '${firstName} ${lastName}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
@@ -456,10 +461,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  viewDoctorProfile({String name}) {
-    DatabaseMethods().getDoctorProfile(name);
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => ProfilePage(name)));
+  viewDoctorProfile({String lastName}) {
+    DatabaseMethods().getDoctorProfile(lastName);
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => ProfilePage(lastName)));
   }
 
   @override
@@ -703,8 +708,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   itemCount: loadedDoctors.length,
                                   itemBuilder: (context, index) {
                                     return doctorCard(
-                                      name: doctorSnapshot.docs[index]
-                                          .data()["name"],
+                                      lastName: doctorSnapshot.docs[index]
+                                          .data()["lastName"],
+                                      firstName: doctorSnapshot.docs[index]
+                                          .data()["firstName"],
                                       specialty: doctorSnapshot.docs[index]
                                           .data()["specialty"],
                                       imagePath: doctorSnapshot.docs[index]

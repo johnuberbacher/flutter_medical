@@ -166,6 +166,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ),
                                       filled: true,
                                       fillColor: Colors.black.withOpacity(0.05),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        vertical: 20.0,
+                                        horizontal: 25.0,
+                                      ),
                                       prefixIcon: Icon(
                                         Icons.alternate_email,
                                         color: Color(0xFF6aa6f8),
@@ -206,6 +210,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ),
                                       filled: true,
                                       fillColor: Colors.black.withOpacity(0.05),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        vertical: 20.0,
+                                        horizontal: 25.0,
+                                      ),
                                       prefixIcon: Icon(
                                         Icons.lock_outline,
                                         color: Color(0xFF6aa6f8),

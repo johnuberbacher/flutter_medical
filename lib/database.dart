@@ -37,8 +37,8 @@ class DatabaseMethods {
   getDoctorBySearch(String searchString) async {
     return await FirebaseFirestore.instance
         .collection("doctors")
-        .where("name", isGreaterThanOrEqualTo: searchString)
-        .where("name", isLessThanOrEqualTo: searchString + "z")
+        .where("lastName", isGreaterThanOrEqualTo: searchString)
+        .where("lastName", isLessThanOrEqualTo: searchString + "z")
         .get()
         .catchError((e) {
       print(e.toString());
@@ -74,10 +74,10 @@ class DatabaseMethods {
     });
   }
 
-  getDoctorProfile(String name) async {
+  getDoctorProfile(String lastName) async {
     return FirebaseFirestore.instance
         .collection("doctors")
-        .where("name", isEqualTo: name)
+        .where("lastName", isEqualTo: lastName)
         .get()
         .catchError((e) {
       print(e.toString());

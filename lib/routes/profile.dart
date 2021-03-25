@@ -8,33 +8,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 DocumentSnapshot snapshot;
 
 class ProfilePage extends StatefulWidget {
-  final String name;
-  ProfilePage(this.name);
+  final String lastName;
+  ProfilePage(this.lastName);
 
   @override
-  _ProfilePageState createState() => _ProfilePageState(name);
+  _ProfilePageState createState() => _ProfilePageState(lastName);
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String name;
-  _ProfilePageState(this.name);
+  String lastName;
+  _ProfilePageState(this.lastName);
   DatabaseMethods databaseMethods = new DatabaseMethods();
   QuerySnapshot doctorProfileSnapshot;
 
-  getProfile(name) async {
-    print(name);
-    databaseMethods.getDoctorProfile(name).then((val) {
+  getProfile(lastName) async {
+    databaseMethods.getDoctorProfile(lastName).then((val) {
       print(val.toString());
       setState(() {
         doctorProfileSnapshot = val;
-        print(doctorProfileSnapshot);
       });
     });
   }
 
   @override
   void initState() {
-    getProfile(name);
+    getProfile(lastName);
   }
 
   Widget doctorProfile() {
@@ -46,7 +44,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return doctorCard(
-                    name: doctorProfileSnapshot.docs[index].data()["name"],
+                    firstName:
+                        doctorProfileSnapshot.docs[index].data()["firstName"],
+                    lastName:
+                        doctorProfileSnapshot.docs[index].data()["lastName"],
                     specialty:
                         doctorProfileSnapshot.docs[index].data()["specialty"],
                     imagePath:
@@ -66,12 +67,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 }),
           )
         : Container(
-            child: Text("error"),
+            child: Center(
+              child: Text("error"),
+            ),
           );
   }
 
   Widget doctorCard({
-    String name,
+    String firstName,
+    String lastName,
     String specialty,
     String imagePath,
     String rank,
@@ -81,7 +85,6 @@ class _ProfilePageState extends State<ProfilePage> {
     String fellowship,
     String biography,
   }) {
-
     final SimpleDialog officePhoneDialog = SimpleDialog(
       title: Text('Office Locations'),
       children: [
@@ -239,7 +242,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           MaterialButton(
                             onPressed: () {
-                              showDialog<void>(context: context, builder: (context) => dialog);
+                              showDialog<void>(
+                                  context: context,
+                                  builder: (context) => dialog);
                             },
                             color: Color(0xFF4894e9),
                             highlightColor: Color(0xFFFFFFFF),
@@ -280,7 +285,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          name ?? "name not found",
+                          '${firstName.capitalize()} ${lastName.capitalize()}' ??
+                              "lastName not found",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
@@ -316,7 +322,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(
                   child: Text(
-                    "$rank  ⭐ ⭐ ⭐ ⭐ ⭐" ?? "rank not found",
+                    rank ?? "rank not found",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -333,7 +339,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      biography ?? "",
+                      biography ?? "error",
                       style: TextStyle(
                         color: Color(0xFF9f9f9f),
                       ),
@@ -363,7 +369,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                medicalEducation ?? "",
+                                medicalEducation ?? "error",
                                 style: TextStyle(
                                   color: Color(0xFF9f9f9f),
                                 ),
@@ -382,7 +388,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                internship ?? "",
+                                internship ?? "error",
                                 style: TextStyle(
                                   color: Color(0xFF9f9f9f),
                                 ),
@@ -403,7 +409,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                residency ?? "",
+                                residency ?? "error",
                                 style: TextStyle(
                                   color: Color(0xFF9f9f9f),
                                 ),
@@ -422,7 +428,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               Text(
-                                fellowship ?? "",
+                                fellowship ?? "error",
                                 style: TextStyle(
                                   color: Color(0xFF9f9f9f),
                                 ),
@@ -569,11 +575,11 @@ Material appointmentDays(
           child: Column(
             children: [
               Text(
-                appointmentDay,
+                appointmentDay ?? "error",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Text(
-                appointmentDate,
+                appointmentDate ?? "error",
                 style: TextStyle(fontWeight: FontWeight.normal),
               ),
             ],
@@ -611,7 +617,7 @@ Material appointmentTimes(String appointmentDay, context) {
         child: Align(
           alignment: Alignment.center,
           child: Text(
-            appointmentDay,
+            appointmentDay ?? "error",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -623,18 +629,23 @@ Material appointmentTimes(String appointmentDay, context) {
 Material officePhotos(context, String officePhotoUrl) {
   return Material(
     color: Colors.white,
-    child: Container(
-      width: 150.0,
-      margin: const EdgeInsets.only(
-        left: 20.0,
-      ),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: CachedNetworkImageProvider(officePhotoUrl),
+    child: GestureDetector(
+      onTap: () async {
+        imageDialog(context, officePhotoUrl);
+      },
+      child: Container(
+        width: 150.0,
+        margin: const EdgeInsets.only(
+          left: 20.0,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        color: Color(0xFFb1b2c4),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: CachedNetworkImageProvider(officePhotoUrl),
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          color: Color(0xFFb1b2c4),
+        ),
       ),
     ),
   );

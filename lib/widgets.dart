@@ -428,29 +428,45 @@ Widget MyHealthTextField({String hintText, String initialValue}) {
   );
 }
 
-Widget CustomTextField(context, String hintText) {
-  return Container(
-    color: Colors.white,
-    child: TextField(
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(10.0),
-        hintText: hintText,
-        hintStyle: TextStyle(
-          color: Color(0xFFb1b2c4),
-        ),
-        filled: true,
-        fillColor: Colors.black.withOpacity(0.05),
-        border: new OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(60),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
-          borderRadius: BorderRadius.circular(60),
-        ),
-      ),
-      style: TextStyle(color: Colors.white),
+Widget imageDialog(context, imageUrl) {
+  return Dialog(
+    child: Container(
+      width: MediaQuery.of(context).size.width * 1.0,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: ExactAssetImage(imageUrl), fit: BoxFit.cover)),
     ),
+  );
+}
+
+Widget customTextField(context, String hintText, IconData icon) {
+  return TextField(
+    decoration: InputDecoration(
+      hintText: hintText,
+      hintStyle: TextStyle(
+        color: Color(0xFFb1b2c4),
+      ),
+      border: new OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(60),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).primaryColor),
+        borderRadius: BorderRadius.circular(60),
+      ),
+      filled: true,
+      fillColor: Colors.black.withOpacity(0.05),
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 20.0,
+        horizontal: 25.0,
+      ),
+      prefixIcon: Icon(
+        icon,
+        color: Color(0xFF6aa6f8),
+      ),
+      //
+    ),
+    style: TextStyle(color: Colors.white),
   );
 }
 
@@ -534,4 +550,10 @@ Widget sectionTitle(String title) {
       ],
     ),
   );
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
+  }
 }
