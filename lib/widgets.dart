@@ -299,32 +299,6 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
   }
 }
 
-Widget CustomTextField(context, String hintText) {
-  return Container(
-    color: Colors.white,
-    child: TextField(
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(10.0),
-        hintText: hintText,
-        hintStyle: TextStyle(
-          color: Color(0xFFb1b2c4),
-        ),
-        filled: true,
-        fillColor: Colors.black.withOpacity(0.05),
-        border: new OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(60),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
-          borderRadius: BorderRadius.circular(60),
-        ),
-      ),
-      style: TextStyle(color: Colors.white),
-    ),
-  );
-}
-
 class BottomWaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -369,6 +343,35 @@ class SlideRightRoute extends PageRouteBuilder {
             child: child,
           ),
         );
+}
+
+class SimpleDialogItem extends StatelessWidget {
+  const SimpleDialogItem(
+      {Key key, this.icon, this.color, this.text, this.onPressed})
+      : super(key: key);
+
+  final IconData icon;
+  final Color color;
+  final String text;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialogOption(
+      onPressed: onPressed,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(icon, size: 36.0, color: color),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 16.0),
+            child: Text(text),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 String titleCase(String text) {
@@ -421,6 +424,32 @@ Widget MyHealthTextField({String hintText, String initialValue}) {
         }
         return null;
       },
+    ),
+  );
+}
+
+Widget CustomTextField(context, String hintText) {
+  return Container(
+    color: Colors.white,
+    child: TextField(
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(10.0),
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: Color(0xFFb1b2c4),
+        ),
+        filled: true,
+        fillColor: Colors.black.withOpacity(0.05),
+        border: new OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(60),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderRadius: BorderRadius.circular(60),
+        ),
+      ),
+      style: TextStyle(color: Colors.white),
     ),
   );
 }
@@ -505,33 +534,4 @@ Widget sectionTitle(String title) {
       ],
     ),
   );
-}
-
-class SimpleDialogItem extends StatelessWidget {
-  const SimpleDialogItem(
-      {Key key, this.icon, this.color, this.text, this.onPressed})
-      : super(key: key);
-
-  final IconData icon;
-  final Color color;
-  final String text;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return SimpleDialogOption(
-      onPressed: onPressed,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(icon, size: 36.0, color: color),
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: 16.0),
-            child: Text(text),
-          ),
-        ],
-      ),
-    );
-  }
 }

@@ -143,48 +143,36 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                             child: Column(
                               children: [
                                 Container(
-                                  margin: const EdgeInsets.only(
-                                    top: 20.0,
-                                    left: 20.0,
-                                    right: 20.0,
-                                    bottom: 20.0,
-                                  ),
+                                  margin: const EdgeInsets.all(20.0),
                                   child: TextFormField(
-                                    controller: emailTextEditingController,
-                                    keyboardType: TextInputType.emailAddress,
+                                    keyboardType: TextInputType.visiblePassword,
                                     validator: (val) {
-                                      return RegExp(
-                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+|.[a-zA-Z]+")
-                                              .hasMatch(val)
+                                      return val.length > 6
                                           ? null
                                           : "Please enter a valid email address";
                                     },
+                                    controller: emailTextEditingController,
                                     textCapitalization: TextCapitalization.none,
                                     decoration: InputDecoration(
-                                      hintText: 'email@emailaddress.com',
+                                      hintText: 'email@address.com',
                                       hintStyle: TextStyle(
                                         color: Color(0xFFb1b2c4),
                                       ),
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 0.0),
+                                      border: new OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius: BorderRadius.circular(60),
                                       ),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFF6aa6f8),
-                                            width: 0.0),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        borderRadius: BorderRadius.circular(60),
                                       ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 20.0,
-                                          left: 10.0,
-                                          bottom: 1.0,
-                                        ),
-                                        child: Icon(
-                                          Icons.person,
-                                          color: Color(0xFF6aa6f8),
-                                        ),
+                                      filled: true,
+                                      fillColor: Colors.black.withOpacity(0.05),
+                                      prefixIcon: Icon(
+                                        Icons.alternate_email,
+                                        color: Color(0xFF6aa6f8),
                                       ),
                                       //
                                     ),
@@ -197,7 +185,6 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                     bottom: 20.0,
                                   ),
                                   child: TextFormField(
-                                    obscureText: true,
                                     keyboardType: TextInputType.visiblePassword,
                                     validator: (val) {
                                       return val.length > 6
@@ -205,32 +192,27 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                           : "Password must be greater than 6 characters";
                                     },
                                     controller: passwordTextEditingController,
-                                    textCapitalization: TextCapitalization.none,
+                                    obscureText: true,
                                     decoration: InputDecoration(
                                       hintText: 'password',
                                       hintStyle: TextStyle(
                                         color: Color(0xFFb1b2c4),
                                       ),
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 0.0),
+                                      border: new OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius: BorderRadius.circular(60),
                                       ),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFF6aa6f8),
-                                            width: 0.0),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        borderRadius: BorderRadius.circular(60),
                                       ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 20.0,
-                                          left: 10.0,
-                                          bottom: 1.0,
-                                        ),
-                                        child: Icon(
-                                          Icons.lock_outline,
-                                          color: Color(0xFF6aa6f8),
-                                        ),
+                                      filled: true,
+                                      fillColor: Colors.black.withOpacity(0.05),
+                                      prefixIcon: Icon(
+                                        Icons.lock_outline,
+                                        color: Color(0xFF6aa6f8),
                                       ),
                                       //
                                     ),

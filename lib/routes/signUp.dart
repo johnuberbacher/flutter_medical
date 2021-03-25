@@ -118,10 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           Container(
                             transform:
                                 Matrix4.translationValues(0.0, 60.0, 0.0),
-                            margin: const EdgeInsets.only(
-                              left: 20.0,
-                              right: 20.0,
-                            ),
+                            margin: EdgeInsets.symmetric(horizontal: 20.0),
                             width: double.infinity,
                             decoration: new BoxDecoration(
                               borderRadius: BorderRadius.only(
@@ -142,17 +139,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: Column(
                               children: [
                                 Container(
-                                  margin: const EdgeInsets.only(
-                                    top: 20.0,
-                                    left: 20.0,
-                                    right: 20.0,
-                                    bottom: 20.0,
-                                  ),
+                                  margin: const EdgeInsets.all(20.0),
                                   child: TextFormField(
+                                    keyboardType: TextInputType.visiblePassword,
                                     validator: (val) {
-                                      return RegExp(
-                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+|.[a-zA-Z]+")
-                                              .hasMatch(val)
+                                      return val.length > 6
                                           ? null
                                           : "Please enter a valid email address";
                                     },
@@ -163,26 +154,21 @@ class _SignUpPageState extends State<SignUpPage> {
                                       hintStyle: TextStyle(
                                         color: Color(0xFFb1b2c4),
                                       ),
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 0.0),
+                                      border: new OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius: BorderRadius.circular(60),
                                       ),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFF6aa6f8),
-                                            width: 0.0),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        borderRadius: BorderRadius.circular(60),
                                       ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 20.0,
-                                          left: 10.0,
-                                          bottom: 1.0,
-                                        ),
-                                        child: Icon(
-                                          Icons.alternate_email,
-                                          color: Color(0xFF6aa6f8),
-                                        ),
+                                      filled: true,
+                                      fillColor: Colors.black.withOpacity(0.05),
+                                      prefixIcon: Icon(
+                                        Icons.alternate_email,
+                                        color: Color(0xFF6aa6f8),
                                       ),
                                       //
                                     ),
