@@ -19,6 +19,13 @@ flutter pub get
 
 flutter run
 
+## TO-DO
+
+- Create Profile page
+- MyHealth edit profile details
+- Fix Top Doctors "view more"
+- Firebase Storage for user profile images and office gallery photos
+
 ## License
 
 Distributed under the The MIT License (MIT)
