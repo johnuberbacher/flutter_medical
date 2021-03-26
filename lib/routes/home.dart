@@ -242,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return specialtySnapshot != null
         ? Padding(
             padding: const EdgeInsets.only(
-              right: 15.0,
+              right: 20.0,
             ),
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -301,6 +301,9 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 15.0,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -18,6 +18,11 @@ class _SearchPageState extends State<SearchPage> {
       new TextEditingController();
   QuerySnapshot searchSnapshot;
 
+  @override
+  void initState() {
+    getSearch();
+  }
+
   getSearch() async {
     databaseMethods
         .getDoctorBySearch(searchTextEditingController.text.toLowerCase())
@@ -74,6 +79,9 @@ class _SearchPageState extends State<SearchPage> {
             child: Column(
           children: [
             Container(
+              margin: EdgeInsets.only(
+                bottom: 10.0,
+              ),
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -98,7 +106,6 @@ class _SearchPageState extends State<SearchPage> {
                       autocorrect: false,
                       textCapitalization: TextCapitalization.none,
                       controller: searchTextEditingController,
-                      autofocus: true,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         hintText: 'search...',
