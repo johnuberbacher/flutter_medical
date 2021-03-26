@@ -208,6 +208,84 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                                   ),
                                 ),
                               ),
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  left: 20.0,
+                                  right: 20.0,
+                                  bottom: 20.0,
+                                ),
+                                child: TextFormField(
+                                  keyboardType: TextInputType.visiblePassword,
+                                  validator: (val) {
+                                    return val.length > 2
+                                        ? null
+                                        : "Please enter a last name";
+                                  },
+                                  controller: passwordTextEditingController,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    hintText: 'last name',
+                                    hintStyle: TextStyle(
+                                      color: Color(0xFFb1b2c4),
+                                    ),
+                                    border: new OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(60),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                      borderRadius: BorderRadius.circular(60),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.black.withOpacity(0.05),
+                                    contentPadding: EdgeInsets.symmetric(
+                                      vertical: 20.0,
+                                      horizontal: 25.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  left: 20.0,
+                                  right: 20.0,
+                                  bottom: 20.0,
+                                ),
+                                child: TextFormField(
+                                  keyboardType: TextInputType.visiblePassword,
+                                  validator: (val) {
+                                    return val.length > 2
+                                        ? null
+                                        : "Please enter a last name";
+                                  },
+                                  controller: passwordTextEditingController,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    hintText: 'last name',
+                                    hintStyle: TextStyle(
+                                      color: Color(0xFFb1b2c4),
+                                    ),
+                                    border: new OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(60),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                      borderRadius: BorderRadius.circular(60),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.black.withOpacity(0.05),
+                                    contentPadding: EdgeInsets.symmetric(
+                                      vertical: 20.0,
+                                      horizontal: 25.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),

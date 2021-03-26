@@ -9,6 +9,7 @@ DocumentSnapshot snapshot;
 
 class ProfilePage extends StatefulWidget {
   final String lastName;
+  BuildContext context;
   ProfilePage(this.lastName);
 
   @override
@@ -48,6 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         doctorProfileSnapshot.docs[index].data()["firstName"],
                     lastName:
                         doctorProfileSnapshot.docs[index].data()["lastName"],
+                    prefix: doctorProfileSnapshot.docs[index].data()["prefix"],
                     specialty:
                         doctorProfileSnapshot.docs[index].data()["specialty"],
                     imagePath:
@@ -76,9 +78,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget doctorCard({
     String firstName,
     String lastName,
+    String prefix,
     String specialty,
     String imagePath,
-    String rank,
+    num rank,
     String medicalEducation,
     String residency,
     String internship,
@@ -187,10 +190,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           MaterialButton(
-                            splashColor: Colors.white,
-                            onPressed: () {},
-                            color: Color(0xFF4894e9),
+                            color: Theme.of(context).primaryColor,
+                            highlightColor: Theme.of(context).primaryColorLight,
                             textColor: Colors.white,
+                            onPressed: () {},
                             child: Icon(
                               Icons.phone,
                               size: 30,
@@ -246,8 +249,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   context: context,
                                   builder: (context) => dialog);
                             },
-                            color: Color(0xFF4894e9),
-                            highlightColor: Color(0xFFFFFFFF),
+                            color: Theme.of(context).primaryColor,
+                            highlightColor: Theme.of(context).primaryColorLight,
                             textColor: Colors.white,
                             child: Icon(
                               Icons.mail_outline,
@@ -285,7 +288,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          '${firstName.capitalize()} ${lastName.capitalize()}' ??
+                          '${prefix.capitalize()} ${firstName.capitalize()} ${lastName.capitalize()}' ??
                               "lastName not found",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -312,7 +315,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
-                              color: Color(0xFF4894e9),
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),
@@ -322,7 +325,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(
                   child: Text(
-                    rank ?? "rank not found",
+                    rank.toString() ?? "rank not found",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -559,14 +562,14 @@ Material appointmentDays(
       ),
       child: OutlineButton(
         color: Colors.transparent,
-        splashColor: Color(0xFF4894e9),
+        splashColor: Theme.of(context).primaryColor,
         padding: EdgeInsets.only(
           left: 30,
           right: 30,
           top: 6,
         ),
         onPressed: () {},
-        textColor: Color(0xFF4894e9),
+        textColor: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(7.5),
         ),
@@ -602,7 +605,7 @@ Material appointmentTimes(String appointmentDay, context) {
       ),
       child: OutlineButton(
         color: Colors.transparent,
-        splashColor: Color(0xFF4894e9),
+        splashColor: Theme.of(context).primaryColor,
         padding: EdgeInsets.only(
           left: 20,
           right: 20,
@@ -610,7 +613,7 @@ Material appointmentTimes(String appointmentDay, context) {
         onPressed: () {
           print('View All Doctors Clicked');
         },
-        textColor: Color(0xFF4894e9),
+        textColor: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(7.5),
         ),

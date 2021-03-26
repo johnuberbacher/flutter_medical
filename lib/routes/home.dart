@@ -220,6 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return doctorCard(
                     firstName: doctorSnapshot.docs[index].data()["firstName"],
                     lastName: doctorSnapshot.docs[index].data()["lastName"],
+                    prefix: doctorSnapshot.docs[index].data()["prefix"],
                     specialty: doctorSnapshot.docs[index].data()["specialty"],
                     imagePath: doctorSnapshot.docs[index].data()["imagePath"],
                     rank: doctorSnapshot.docs[index].data()["rank"],
@@ -352,109 +353,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget doctorCard(
-      {String firstName,
-      String lastName,
-      String specialty,
-      String imagePath,
-      String rank}) {
-    return Material(
-      color: const Color(0xFFFFFFFF),
-      child: Container(
-        margin: const EdgeInsets.only(
-          left: 20.0,
-          right: 20.0,
-          bottom: 10.0,
-        ),
-        child: Card(
-          elevation: 3.0,
-          child: new InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfilePage(lastName),
-                  ));
-            },
-            child: Container(
-              child: Align(
-                alignment: FractionalOffset.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(
-                          right: 20.0,
-                        ),
-                        width: 70.0,
-                        height: 70.0,
-                        child: CircleAvatar(
-                          radius: 20,
-                          backgroundImage:
-                              CachedNetworkImageProvider(imagePath),
-                        ),
-                      ),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: FractionalOffset.centerLeft,
-                              child: Text(
-                                '${firstName} ${lastName}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: FractionalOffset.centerLeft,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  top: 5.0,
-                                ),
-                                child: Text(
-                                  specialty,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Color(0xFF9f9f9f),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: FractionalOffset.centerLeft,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  top: 5.0,
-                                ),
-                                child: Text(
-                                  rank + "  ⭐ ⭐ ⭐ ⭐ ⭐",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    color: Color(0xFF6f6f6f),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
           ),
         ),
       ),
@@ -710,10 +608,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   itemCount: loadedDoctors.length,
                                   itemBuilder: (context, index) {
                                     return doctorCard(
-                                      lastName: doctorSnapshot.docs[index]
-                                          .data()["lastName"],
+                                      context: context,
                                       firstName: doctorSnapshot.docs[index]
                                           .data()["firstName"],
+                                      lastName: doctorSnapshot.docs[index]
+                                          .data()["lastName"],
+                                      prefix: doctorSnapshot.docs[index]
+                                          .data()["prefix"],
                                       specialty: doctorSnapshot.docs[index]
                                           .data()["specialty"],
                                       imagePath: doctorSnapshot.docs[index]

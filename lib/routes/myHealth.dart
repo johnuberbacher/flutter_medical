@@ -76,8 +76,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
                 begin: Alignment(-1.0, 0.0),
                 end: Alignment(1.0, 0.0),
                 colors: [
-                  const Color(0xFF6aa6f8),
-                  const Color(0xFF1a60be),
+                  Theme.of(context).primaryColorLight,
+                  Theme.of(context).primaryColorDark,
                 ], // whitish to gray
               ),
             ),
@@ -112,8 +112,8 @@ class _MyHealthPageState extends State<MyHealthPage> {
           begin: Alignment(-1.0, 0.0),
           end: Alignment(1.0, 0.0),
           colors: [
-            const Color(0xFF6aa6f8),
-            const Color(0xFF1a60be),
+            Theme.of(context).primaryColorLight,
+            Theme.of(context).primaryColorDark,
           ], // whitish to gray
         ),
       ),
@@ -264,7 +264,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             decoration: new BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
-                              color: Color(0xFF4894e9),
+                              color: Theme.of(context).primaryColor,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -306,7 +306,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             decoration: new BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
-                              color: Color(0xFF4894e9),
+                              color: Theme.of(context).primaryColor,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -348,7 +348,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             decoration: new BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
-                              color: Color(0xFF4894e9),
+                              color: Theme.of(context).primaryColor,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

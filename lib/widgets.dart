@@ -5,6 +5,7 @@ import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/myHealth.dart';
 import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/routes/category.dart';
+import 'package:flutter_medical/routes/profile.dart';
 import 'package:flutter_medical/routes/createProfile.dart';
 import 'package:flutter_medical/models/constant.dart';
 import 'package:flutter_medical/services/authenticate.dart';
@@ -552,6 +553,140 @@ Widget sectionTitle(context, String title) {
           ),
         ),
       ],
+    ),
+  );
+}
+
+class StarRating extends StatelessWidget {
+  final int starCount;
+  final double rating;
+  final Color color;
+
+  StarRating({this.starCount = 5, this.rating = .0, this.color});
+
+  Widget buildStar(BuildContext context, int rank) {
+    Icon icon;
+    if (rank >= rating) {
+      return icon = new Icon(
+        Icons.star_border,
+        color: Theme.of(context).buttonColor,
+      );
+    } else if (rank > rating - 1 && rank < rating) {
+      return icon = new Icon(
+        Icons.star_half,
+        color: color ?? Theme.of(context).primaryColor,
+      );
+    } else {
+      return icon = new Icon(
+        Icons.star,
+        color: color ?? Theme.of(context).primaryColor,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Row(
+        children:
+            new List.generate(starCount, (rank) => buildStar(context, rank)));
+  }
+}
+
+Widget doctorCard(
+    {String firstName,
+    String lastName,
+    String prefix,
+    String specialty,
+    String imagePath,
+    num rank,
+    BuildContext context}) {
+  return Material(
+    color: const Color(0xFFFFFFFF),
+    child: Container(
+      margin: const EdgeInsets.only(
+        left: 20.0,
+        right: 20.0,
+        top: 10.0,
+      ),
+      child: Card(
+        elevation: 3.0,
+        child: new InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ProfilePage(lastName),
+              ),
+            );
+          },
+          child: Container(
+            child: Align(
+              alignment: FractionalOffset.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                        right: 20.0,
+                      ),
+                      width: 70.0,
+                      height: 70.0,
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundImage: NetworkImage(imagePath),
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: FractionalOffset.centerLeft,
+                            child: Text(
+                              '${prefix.capitalize()} ${firstName.capitalize()} ${lastName.capitalize()}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Color(0xFF6f6f6f),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: FractionalOffset.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: 5.0,
+                              ),
+                              child: Text(
+                                specialty,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF9f9f9f),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: FractionalOffset.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: 5.0,
+                              ),
+                              child: StarRating(
+                                rating: rank,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     ),
   );
 }
