@@ -222,7 +222,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             decoration: new BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
-                              color: Color(0xFF4894e9),
+                              color: Theme.of(context).primaryColor,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

@@ -384,6 +384,52 @@ class SimpleDialogItem extends StatelessWidget {
   }
 }
 
+class StarRating extends StatelessWidget {
+  final int starCount;
+  final double rating;
+  final Color color;
+  final MainAxisAlignment rowAlignment;
+
+  StarRating({
+    this.starCount = 5,
+    this.rating = .0,
+    this.color,
+    this.rowAlignment = MainAxisAlignment.center,
+  });
+
+  Widget buildStar(
+      BuildContext context, int rank, MainAxisAlignment rowAlignment) {
+    Icon icon;
+    if (rank >= rating) {
+      return icon = new Icon(
+        Icons.star_border,
+        color: Theme.of(context).buttonColor,
+      );
+    } else if (rank > rating - 1 && rank < rating) {
+      return icon = new Icon(
+        Icons.star_half,
+        color: color ?? Theme.of(context).primaryColor,
+      );
+    } else {
+      return icon = new Icon(
+        Icons.star,
+        color: color ?? Theme.of(context).primaryColor,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Row(
+      mainAxisAlignment: rowAlignment,
+      children: new List.generate(
+        starCount,
+        (rank) => buildStar(context, rank, rowAlignment),
+      ),
+    );
+  }
+}
+
 String titleCase(String text) {
   if (text.length <= 1) return text.toUpperCase();
   var words = text.split(' ');
@@ -557,41 +603,6 @@ Widget sectionTitle(context, String title) {
   );
 }
 
-class StarRating extends StatelessWidget {
-  final int starCount;
-  final double rating;
-  final Color color;
-
-  StarRating({this.starCount = 5, this.rating = .0, this.color});
-
-  Widget buildStar(BuildContext context, int rank) {
-    Icon icon;
-    if (rank >= rating) {
-      return icon = new Icon(
-        Icons.star_border,
-        color: Theme.of(context).buttonColor,
-      );
-    } else if (rank > rating - 1 && rank < rating) {
-      return icon = new Icon(
-        Icons.star_half,
-        color: color ?? Theme.of(context).primaryColor,
-      );
-    } else {
-      return icon = new Icon(
-        Icons.star,
-        color: color ?? Theme.of(context).primaryColor,
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Row(
-        children:
-            new List.generate(starCount, (rank) => buildStar(context, rank)));
-  }
-}
-
 Widget doctorCard(
     {String firstName,
     String lastName,
@@ -674,6 +685,7 @@ Widget doctorCard(
                               ),
                               child: StarRating(
                                 rating: rank,
+                                rowAlignment: MainAxisAlignment.start,
                               ),
                             ),
                           ),

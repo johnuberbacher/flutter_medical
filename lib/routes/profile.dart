@@ -323,13 +323,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-                Container(
-                  child: Text(
-                    rank.toString() ?? "rank not found",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF6f6f6f),
+                Center(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: StarRating(
+                      rating: rank,
+                      rowAlignment: MainAxisAlignment.center,
                     ),
                   ),
                 ),
@@ -359,83 +358,129 @@ class _ProfilePageState extends State<ProfilePage> {
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
-                        Flexible(
+                        Expanded(
+                          flex: 5,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'MEDICAL EDUCATION',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                              Text(
-                                medicalEducation ?? "error",
-                                style: TextStyle(
-                                  color: Color(0xFF9f9f9f),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  bottom: 20.0,
-                                ),
-                              ),
-                              Text(
-                                'INTERNSHIP',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                              Text(
-                                internship ?? "error",
-                                style: TextStyle(
-                                  color: Color(0xFF9f9f9f),
-                                ),
-                              ),
+                              (medicalEducation != null)
+                                  ? Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'MEDICAL EDUCATION',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xFF6f6f6f),
+                                            ),
+                                          ),
+                                          Text(
+                                            medicalEducation,
+                                            style: TextStyle(
+                                              color: Color(0xFF9f9f9f),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  : Container(),
+                              (internship != null)
+                                  ? Container(
+                                      margin: EdgeInsets.only(
+                                        top: 20.0,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'INTERNSHIP',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xFF6f6f6f),
+                                            ),
+                                          ),
+                                          Text(
+                                            internship,
+                                            style: TextStyle(
+                                              color: Color(0xFF9f9f9f),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  : Container(),
                             ],
                           ),
                         ),
-                        Flexible(
+                        Expanded(
+                          flex: 5,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'RESIDENCY',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                              Text(
-                                residency ?? "error",
-                                style: TextStyle(
-                                  color: Color(0xFF9f9f9f),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  bottom: 20.0,
-                                ),
-                              ),
-                              Text(
-                                'FELLOWSHIP',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: Color(0xFF6f6f6f),
-                                ),
-                              ),
-                              Text(
-                                fellowship ?? "error",
-                                style: TextStyle(
-                                  color: Color(0xFF9f9f9f),
-                                ),
-                              ),
+                              (residency != null)
+                                  ? Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'RESIDENCY',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xFF6f6f6f),
+                                            ),
+                                          ),
+                                          Text(
+                                            residency,
+                                            style: TextStyle(
+                                              color: Color(0xFF9f9f9f),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  : Container(),
+                              (fellowship != null)
+                                  ? Container(
+                                      margin: EdgeInsets.only(
+                                        top: 20.0,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'FELLOWSHIP',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xFF6f6f6f),
+                                            ),
+                                          ),
+                                          Text(
+                                            fellowship,
+                                            style: TextStyle(
+                                              color: Color(0xFF9f9f9f),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  : Container(),
                             ],
                           ),
                         ),
