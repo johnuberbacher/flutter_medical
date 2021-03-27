@@ -424,7 +424,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: UserProfileAppBar(),
+      appBar: StandardAppBar(),
       body: SingleChildScrollView(
         child: loadUserProfile(),
       ),

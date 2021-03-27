@@ -29,7 +29,6 @@ class GlobalAppBar extends StatelessWidget with PreferredSizeWidget {
           },
         ),
       ],
-      // centerTitle: true,
       flexibleSpace: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -42,7 +41,6 @@ class GlobalAppBar extends StatelessWidget with PreferredSizeWidget {
           ),
         ),
       ),
-      // title: Text('Title'),
       backgroundColor: Colors.transparent,
       elevation: 0.0,
     );
@@ -52,12 +50,11 @@ class GlobalAppBar extends StatelessWidget with PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
 
-class UserProfileAppBar extends StatelessWidget with PreferredSizeWidget {
+class StandardAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: true,
-      // centerTitle: true,
       flexibleSpace: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -70,7 +67,6 @@ class UserProfileAppBar extends StatelessWidget with PreferredSizeWidget {
           ),
         ),
       ),
-      // title: Text('Title'),
       backgroundColor: Colors.transparent,
       elevation: 0.0,
     );
@@ -253,7 +249,8 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                SlideRightRoute(page: MyHealthPage(Constants.myName)),
+                MaterialPageRoute(
+                    builder: (context) => MyHealthPage(Constants.myName)),
               );
             },
           ),
@@ -307,52 +304,6 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
       ),
     );
   }
-}
-
-class BottomWaveClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.moveTo(size.width, 0.0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0.0, size.height);
-    path.lineTo(0.0, size.height + 5);
-    var secondControlPoint = Offset(size.width - (size.width / 6), size.height);
-    var secondEndPoint = Offset(size.width, 0.0);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class SlideRightRoute extends PageRouteBuilder {
-  final Widget page;
-  SlideRightRoute({this.page})
-      : super(
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              page,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(-1, 0),
-              end: Offset.zero,
-            ).animate(animation),
-            child: child,
-          ),
-        );
 }
 
 class SimpleDialogItem extends StatelessWidget {

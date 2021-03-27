@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/category.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_medical/widgets.dart';
 
 DocumentSnapshot snapshot;
 
@@ -98,46 +99,15 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-        home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(-1.0, 0.0),
-              end: Alignment(1.0, 0.0),
-              colors: [
-                const Color(0xFF6aa6f8),
-                const Color(0xFF1a60be),
-              ], // whitish to gray
-            ),
-          ),
-        ),
-        // title: Text('Title'),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        bottom: TabBar(
-          isScrollable: true,
-          unselectedLabelColor: Colors.white.withOpacity(0.3),
-          indicatorColor: Colors.white,
-          tabs: [
-            Tab(icon: Icon(Icons.directions_car)),
-            Tab(icon: Icon(Icons.directions_transit)),
-            Tab(icon: Icon(Icons.directions_bike)),
+    return Scaffold(
+      appBar: GlobalAppBar(),
+      body: Container(
+        child: Column(
+          children: [
+            sectionTitle(context, specialtyName),
           ],
         ),
       ),
-      body: TabBarView(
-        children: [
-          Icon(Icons.directions_car),
-          Icon(Icons.directions_transit),
-          Icon(Icons.directions_bike),
-        ],
-      ),
-    ),
-        ),
     );
   }
 }

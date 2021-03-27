@@ -297,7 +297,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: () {
           Navigator.push(
             context,
-            SlideRightRoute(page: CategoryPage(specialtyName)),
+            MaterialPageRoute(
+                builder: (context) => CategoryPage(specialtyName)),
           );
         },
         child: Container(
@@ -516,8 +517,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onPressed: () {
                                   Navigator.push(
                                     context,
-                                    SlideRightRoute(
-                                        page: MyHealthPage(Constants.myName)),
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            MyHealthPage(Constants.myName)),
                                   );
                                 },
                                 color: Theme.of(context).primaryColor,
