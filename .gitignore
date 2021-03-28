@@ -61,3 +61,9 @@ lib/generated_plugin_registrant.dart
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter
 android/app/google-services.json
+android/hs_err_pid7640.log
+android/replay_pid4480.log
+*.log
+.flutter-plugins-dependencies
+.flutter-plugins
+.flutter-plugins
