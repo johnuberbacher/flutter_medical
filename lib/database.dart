@@ -84,10 +84,10 @@ class DatabaseMethods {
     });
   }
 
-  getUserProfile(String name) async {
+  getUserProfile(String email) async {
     return FirebaseFirestore.instance
         .collection("users")
-        .where("name", isEqualTo: name)
+        .where("email", isEqualTo: email)
         .get()
         .catchError((e) {
       print(e.toString());

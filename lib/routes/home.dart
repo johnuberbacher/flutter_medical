@@ -114,8 +114,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return userHeader(
+                    firstName:
+                        userProfileSnapshot.docs[index].data()["firstName"],
                     imagePath:
                         userProfileSnapshot.docs[index].data()["imagePath"],
+                    email: userProfileSnapshot.docs[index].data()["email"],
                   );
                 }),
           )
@@ -139,6 +142,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget userHeader({
+    String firstName,
+    String email,
     String imagePath,
   }) {
     return Container(
@@ -178,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Align(
                   alignment: FractionalOffset.centerLeft,
                   child: Text(
-                    'Welcome back, ' + titleCase(Constants.myName),
+                    'Welcome back, ' + titleCase(firstName),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 22.25,
@@ -271,96 +276,87 @@ class _HomeScreenState extends State<HomeScreen> {
       String specialtyDoctorCount,
       String specialtyImagePath}) {
     return Container(
-      margin: const EdgeInsets.only(
-        left: 20.0,
-        right: 0,
-        top: 7.0,
-        bottom: 14,
-      ),
-      width: 130,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            bottomLeft: Radius.circular(15),
-            bottomRight: Radius.circular(15)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 3.0,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: new InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CategoryPage(specialtyName)),
-          );
-        },
-        child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: 15.0,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 5.0,
-                        bottom: 12.5,
-                      ),
-                      child: Image.network(
-                        specialtyImagePath,
-                        height: 60,
-                        width: 60,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  specialtyName,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Color(0xFF6f6f6f),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: 3.0,
-                  ),
-                  child: Text(
-                    specialtyDoctorCount + ' Doctors',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Color(0xFF9f9f9f),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        margin: const EdgeInsets.only(
+          left: 20.0,
         ),
-      ),
-    );
+        width: 135,
+        child: Card(
+          elevation: 3.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
+          color: Colors.white,
+          child: new InkWell(
+            customBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CategoryPage(specialtyName)),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                            top: 5.0,
+                            bottom: 12.5,
+                          ),
+                          child: Image.network(
+                            specialtyImagePath,
+                            height: 60,
+                            width: 60,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      specialtyName,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Color(0xFF6f6f6f),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: 3.0,
+                      ),
+                      child: Text(
+                        specialtyDoctorCount + ' Doctors',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Color(0xFF9f9f9f),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 
   viewDoctorProfile({String lastName}) {
@@ -378,11 +374,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getUserInfo() async {
-    Constants.myName = await CheckSharedPreferences.getNameSharedPreference();
+    Constants.myEmail =
+        await CheckSharedPreferences.getUserEmailSharedPreference();
     setState(() {
-      print("Shared Preferences: users name: ${Constants.myName}");
+      print("Shared Preferences: users name: ${Constants.myEmail}");
     });
-    databaseMethods.getUserProfile(Constants.myName).then((val) {
+    databaseMethods.getUserProfile(Constants.myEmail).then((val) {
       print(val.toString());
       setState(() {
         userProfileSnapshot = val;
@@ -519,7 +516,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            MyHealthPage(Constants.myName)),
+                                            MyHealthPage(Constants.myEmail)),
                                   );
                                 },
                                 color: Theme.of(context).primaryColor,
@@ -570,7 +567,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       color: const Color(0xFFFFFFFF),
-                      height: 190,
+                      height: 180,
                       child: ListView(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
@@ -652,14 +649,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         right: 20.0,
                         bottom: 20.0,
                       ),
-                      child: new OutlineButton(
-                        color: Colors.transparent,
-                        splashColor: Color(0xFF4894e9),
-                        padding: EdgeInsets.all(10),
+                      child: RaisedButton(
+                        color: Color(0xFF4894e9),
+                        padding: EdgeInsets.all(15),
                         onPressed: () {
                           paginateDoctors();
                         },
-                        textColor: Color(0xFF4894e9),
+                        textColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
@@ -668,7 +664,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             'View More',
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),

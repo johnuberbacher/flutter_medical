@@ -11,6 +11,7 @@ import 'package:flutter_medical/models/constant.dart';
 import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 DocumentSnapshot snapshot;
 
@@ -87,9 +88,12 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
   QuerySnapshot doctorSnapshot;
   QuerySnapshot specialtySnapshot;
 
-  @override
-  void initState() {
-    getSpecialties();
+  launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   getSpecialties() async {
@@ -160,6 +164,11 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             ));
       },
     );
+  }
+
+  @override
+  void initState() {
+    getSpecialties();
   }
 
   @override
@@ -292,6 +301,11 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.web),
+            title: Text('Visit my Website'),
+            onTap: () => launchURL('https://johnuberbacher.com'),
+          ),
+          ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap: () {
@@ -337,7 +351,7 @@ class SimpleDialogItem extends StatelessWidget {
 
 class StarRating extends StatelessWidget {
   final int starCount;
-  final double rating;
+  final num rating;
   final Color color;
   final MainAxisAlignment rowAlignment;
 
@@ -572,7 +586,14 @@ Widget doctorCard(
       ),
       child: Card(
         elevation: 3.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
+        color: Colors.white,
         child: new InkWell(
+          customBorder: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -593,10 +614,17 @@ Widget doctorCard(
                       ),
                       width: 70.0,
                       height: 70.0,
-                      child: CircleAvatar(
-                        radius: 20,
-                        backgroundImage: NetworkImage(imagePath),
-                      ),
+                      child: (imagePath != null)
+                          ? CircleAvatar(
+                              radius: 20,
+                              backgroundImage: NetworkImage(imagePath) ?? "",
+                            )
+                          : CircleAvatar(
+                              radius: 20,
+                              backgroundImage: AssetImage(
+                                'assets/images/user.jpg',
+                              ),
+                            ),
                     ),
                     Flexible(
                       child: Column(

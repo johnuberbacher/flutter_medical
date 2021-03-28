@@ -7,23 +7,23 @@ import 'package:cached_network_image/cached_network_image.dart';
 DocumentSnapshot snapshot;
 
 class MyHealthPage extends StatefulWidget {
-  final String name;
-  MyHealthPage(this.name);
+  final String email;
+  MyHealthPage(this.email);
 
   @override
-  _MyHealthPageState createState() => _MyHealthPageState(name);
+  _MyHealthPageState createState() => _MyHealthPageState(email);
 }
 
 class _MyHealthPageState extends State<MyHealthPage> {
-  String name;
+  String email;
   DateTime selectedDate = DateTime.now();
-  _MyHealthPageState(this.name);
+  _MyHealthPageState(this.email);
   DatabaseMethods databaseMethods = new DatabaseMethods();
   QuerySnapshot userProfileSnapshot;
 
-  getProfile(name) async {
-    print(name);
-    databaseMethods.getUserProfile(name).then((val) {
+  getProfile(email) async {
+    print(email);
+    databaseMethods.getUserProfile(email).then((val) {
       print(val.toString());
       setState(() {
         userProfileSnapshot = val;
@@ -33,7 +33,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
 
   @override
   void initState() {
-    getProfile(name);
+    getProfile(email);
   }
 
   Widget loadUserProfile() {

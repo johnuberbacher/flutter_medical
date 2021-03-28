@@ -145,7 +145,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                 Container(
                                   margin: const EdgeInsets.all(20.0),
                                   child: TextFormField(
-                                    keyboardType: TextInputType.visiblePassword,
+                                    keyboardType: TextInputType.emailAddress,
                                     validator: (val) {
                                       return val.length > 6
                                           ? null

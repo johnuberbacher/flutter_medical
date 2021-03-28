@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/category.dart';
@@ -153,8 +154,8 @@ class _ProfilePageState extends State<ProfilePage> {
           begin: Alignment(-1.0, 0.0),
           end: Alignment(1.0, 0.0),
           colors: [
-            const Color(0xFF6aa6f8),
-            const Color(0xFF1a60be),
+            Theme.of(context).primaryColorLight,
+            Theme.of(context).primaryColorDark,
           ], // whitish to gray
         ),
       ),
@@ -355,8 +356,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     right: 20.0,
                   ),
                   child: Align(
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.topCenter,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           flex: 5,
@@ -560,8 +563,8 @@ class _ProfilePageState extends State<ProfilePage> {
               begin: Alignment(-1.0, 0.0),
               end: Alignment(1.0, 0.0),
               colors: [
-                const Color(0xFF6aa6f8),
-                const Color(0xFF1a60be),
+                Theme.of(context).primaryColorLight,
+                Theme.of(context).primaryColorDark,
               ], // whitish to gray
             ),
           ),

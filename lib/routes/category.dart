@@ -16,6 +16,7 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage> {
   String name;
+  String specialtyDescription;
   _CategoryPageState(this.name);
   DatabaseMethods databaseMethods = new DatabaseMethods();
   QuerySnapshot specialtyInfoSnapshot;
@@ -68,33 +69,33 @@ class _CategoryPageState extends State<CategoryPage> {
     String specialtyDoctorCount,
   }) {
     return Container(
-        margin: const EdgeInsets.only(
-          top: 65.0,
-        ),
-        width: MediaQuery.of(context).size.width * 1.0,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment(-1.0, 0.0),
-            end: Alignment(1.0, 0.0),
-            colors: [
-              const Color(0xFF6aa6f8),
-              const Color(0xFF1a60be),
-            ], // whitish to gray
-          ),
-        ),
-        alignment: Alignment.center, // where to position the child
-        child: Column(
-          children: [
-            Text(
-              specialtyName ?? "name not found",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-                color: Colors.black12,
-              ),
-            ),
+      margin: const EdgeInsets.only(
+        top: 65.0,
+      ),
+      width: MediaQuery.of(context).size.width * 1.0,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment(-1.0, 0.0),
+          end: Alignment(1.0, 0.0),
+          colors: [
+            const Color(0xFF6aa6f8),
+            const Color(0xFF1a60be),
           ],
-        ));
+        ),
+      ),
+      child: Column(
+        children: [
+          Text(
+            specialtyName ?? "name not found",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: Colors.black12,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -104,7 +105,23 @@ class _CategoryPageState extends State<CategoryPage> {
       body: Container(
         child: Column(
           children: [
-            sectionTitle(context, specialtyName),
+            sectionTitle(context, name),
+            Container(
+              margin: const EdgeInsets.only(
+                left: 20.0,
+                right: 15.0,
+                bottom: 15.0,
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  specialtyDescription ?? "",
+                  style: TextStyle(
+                    color: Color(0xFF9f9f9f),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
