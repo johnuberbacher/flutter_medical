@@ -576,103 +576,100 @@ Widget doctorCard(
     String imagePath,
     num rank,
     BuildContext context}) {
-  return Material(
-    color: const Color(0xFFFFFFFF),
-    child: Container(
-      margin: const EdgeInsets.only(
-        left: 20.0,
-        right: 20.0,
-        top: 10.0,
+  return Container(
+    margin: const EdgeInsets.only(
+      left: 20.0,
+      right: 20.0,
+      top: 10.0,
+    ),
+    child: Card(
+      elevation: 3.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
-      child: Card(
-        elevation: 3.0,
-        shape: RoundedRectangleBorder(
+      color: Colors.white,
+      child: new InkWell(
+        customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
-        color: Colors.white,
-        child: new InkWell(
-          customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-          ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => ProfilePage(lastName),
-              ),
-            );
-          },
-          child: Container(
-            child: Align(
-              alignment: FractionalOffset.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(
-                        right: 20.0,
-                      ),
-                      width: 70.0,
-                      height: 70.0,
-                      child: (imagePath != null)
-                          ? CircleAvatar(
-                              radius: 20,
-                              backgroundImage: NetworkImage(imagePath) ?? "",
-                            )
-                          : CircleAvatar(
-                              radius: 20,
-                              backgroundImage: AssetImage(
-                                'assets/images/user.jpg',
-                              ),
-                            ),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ProfilePage(lastName),
+            ),
+          );
+        },
+        child: Container(
+          child: Align(
+            alignment: FractionalOffset.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                      right: 20.0,
                     ),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: FractionalOffset.centerLeft,
+                    width: 70.0,
+                    height: 70.0,
+                    child: (imagePath != null)
+                        ? CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage(imagePath) ?? "",
+                          )
+                        : CircleAvatar(
+                            radius: 20,
+                            backgroundImage: AssetImage(
+                              'assets/images/user.jpg',
+                            ),
+                          ),
+                  ),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: FractionalOffset.centerLeft,
+                          child: Text(
+                            '${prefix.capitalize()} ${firstName.capitalize()} ${lastName.capitalize()}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Color(0xFF6f6f6f),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: FractionalOffset.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              top: 5.0,
+                            ),
                             child: Text(
-                              '${prefix.capitalize()} ${firstName.capitalize()} ${lastName.capitalize()}',
+                              specialty,
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Color(0xFF6f6f6f),
+                                fontSize: 14,
+                                color: Color(0xFF9f9f9f),
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: FractionalOffset.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 5.0,
-                              ),
-                              child: Text(
-                                specialty,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF9f9f9f),
-                                ),
-                              ),
+                        ),
+                        Align(
+                          alignment: FractionalOffset.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              top: 5.0,
+                            ),
+                            child: StarRating(
+                              rating: rank,
+                              rowAlignment: MainAxisAlignment.start,
                             ),
                           ),
-                          Align(
-                            alignment: FractionalOffset.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 5.0,
-                              ),
-                              child: StarRating(
-                                rating: rank,
-                                rowAlignment: MainAxisAlignment.start,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

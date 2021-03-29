@@ -63,6 +63,7 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      color: Colors.white,
       title: "Flutter Medical",
       debugShowCheckedModeBanner: false,
       home: userIsLoggedIn != null

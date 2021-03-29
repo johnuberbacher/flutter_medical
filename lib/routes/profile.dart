@@ -70,8 +70,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 }),
           )
         : Container(
-            child: Center(
-              child: Text("error"),
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(-1.0, 0.0),
+                end: Alignment(1.0, 0.0),
+                colors: [
+                  Theme.of(context).primaryColorLight,
+                  Theme.of(context).primaryColorDark,
+                ], // whitish to gray
+              ),
+            ),
+            alignment: Alignment.center,
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
             ),
           );
   }
@@ -237,7 +249,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Matrix4.translationValues(0.0, -15.0, 0.0),
                             child: CircleAvatar(
                               radius: 70,
-                              backgroundImage: NetworkImage(imagePath),
+                              backgroundImage: (imagePath == null)
+                                  ? AssetImage(
+                                      'assets/images/user.jpg',
+                                    )
+                                  : CachedNetworkImageProvider(imagePath),
                             ),
                           ),
                         ],
