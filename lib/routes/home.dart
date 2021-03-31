@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<DocumentSnapshot> loadedDoctors = [];
   bool isLoading = false;
   bool hasMore = true;
-  int documentLimit = 3;
+  int documentLimit = 1;
   DocumentSnapshot lastDocument;
 
   getDoctors() async {
@@ -83,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     if (doctorSnapshot.docs.length < documentLimit) {
       hasMore = false;
+      print("hasMore = false");
     }
     lastDocument = doctorSnapshot.docs[doctorSnapshot.docs.length - 1];
     loadedDoctors.addAll(doctorSnapshot.docs);
@@ -278,6 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
         margin: const EdgeInsets.only(
           left: 20.0,
+          bottom: 10.0,
         ),
         width: 135,
         child: Card(
@@ -390,6 +392,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: GlobalAppBar(),
       drawer: GlobalDrawer(),
       body: SingleChildScrollView(
@@ -451,7 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 textColor: Colors.white,
                                 child: Icon(
                                   Icons.phone,
-                                  size: 30,
+                                  size: 35,
                                 ),
                                 padding: EdgeInsets.all(16),
                                 shape: CircleBorder(),
@@ -465,7 +468,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                    fontSize: 14,
                                     color: Color(0xFF6f6f6f),
                                   ),
                                 ),
@@ -487,7 +490,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 textColor: Colors.white,
                                 child: Icon(
                                   Icons.people,
-                                  size: 30,
+                                  size: 35,
                                 ),
                                 padding: EdgeInsets.all(16),
                                 shape: CircleBorder(),
@@ -501,7 +504,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                    fontSize: 14,
                                     color: Color(0xFF6f6f6f),
                                   ),
                                 ),
@@ -524,7 +527,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 textColor: Colors.white,
                                 child: Icon(
                                   Icons.favorite_border,
-                                  size: 30,
+                                  size: 35,
                                 ),
                                 padding: EdgeInsets.all(16),
                                 shape: CircleBorder(),
@@ -538,7 +541,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                    fontSize: 14,
                                     color: Color(0xFF6f6f6f),
                                   ),
                                 ),
