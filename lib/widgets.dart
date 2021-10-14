@@ -7,7 +7,7 @@ import 'package:flutter_medical/routes/search.dart';
 import 'package:flutter_medical/routes/category.dart';
 import 'package:flutter_medical/routes/profile.dart';
 import 'package:flutter_medical/routes/createProfile.dart';
-import 'package:flutter_medical/models/constant.dart';
+import 'package:flutter_medical/models/userProfile.dart';
 import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -202,11 +202,26 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
                     height: 50.0,
                     decoration: new BoxDecoration(
                       shape: BoxShape.circle,
-                      image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image: new CachedNetworkImageProvider(
-                            "https://i.imgur.com/iQkzaTO.jpg"),
-                      ),
+                    ),
+                    child: ClipOval(
+                      child: UserProfile.userImagePath != null
+                          ? CachedNetworkImage(
+                              imageUrl: UserProfile.userImagePath,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Image.asset('assets/images/user.jpg'),
+                            )
+                          : (Container()),
                     ),
                   ),
                   Flexible(
@@ -216,14 +231,23 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
                       children: [
                         Align(
                           alignment: FractionalOffset.centerLeft,
-                          child: Text(
-                            'Welcome back, ' + titleCase(Constants.myName),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Color(0xFFFFFFFF),
-                            ),
-                          ),
+                          child: UserProfile.userFirstName != null
+                              ? Text(
+                                  'Welcome back, ' + UserProfile.userFirstName,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                )
+                              : Text(
+                                  'Welcome back, null',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                ),
                         ),
                         Align(
                           alignment: FractionalOffset.centerLeft,
@@ -259,7 +283,8 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MyHealthPage(Constants.myName)),
+                    builder: (context) =>
+                        MyHealthPage(UserProfile.userFirstName)),
               );
             },
           ),
@@ -612,17 +637,23 @@ Widget doctorCard(
                     ),
                     width: 70.0,
                     height: 70.0,
-                    child: (imagePath != null)
-                        ? CircleAvatar(
-                            radius: 20,
-                            backgroundImage: NetworkImage(imagePath) ?? "",
-                          )
-                        : CircleAvatar(
-                            radius: 20,
-                            backgroundImage: AssetImage(
-                              'assets/images/user.jpg',
+                    child: CircleAvatar(
+                      child: CachedNetworkImage(
+                        imageUrl: imagePath,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
                             ),
                           ),
+                        ),
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            Image.asset('assets/images/user.jpg'),
+                      ),
+                    ),
                   ),
                   Flexible(
                     child: Column(

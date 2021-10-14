@@ -165,11 +165,24 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                 Matrix4.translationValues(0.0, -15.0, 0.0),
                             child: CircleAvatar(
                               radius: 70,
-                              backgroundImage: (imagePath == null)
-                                  ? AssetImage(
-                                      'assets/images/user.jpg',
-                                    )
-                                  : CachedNetworkImageProvider(imagePath),
+                              child: ClipOval(
+                                child: CachedNetworkImage(
+                                  imageUrl: imagePath,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset('assets/images/user.jpg'),
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -182,7 +195,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     top: 15.0,
                     left: 40.0,
                     right: 40.0,
-                    bottom: 30.0,
+                    bottom: 40.0,
                   ),
                   child: Column(
                     children: [
@@ -191,7 +204,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         child: Text(
                           "Hey " +
                                   titleCase(name) +
-                                  ", you're looking healthy today" ??
+                                  ", you're looking healthy today!" ??
                               "name not found",
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -199,6 +212,36 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             fontSize: 22,
                             color: Color(0xFF6f6f6f),
                           ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    bottom: 50.0,
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 5.0,
+                        ),
+                        child: Text(
+                          "97/100",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 50,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "MY HEALTH SCORE",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     ],
@@ -233,7 +276,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                     bottom: 5,
                                   ),
                                   child: Text(
-                                    age ?? "",
+                                    age ?? "0",
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
@@ -275,7 +318,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                     bottom: 5,
                                   ),
                                   child: Text(
-                                    bmi ?? "",
+                                    bmi ?? "0",
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
@@ -317,7 +360,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                     bottom: 5,
                                   ),
                                   child: Text(
-                                    "$heightFeet' $heightInch\"" ?? "",
+                                    heightFeet ?? "0",
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,

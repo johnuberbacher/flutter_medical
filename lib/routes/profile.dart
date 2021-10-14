@@ -247,13 +247,23 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             transform:
                                 Matrix4.translationValues(0.0, -15.0, 0.0),
-                            child: CircleAvatar(
-                              radius: 70,
-                              backgroundImage: (imagePath == null)
-                                  ? AssetImage(
-                                      'assets/images/user.jpg',
-                                    )
-                                  : CachedNetworkImageProvider(imagePath),
+                            child: ClipOval(
+                              child: CachedNetworkImage(
+                                imageUrl: imagePath,
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset('assets/images/user.jpg'),
+                              ),
                             ),
                           ),
                         ],

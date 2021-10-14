@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_medical/routes/home.dart';
-import 'package:flutter_medical/widgets.dart';
-import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
 import 'package:flutter_medical/services/database.dart';
 import 'package:flutter_medical/services/shared_preferences.dart';
@@ -22,6 +20,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
   AuthMethods authService = new AuthMethods();
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  bool incorrectLogin = false;
 
   signIn() async {
     if (formKey.currentState.validate()) {
@@ -33,10 +32,10 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
           .signInWithEmailAndPassword(emailTextEditingController.text,
               passwordTextEditingController.text)
           .then((result) async {
+        incorrectLogin = false;
         if (result != null) {
           QuerySnapshot userInfoSnapshot = await DatabaseMethods()
               .getUserInfo(emailTextEditingController.text);
-
           CheckSharedPreferences.saveUserLoggedInSharedPreference(true);
           CheckSharedPreferences.saveNameSharedPreference(
               userInfoSnapshot.docs[0].data()["name"]);
@@ -52,7 +51,8 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
         } else {
           setState(() {
             isLoading = false;
-            // TODO
+            incorrectLogin = true;
+            debugPrint("WRONG");
           });
         }
       });
@@ -194,6 +194,9 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
                                     controller: passwordTextEditingController,
                                     obscureText: true,
                                     decoration: InputDecoration(
+                                      errorText: incorrectLogin == true
+                                          ? 'Password or Email wrong, please try again'
+                                          : null,
                                       hintText: 'password',
                                       hintStyle: TextStyle(
                                         color: Color(0xFFb1b2c4),

@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:flutter_medical/routes/functions.dart';
 import 'package:flutter_medical/services/shared_preferences.dart';
 import 'package:flutter_medical/widgets.dart';
-import 'package:flutter_medical/main.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/profile.dart';
 import 'package:flutter_medical/routes/category.dart';
 import 'package:flutter_medical/routes/myHealth.dart';
 import 'package:flutter_medical/routes/search.dart';
-import 'package:flutter_medical/models/constant.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_medical/models/userProfile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 DocumentSnapshot snapshot;
@@ -109,19 +105,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget loadUserInfo() {
     return userProfileSnapshot != null
         ? Container(
-            child: ListView.builder(
-                itemCount: userProfileSnapshot.docs.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return userHeader(
-                    firstName:
-                        userProfileSnapshot.docs[index].data()["firstName"],
-                    imagePath:
-                        userProfileSnapshot.docs[index].data()["imagePath"],
-                    email: userProfileSnapshot.docs[index].data()["email"],
-                  );
-                }),
+            child: userHeader(
+              firstName: userProfileSnapshot.docs[0].data()["firstName"],
+              imagePath: userProfileSnapshot.docs[0].data()["imagePath"],
+              email: userProfileSnapshot.docs[0].data()["email"],
+            ),
           )
         : Container(
             height: MediaQuery.of(context).size.height,
@@ -171,10 +159,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
               shape: BoxShape.circle,
-              image: new DecorationImage(
-                fit: BoxFit.fill,
-                image: new CachedNetworkImageProvider(imagePath),
-              ),
+            ),
+            child: ClipOval(
+              child: imagePath != null
+                  ? CachedNetworkImage(
+                      imageUrl: imagePath,
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          Image.asset('assets/images/user.jpg'),
+                    )
+                  : (Container()),
             ),
           ),
           Flexible(
@@ -376,14 +379,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getUserInfo() async {
-    Constants.myEmail =
+    UserProfile.userEmail =
         await CheckSharedPreferences.getUserEmailSharedPreference();
-    setState(() {
-      print("Shared Preferences: users name: ${Constants.myEmail}");
-    });
-    databaseMethods.getUserProfile(Constants.myEmail).then((val) {
-      print(val.toString());
+    databaseMethods.getUserProfile(UserProfile.userEmail).then((val) {
       setState(() {
+        UserProfile.userFirstName = val.docs[0].data()["firstName"];
+        UserProfile.userImagePath = val.docs[0].data()["imagePath"];
         userProfileSnapshot = val;
       });
     });
@@ -518,8 +519,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            MyHealthPage(Constants.myEmail)),
+                                        builder: (context) => MyHealthPage(
+                                            UserProfile.userEmail)),
                                   );
                                 },
                                 color: Theme.of(context).primaryColor,
