@@ -12,6 +12,7 @@ import 'package:flutter_medical/services/authenticate.dart';
 import 'package:flutter_medical/services/authentication.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 
 DocumentSnapshot snapshot;
 
@@ -431,7 +432,7 @@ String titleCase(String text) {
   return capitalized.join(' ');
 }
 
-Widget MyHealthTextField({String hintText, String initialValue}) {
+Widget myHealthTextField({String hintText, String initialValue}) {
   // new
   return Container(
     margin: const EdgeInsets.only(
@@ -557,6 +558,29 @@ Widget myHealthCoverages(String coverageName, IconData coverageIcon) {
   );
 }
 
+Widget myHealthScore(double userHealthScore, context) {
+  return Container(
+    child: Container(
+      decoration: new BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        color: Color(0xFFe9f0f3),
+      ),
+      child: Center(
+        child: AnimatedFlipCounter(
+          duration: Duration(milliseconds: 500),
+          value: userHealthScore ?? 1,
+          /* pass in a number like 2014 */
+          textStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 40,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget sectionTitle(context, String title) {
   return Container(
     margin: const EdgeInsets.only(
@@ -635,24 +659,27 @@ Widget doctorCard(
                     margin: EdgeInsets.only(
                       right: 20.0,
                     ),
-                    width: 70.0,
-                    height: 70.0,
-                    child: CircleAvatar(
-                      child: CachedNetworkImage(
-                        imageUrl: imagePath,
-                        imageBuilder: (context, imageProvider) => Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        placeholder: (context, url) =>
-                            CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            Image.asset('assets/images/user.jpg'),
-                      ),
+                    child: ClipOval(
+                      child: imagePath != null
+                          ? CachedNetworkImage(
+                              imageUrl: imagePath,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: 70.0,
+                                height: 72.5,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Image.asset('assets/images/user.jpg'),
+                            )
+                          : (Container()),
                     ),
                   ),
                   Flexible(

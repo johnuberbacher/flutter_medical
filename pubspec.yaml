@@ -37,6 +37,7 @@ dependencies:
   firebase_storage: ^8.0.1
   firebase_analytics: ^7.0.1
   image_picker: ^0.7.3
+  animated_flip_counter: ^0.1.2
 
 dev_dependencies:
   flutter_test:

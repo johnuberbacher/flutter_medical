@@ -28,20 +28,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdeea7bd-4e60-4b97-87ca-81995acedbf3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/models/userProfile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/routes/imageGallery.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/constant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/constant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/routes/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routes/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/database.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/userProfile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/userProfile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/routes/myHealth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routes/myHealth.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/routes/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routes/profile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/routes/signIn.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routes/signIn.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,26 +108,30 @@
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
     <state x="-1828" y="92" width="1736" height="835" key="AVDManager/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634179687312" />
-    <state width="1877" height="253" key="GridCell.Tab.0.bottom" timestamp="1634191350848">
+    <state width="1877" height="253" key="GridCell.Tab.0.bottom" timestamp="1634257446966">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634191350848" />
-    <state width="1877" height="253" key="GridCell.Tab.0.center" timestamp="1634191350848">
+    <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634257446966" />
+    <state width="1877" height="253" key="GridCell.Tab.0.center" timestamp="1634257446966">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634191350848" />
-    <state width="1877" height="253" key="GridCell.Tab.0.left" timestamp="1634191350848">
+    <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634257446966" />
+    <state width="1877" height="253" key="GridCell.Tab.0.left" timestamp="1634257446965">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634191350848" />
-    <state width="1877" height="253" key="GridCell.Tab.0.right" timestamp="1634191350848">
+    <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634257446965" />
+    <state width="1877" height="253" key="GridCell.Tab.0.right" timestamp="1634257446966">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634191350848" />
+    <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634257446966" />
     <state x="-1151" y="423" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1634193126641">
       <screen x="-1920" y="0" width="1920" height="1019" />
     </state>
     <state x="-1151" y="423" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634193126641" />
+    <state x="-1304" y="235" key="run.anything.popup" timestamp="1634262083340">
+      <screen x="-1920" y="0" width="1920" height="1019" />
+    </state>
+    <state x="-1304" y="235" key="run.anything.popup/0.0.1920.1019/-1920.0.1920.1019@-1920.0.1920.1019" timestamp="1634262083340" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

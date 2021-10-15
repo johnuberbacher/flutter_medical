@@ -3,6 +3,8 @@ import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_medical/models/userProfile.dart';
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 
 DocumentSnapshot snapshot;
 
@@ -33,7 +35,17 @@ class _MyHealthPageState extends State<MyHealthPage> {
 
   @override
   void initState() {
+    super.initState();
+    UserProfile.userHealthScore = 0;
     getProfile(email);
+
+    Future.delayed(Duration(milliseconds: 250), () {
+      print('here');
+      setState(() {
+        UserProfile.userHealthScore =
+            userProfileSnapshot.docs[0].data()["userHealthScore"].toDouble();
+      });
+    });
   }
 
   Widget loadUserProfile() {
@@ -58,6 +70,9 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     language:
                         userProfileSnapshot.docs[index].data()["language"],
                     bmi: userProfileSnapshot.docs[index].data()["bmi"],
+                    userHealthScore: (userProfileSnapshot.docs[index]
+                            .data()["userHealthScore"])
+                        .toDouble(),
                     heightFeet:
                         userProfileSnapshot.docs[index].data()["heightFeet"],
                     heightInch:
@@ -97,6 +112,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
     String firstName,
     String lastName,
     String language,
+    double userHealthScore,
     String bmi,
     String heightFeet,
     String heightInch,
@@ -190,63 +206,68 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     ],
                   ),
                 ),
+                sectionTitle(context, "My Health"),
                 Container(
-                  margin: const EdgeInsets.only(
-                    top: 15.0,
-                    left: 40.0,
-                    right: 40.0,
-                    bottom: 40.0,
-                  ),
                   child: Column(
                     children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Hey " +
-                                  titleCase(name) +
-                                  ", you're looking healthy today!" ??
-                              "name not found",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 22,
-                            color: Color(0xFF6f6f6f),
-                          ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          left: 20.0,
+                          right: 20.0,
+                          bottom: 20.0,
+                        ),
+                        padding: const EdgeInsets.all(
+                          15.0,
+                        ),
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          color: Color(0xFFe9f0f3),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                right: 17.5,
+                              ),
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              child: Column(
+                                children: [
+                                  myHealthScore(
+                                      UserProfile.userHealthScore, context),
+                                  Text(
+                                    "MY HEALTH SCORE",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Flexible(
+                              child: Text(
+                                "Hey " +
+                                        titleCase(UserProfile.userFirstName) +
+                                        "" +
+                                        ", you're looking healthy today!" ??
+                                    "name not found",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20.0,
+                                  color: Color(0xFF6f6f6f),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 50.0,
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 5.0,
-                        ),
-                        child: Text(
-                          "97/100",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 50,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        "MY HEALTH SCORE",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                sectionTitle(context, "My Stats"),
                 Container(
                   margin: const EdgeInsets.only(
                     left: 20.0,
@@ -403,7 +424,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                   ),
                                   child: RichText(
                                     text: TextSpan(
-                                      text: weight ?? "",
+                                      text: weight ?? "0",
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500,
@@ -411,9 +432,9 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                       ),
                                       children: <TextSpan>[
                                         TextSpan(
-                                          text: 'lbs',
+                                          text: ' lbs',
                                           style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 11,
                                             color: Color(0xFFFFFFFF),
                                           ),
                                         ),
@@ -449,11 +470,11 @@ class _MyHealthPageState extends State<MyHealthPage> {
                   ]),
                 ),
                 sectionTitle(context, "Preferences"),
-                MyHealthTextField(
+                myHealthTextField(
                     hintText: 'Language', initialValue: language ?? ""),
-                MyHealthTextField(hintText: 'Email', initialValue: email ?? ""),
-                MyHealthTextField(hintText: 'Phone', initialValue: phone ?? ""),
-                MyHealthTextField(
+                myHealthTextField(hintText: 'Email', initialValue: email ?? ""),
+                myHealthTextField(hintText: 'Phone', initialValue: phone ?? ""),
+                myHealthTextField(
                     hintText: 'Address', initialValue: address ?? ""),
               ],
             ),

@@ -84,6 +84,16 @@ class DatabaseMethods {
     });
   }
 
+  getDoctorOfficeGallery(String lastName) async {
+    return FirebaseFirestore.instance
+        .collection("officeGalleries")
+        .where("lastName", isEqualTo: lastName)
+        .get()
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
   getUserProfile(String email) async {
     return FirebaseFirestore.instance
         .collection("users")

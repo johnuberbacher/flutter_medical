@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_medical/database.dart';
 import 'package:flutter_medical/routes/category.dart';
 import 'package:flutter_medical/widgets.dart';
+import 'package:flutter_medical/routes/imageGallery.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 DocumentSnapshot snapshot;
@@ -22,12 +23,16 @@ class _ProfilePageState extends State<ProfilePage> {
   _ProfilePageState(this.lastName);
   DatabaseMethods databaseMethods = new DatabaseMethods();
   QuerySnapshot doctorProfileSnapshot;
+  QuerySnapshot doctorOfficeSnapshot;
 
   getProfile(lastName) async {
     databaseMethods.getDoctorProfile(lastName).then((val) {
-      print(val.toString());
-      setState(() {
-        doctorProfileSnapshot = val;
+      databaseMethods.getDoctorOfficeGallery(lastName).then((officeVal) {
+        print(val.toString());
+        setState(() {
+          doctorProfileSnapshot = val;
+          doctorOfficeSnapshot = officeVal;
+        });
       });
     });
   }
@@ -247,22 +252,25 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             transform:
                                 Matrix4.translationValues(0.0, -15.0, 0.0),
-                            child: ClipOval(
-                              child: CachedNetworkImage(
-                                imageUrl: imagePath,
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
+                            child: CircleAvatar(
+                              radius: 70,
+                              child: ClipOval(
+                                child: CachedNetworkImage(
+                                  imageUrl: imagePath,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset('assets/images/user.jpg'),
                                 ),
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset('assets/images/user.jpg'),
                               ),
                             ),
                           ),
@@ -359,22 +367,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-                sectionTitle(context, "Biography"),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      biography ?? "error",
-                      style: TextStyle(
-                        color: Color(0xFF9f9f9f),
-                      ),
-                    ),
-                  ),
-                ),
+                biography != null
+                    ? sectionTitle(context, "Biography")
+                    : Container(),
+                biography != null
+                    ? Container(
+                        margin: const EdgeInsets.only(
+                          left: 20.0,
+                          right: 20.0,
+                        ),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            biography ?? "",
+                            style: TextStyle(
+                              color: Color(0xFF9f9f9f),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(),
                 sectionTitle(context, "Physician History"),
                 Container(
                   margin: const EdgeInsets.only(
@@ -686,25 +698,33 @@ Material appointmentTimes(String appointmentDay, context) {
   );
 }
 
-Material officePhotos(context, String officePhotoUrl) {
-  return Material(
-    color: Colors.white,
-    child: GestureDetector(
-      onTap: () async {
-        imageDialog(context, officePhotoUrl);
-      },
-      child: Container(
-        width: 150.0,
-        margin: const EdgeInsets.only(
-          left: 20.0,
-        ),
+Widget officePhotos(context, String officePhotoUrl) {
+  return Container(
+    margin: const EdgeInsets.only(
+      left: 20.0,
+    ),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+    ),
+    child: Material(
+      child: Ink(
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
             image: CachedNetworkImageProvider(officePhotoUrl),
           ),
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          color: Color(0xFFb1b2c4),
+        ),
+        child: InkWell(
+          onTap: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ImageGallery(officePhotoUrl)),
+            );
+          },
+          child: Container(
+            width: 150.0,
+          ),
         ),
       ),
     ),

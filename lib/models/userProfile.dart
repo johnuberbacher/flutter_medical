@@ -3,6 +3,7 @@ class UserProfile {
   static String userFirstName = "";
   static String userLastName = "";
   static String userEmail = "";
+  static double userHealthScore = 0;
   static String userWeight = "";
   static String userHeight = "";
   static String userAge = "";
